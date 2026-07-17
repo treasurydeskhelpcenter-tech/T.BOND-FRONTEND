@@ -1,0 +1,1160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Open an Account — TreasuryDirect</title>
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #fff;
+      color: #1b1b1b;
+      font-size: 13px;
+    }
+
+    /* ===== Header ===== */
+    .topbar {
+      height: 8px;
+      background: #205493;
+    }
+
+    header.site-header {
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .logo .direct {
+      color: #205493;
+    }
+
+    .top-links {
+      font-size: 12px;
+    }
+
+    .top-links a {
+      color: #205493;
+      text-decoration: none;
+      margin-left: 14px;
+    }
+
+    .top-links a:hover {
+      text-decoration: underline;
+    }
+
+    .help-btn {
+      background: #6b6b6b;
+      color: #fff;
+      padding: 3px 10px;
+      border-radius: 2px;
+      font-size: 11px;
+      text-decoration: none;
+      margin-left: 14px;
+    }
+
+    .nav-tabs {
+      background: #205493;
+      display: flex;
+      padding: 0 20px;
+    }
+
+    .nav-tabs .tab {
+      color: #fff;
+      padding: 10px 18px;
+      font-size: 13px;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .nav-tabs .tab.active {
+      background: #e57200;
+    }
+
+    /* ===== Page wrapper ===== */
+    .page {
+      max-width: 950px;
+      margin: 0 auto;
+      padding: 18px 20px 60px;
+    }
+
+    .crumb {
+      font-size: 18px;
+      color: #666;
+      margin-bottom: 4px;
+    }
+
+    .crumb .current {
+      color: #e57200;
+      font-weight: bold;
+    }
+
+    .topgrid {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .lead-text {
+      font-size: 13px;
+      color: #333;
+      max-width: 600px;
+    }
+
+    /* Progress box, top right, like screenshot */
+    .progressbox {
+      text-align: center;
+      font-size: 11px;
+      color: #333;
+    }
+
+    .progressbox .label {
+      font-weight: bold;
+      margin-bottom: 4px;
+    }
+
+    .progressbox .steps {
+      display: flex;
+      gap: 2px;
+    }
+
+    .progressbox .steps div {
+      background: #ccc;
+      color: #fff;
+      font-weight: bold;
+      padding: 4px 10px;
+      font-size: 11px;
+      min-width: 46px;
+    }
+
+    .progressbox .steps div.active {
+      background: #2e8540;
+    }
+
+    .progressbox .steps div.done {
+      background: #8bbf3f;
+    }
+
+    .progressbox .sub {
+      font-size: 11px;
+      margin-top: 4px;
+      color: #555;
+    }
+
+    hr.rule {
+      border: none;
+      border-top: 1px solid #ccc;
+      margin: 10px 0 18px;
+    }
+
+    /* ===== Step 1: account type layout ===== */
+    .type-layout {
+      display: flex;
+      gap: 0;
+      border: 1px solid #ccc;
+    }
+
+    .type-left {
+      width: 210px;
+      padding: 16px;
+      border-right: 1px solid #ccc;
+      background: #fafafa;
+    }
+
+    .type-left .box-title {
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    .type-left a {
+      color: #205493;
+      font-size: 12px;
+      text-decoration: none;
+    }
+
+    .type-left a:hover {
+      text-decoration: underline;
+    }
+
+    .type-left .qmark {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #999;
+      color: #fff;
+      text-align: center;
+      font-size: 10px;
+      line-height: 14px;
+      margin-right: 4px;
+    }
+
+    .type-right {
+      flex: 1;
+    }
+
+    .type-right .indiv-row {
+      padding: 16px;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .section-bar {
+      background: #566573;
+      color: #fff;
+      font-weight: bold;
+      padding: 6px 14px;
+      font-size: 13px;
+    }
+
+    .type-right .opts {
+      padding: 10px 20px;
+    }
+
+    .type-option {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 8px 4px;
+      cursor: pointer;
+      border-radius: 2px;
+    }
+
+    .type-option:hover {
+      background: #f0f4f8;
+    }
+
+    .type-option.selected {
+      background: #dcebf7;
+    }
+
+    .type-option input {
+      margin-top: 3px;
+    }
+
+    .type-option .t-name {
+      font-weight: bold;
+    }
+
+    .type-option .t-ex {
+      color: #555;
+      font-size: 12px;
+    }
+
+    .type-option .t-ex i {
+      font-style: italic;
+    }
+
+    /* ===== Step 2: form layout, label-left / field-right ===== */
+    .form-section-title {
+      font-size: 16px;
+      font-weight: bold;
+      color: #1b1b1b;
+      margin: 22px 0 8px;
+    }
+
+    .form-row {
+      display: flex;
+      align-items: center;
+      padding: 6px 0;
+      border-bottom: 1px dotted #eee;
+    }
+
+    .form-row .flabel {
+      width: 230px;
+      flex-shrink: 0;
+      text-align: right;
+      padding-right: 14px;
+      font-size: 13px;
+      color: #1b1b1b;
+    }
+
+    .form-row .flabel .req {
+      color: #c00;
+      margin-right: 3px;
+    }
+
+    .form-row .ffield {
+      flex: 1;
+      max-width: 380px;
+    }
+
+    .form-row .ffield input,
+    .form-row .ffield select {
+      width: 100%;
+      padding: 5px 7px;
+      font-size: 13px;
+      border: 1px solid #888;
+    }
+
+    .form-row .fhint {
+      font-size: 11px;
+      color: #666;
+      margin-top: 3px;
+    }
+
+    .req-note {
+      color: #c00;
+      font-size: 12px;
+      font-weight: bold;
+      text-align: right;
+      margin-bottom: 6px;
+    }
+
+    /* ===== Personalized image picker ===== */
+    .image-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin: 10px 0 18px;
+    }
+
+    .image-tile {
+      width: 96px;
+      text-align: center;
+      border: 2px solid transparent;
+      border-radius: 3px;
+      padding: 8px 4px;
+      cursor: pointer;
+    }
+
+    .image-tile:hover {
+      background: #f0f4f8;
+    }
+
+    .image-tile.selected {
+      border-color: #205493;
+      background: #dcebf7;
+    }
+
+    .image-tile .swatch {
+      width: 70px;
+      height: 70px;
+      margin: 0 auto 6px;
+      border-radius: 4px;
+      background: #eef4fb;
+      border: 1px solid #cdd8e3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: bold;
+      color: #205493;
+      text-align: center;
+      padding: 4px;
+    }
+
+    .image-tile .tile-label {
+      font-size: 11px;
+      color: #333;
+    }
+
+    .caption-row {
+      margin-top: 6px;
+    }
+
+    .caption-row input[type="text"] {
+      width: 260px;
+      padding: 6px 8px;
+      border: 1px solid #888;
+      font-size: 13px;
+    }
+
+    /* ===== Step 3 certification box ===== */
+    .cert-box {
+      border: 1px solid #999;
+      margin-top: 16px;
+    }
+
+    .cert-header {
+      background: #e57200;
+      color: #fff;
+      font-weight: bold;
+      padding: 8px 14px;
+      font-size: 13px;
+    }
+
+    .cert-body {
+      padding: 14px;
+    }
+
+    .cert-body label {
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+      font-size: 13px;
+    }
+
+    .cert-body ol {
+      margin: 12px 0 0 22px;
+      font-size: 12px;
+      color: #333;
+    }
+
+    .cert-body ol li {
+      margin-bottom: 8px;
+    }
+
+    .recaptcha-row {
+      margin: 18px 0;
+    }
+
+    .review-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      font-size: 13px;
+    }
+
+    .review-table td {
+      padding: 6px 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    .review-table td:first-child {
+      color: #666;
+      width: 220px;
+    }
+
+    .review-table td:last-child {
+      font-weight: bold;
+    }
+
+    /* ===== Buttons, blue like screenshot ===== */
+    .btn-row {
+      margin-top: 22px;
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn {
+      display: inline-block;
+      background: #205493;
+      color: #fff;
+      border: none;
+      padding: 7px 22px;
+      font-size: 13px;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 2px;
+      text-decoration: none;
+    }
+
+    .btn:hover {
+      background: #163e6f;
+    }
+
+    .btn:disabled {
+      background: #a3a3a3;
+      cursor: not-allowed;
+    }
+
+    .btn.secondary {
+      background: #71767a;
+    }
+
+    .btn.secondary:hover {
+      background: #565a5d;
+    }
+
+    .alert {
+      display: none;
+      font-size: 13px;
+      padding: 10px 14px;
+      margin-bottom: 16px;
+      border-left: 4px solid #c00;
+      background: #fdeaea;
+      color: #6f1c26;
+    }
+
+    .alert.show {
+      display: block;
+    }
+
+    .alert.success {
+      border-left-color: #2e8540;
+      background: #e6f4ea;
+      color: #1a5c2a;
+    }
+
+    .id-reveal {
+      display: none;
+      background: #eef4fb;
+      border: 1px solid #99c2e8;
+      padding: 22px;
+      text-align: center;
+    }
+
+    .id-reveal.show {
+      display: block;
+    }
+
+    .id-reveal .id-value {
+      font-size: 26px;
+      font-weight: bold;
+      letter-spacing: 3px;
+      color: #205493;
+      margin: 10px 0;
+    }
+
+    .step-panel {
+      display: none;
+    }
+
+    .step-panel.active {
+      display: block;
+    }
+
+    footer {
+      margin-top: 40px;
+      padding: 18px 20px;
+      text-align: center;
+      font-size: 11px;
+      color: #71767a;
+      border-top: 1px solid #ccc;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="topbar"></div>
+  <header class="site-header">
+    <div class="logo">Treasury<span class="direct">Direct</span></div>
+    <div class="top-links">
+      <a href="index.html">TreasuryDirect Home</a>
+      <a href="#">Fiscal Service Home</a>
+      <a href="site-map.html">Site Map</a>
+      <a href="contact-us.html">Contact Us</a>
+      <a href="#" class="help-btn">Help</a>
+    </div>
+  </header>
+  <nav class="nav-tabs">
+    <a class="tab" href="#" id="tabIntro">Intro</a>
+    <a class="tab active" href="#">Online Application</a>
+  </nav>
+
+  <div class="page">
+
+    <div class="topgrid">
+      <div>
+        <div class="crumb">Open An Account &raquo; <span class="current" id="crumbLabel">Account Type</span></div>
+      </div>
+      <div class="progressbox">
+        <div class="steps">
+          <div class="active" id="pStep1">Step 1</div>
+          <div id="pStep2">Step 2</div>
+          <div id="pStep3">Step 3</div>
+        </div>
+        <div class="sub" id="pSubLabel">Account Type</div>
+      </div>
+    </div>
+    <hr class="rule" />
+
+    <div class="alert" id="alertBox"></div>
+
+    <!-- STEP 1 -->
+    <div class="step-panel active" id="step1">
+      <p class="lead-text" style="margin-bottom:16px;">To create an online TreasuryDirect Account, you must first select
+        the type of account you wish to establish.</p>
+
+      <div class="type-layout">
+        <div class="type-left">
+          <div class="box-title">Individual Account</div>
+          <div><span class="qmark">?</span><a href="#">Learn more about Minor Accounts</a></div>
+          <div style="margin-top:18px;" class="box-title">Entity Account</div>
+          <div><span class="qmark">?</span><a href="#">Learn more about Entity Accounts</a></div>
+        </div>
+
+        <div class="type-right">
+          <div class="indiv-row">
+            <label class="type-option selected" data-type="individual">
+              <input type="radio" name="accountType" value="individual" checked />
+              <div>
+                <div class="t-name">Individual</div>
+                <div class="t-ex">Individual TreasuryDirect&reg; accounts must be set up using only one person's name
+                  and social security number (SSN).</div>
+              </div>
+            </label>
+          </div>
+
+          <div class="section-bar">Business or Organization</div>
+          <div class="opts">
+            <label class="type-option" data-type="corporation">
+              <input type="radio" name="accountType" value="corporation" />
+              <div>
+                <div class="t-name">Corporation</div>
+                <div class="t-ex"><i>Example:</i> ABC Corporation</div>
+              </div>
+            </label>
+            <label class="type-option" data-type="partnership">
+              <input type="radio" name="accountType" value="partnership" />
+              <div>
+                <div class="t-name">Partnership</div>
+                <div class="t-ex"><i>Example:</i> Smith and Jones Construction Company, a partnership</div>
+              </div>
+            </label>
+            <label class="type-option" data-type="llc">
+              <input type="radio" name="accountType" value="llc" />
+              <div>
+                <div class="t-name">Limited Liability Company (LLC)</div>
+                <div class="t-ex"><i>Example:</i> Summit Consulting Service, LLC</div>
+              </div>
+            </label>
+            <label class="type-option" data-type="pllc">
+              <input type="radio" name="accountType" value="pllc" />
+              <div>
+                <div class="t-name">Professional Limited Liability Company (PLLC)</div>
+                <div class="t-ex"><i>Example:</i> Paine Dental Associates, PLLC</div>
+              </div>
+            </label>
+            <label class="type-option" data-type="sole_proprietorship">
+              <input type="radio" name="accountType" value="sole_proprietorship" />
+              <div>
+                <div class="t-name">Sole Proprietorship</div>
+                <div class="t-ex"><i>Example:</i> John Doe DBA Doe Plumbing Supplies</div>
+              </div>
+            </label>
+          </div>
+
+          <div class="section-bar">Estate or Trust</div>
+          <div class="opts">
+            <label class="type-option" data-type="deceased_estate">
+              <input type="radio" name="accountType" value="deceased_estate" />
+              <div>
+                <div class="t-name">Deceased Estate</div>
+                <div class="t-ex"><i>Example:</i> John Doe, Executor U/W of William Jones, deceased; John Doe,
+                  Administrator of the Estate of William Jones, deceased; John Doe, Legal Representative of the Estate
+                  of William Jones, a decedent</div>
+              </div>
+            </label>
+            <label class="type-option" data-type="living_estate">
+              <input type="radio" name="accountType" value="living_estate" />
+              <div>
+                <div class="t-name">Living Estate (Court-Appointed Only)</div>
+                <div class="t-ex"><i>Example:</i> John Doe, Legal Guardian of William Jones</div>
+              </div>
+            </label>
+            <label class="type-option" data-type="trust">
+              <input type="radio" name="accountType" value="trust" />
+              <div>
+                <div class="t-name">Trust</div>
+                <div class="t-ex"><i>Example:</i> John Doe, Trustee under Declaration of Trust dated January 1, 2001;
+                  Jane Doe or Sarah Jones, Trustees under Agreement with John Doe dated January 1, 2001; Sarah Jones,
+                  Trustee under the Will of John Doe, deceased</div>
+              </div>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button type="button" class="btn" onclick="goToStep(2)">Submit</button>
+        <a href="login.html" class="btn secondary">Return</a>
+      </div>
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="step-panel" id="step2">
+      <div class="crumb" style="font-size:16px; margin-bottom:2px;" id="step2Heading">Individual Account Application
+      </div>
+      <div class="req-note">* Denotes Required Fields</div>
+
+      <div class="form-section-title" id="ownerSectionTitle">Account Owner Information</div>
+
+      <div id="entityFields" style="display:none;">
+        <div class="form-row">
+          <div class="flabel"><span class="req">*</span>Entity / Trust / Estate Name:</div>
+          <div class="ffield"><input type="text" id="entityName" /></div>
+        </div>
+        <div class="form-row">
+          <div class="flabel"><span class="req">*</span>Representative's Full Name:</div>
+          <div class="ffield"><input type="text" id="representativeName" />
+            <div class="fhint">Trustee, Executor, Administrator, or Legal Guardian</div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="flabel"><span class="req">*</span>Representative's Role:</div>
+          <div class="ffield"><input type="text" id="representativeRole" placeholder="e.g. Trustee, Executor" /></div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="flabel"><span class="req">*</span>Full Name:</div>
+        <div class="ffield"><input type="text" id="fullName" /></div>
+      </div>
+      <div class="form-row" id="dobRow">
+        <div class="flabel">Date of Birth:</div>
+        <div class="ffield"><input type="date" id="dateOfBirth" /></div>
+      </div>
+      <div class="form-row" id="taxIdRow">
+        <div class="flabel" id="taxIdLabel">Taxpayer Identification Number (SSN):</div>
+        <div class="ffield"><input type="text" id="taxIdNumber" placeholder="XXX-XX-XXXX" /></div>
+      </div>
+
+      <div class="form-section-title">Contact Information</div>
+
+      <div class="form-row">
+        <div class="flabel"><span class="req">*</span>E-mail Address:</div>
+        <div class="ffield"><input type="email" id="email" />
+          <div class="fhint">Your Login ID will be sent to this address</div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="flabel"><span class="req">*</span>Password:</div>
+        <div class="ffield"><input type="password" id="password" minlength="6" />
+          <div class="fhint">Minimum 6 characters</div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="flabel">Phone:</div>
+        <div class="ffield"><input type="text" id="phoneNumber" placeholder="(___) ___-____" /></div>
+      </div>
+      <div class="form-row">
+        <div class="flabel">Street Address:</div>
+        <div class="ffield"><input type="text" id="street" /></div>
+      </div>
+      <div class="form-row">
+        <div class="flabel">City:</div>
+        <div class="ffield"><input type="text" id="city" /></div>
+      </div>
+      <div class="form-row">
+        <div class="flabel">State:</div>
+        <div class="ffield"><input type="text" id="state" /></div>
+      </div>
+      <div class="form-row">
+        <div class="flabel">Zip Code:</div>
+        <div class="ffield"><input type="text" id="postalCode" /></div>
+      </div>
+      <div class="form-row">
+        <div class="flabel">Country:</div>
+        <div class="ffield"><input type="text" id="country" value="United States" /></div>
+      </div>
+
+      <div class="form-section-title">Bank Information</div>
+
+      <div class="form-row">
+        <div class="flabel">Bank Name:</div>
+        <div class="ffield"><input type="text" id="bankName" /></div>
+      </div>
+      <div class="form-row">
+        <div class="flabel">Routing Number:</div>
+        <div class="ffield"><input type="text" id="routingNumber" /></div>
+      </div>
+      <div class="form-row">
+        <div class="flabel">Account Number:</div>
+        <div class="ffield"><input type="text" id="accountNumber" /></div>
+      </div>
+      <div class="form-row">
+        <div class="flabel">Name(s) on the Account:</div>
+        <div class="ffield"><input type="text" id="accountName" /></div>
+      </div>
+
+      <div class="form-section-title">Personalized Image &amp; Caption</div>
+      <p class="lead-text" style="margin-bottom:10px;">
+        Choose an image and caption you'll recognize. We'll show it to you every time you sign in,
+        right before you enter your password — this helps confirm you're on the real TreasuryDirect site.
+      </p>
+      <div class="image-grid" id="imageGrid">
+        <div class="loading-imgs" style="font-size:12px; color:#666;">Loading images…</div>
+      </div>
+      <div class="caption-row">
+        <label style="display:block; font-size:12px; margin-bottom:4px;">Caption:</label>
+        <input type="text" id="personalizedCaption" placeholder="e.g. My Lucky Turtle" maxlength="40" />
+      </div>
+
+      <div class="form-section-title">Answer Three Security Questions</div>
+      <p class="lead-text" style="margin-bottom:10px;">
+        Answer three security questions below. If you ever forget your password, you can use these
+        to reset it instead of waiting for an email. Choose a different question for each, and provide
+        an answer you'll remember. This step is optional but recommended.
+      </p>
+      <div class="form-row">
+        <div class="flabel">Question 1:</div>
+        <div class="ffield">
+          <select id="secQ1"></select>
+          <input type="text" id="secA1" placeholder="Your answer" style="margin-top:6px;" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="flabel">Question 2:</div>
+        <div class="ffield">
+          <select id="secQ2"></select>
+          <input type="text" id="secA2" placeholder="Your answer" style="margin-top:6px;" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="flabel">Question 3:</div>
+        <div class="ffield">
+          <select id="secQ3"></select>
+          <input type="text" id="secA3" placeholder="Your answer" style="margin-top:6px;" />
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button type="button" class="btn" onclick="validateStep2AndContinue()">Submit</button>
+        <button type="button" class="btn secondary" onclick="goToStep(1)">Cancel</button>
+      </div>
+    </div>
+
+    <!-- STEP 3 -->
+    <div class="step-panel" id="step3">
+      <div class="crumb" style="font-size:16px; margin-bottom:10px;">Review &amp; Submit</div>
+
+      <table class="review-table" id="reviewTable"></table>
+
+      <div class="cert-box">
+        <div class="cert-header">Taxpayer Identification Number Certification</div>
+        <div class="cert-body">
+          <label>
+            <input type="checkbox" id="certifyCheck" />
+            <span>By checking this box I certify, under penalty of perjury, that:</span>
+          </label>
+          <ol>
+            <li>The number shown on this form is my correct taxpayer identification number.</li>
+            <li><strong>I am not</strong> subject to backup withholding because: (a) I am exempt from backup
+              withholding, (b) I have not been notified by the Internal Revenue Service (IRS) that I am subject to
+              backup withholding as a result of failure to report all interest and dividends, or (c) the IRS has
+              notified me that I am no longer subject to backup withholding.</li>
+            <li>I am a U.S. person as defined by the IRS.</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="recaptcha-row">
+        <div class="g-recaptcha" data-sitekey="YOUR_RECAPTCHA_SITE_KEY_HERE" id="recaptchaWidget"></div>
+      </div>
+
+      <div class="btn-row">
+        <button type="button" class="btn" id="submitBtn" onclick="submitApplication()">Submit</button>
+        <button type="button" class="btn secondary" onclick="goToStep(2)">Cancel</button>
+      </div>
+    </div>
+
+    <!-- SUCCESS -->
+    <div class="id-reveal" id="idReveal">
+      <p>Your account has been created successfully. Your permanent Login ID is:</p>
+      <div class="id-value" id="idValue">—</div>
+      <p>This has also been sent to your email. Keep it safe — you'll need it every time you log in.</p>
+      <div class="btn-row" style="justify-content:center;">
+        <a href="login.html" class="btn">Go to Login</a>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    Freedom of Information Act | Law &amp; Guidance | Privacy &amp; Legal Notices | Accessibility | Data
+    Quality<br /><br />
+    This is a private application and is not affiliated with the U.S. Department of the Treasury.
+  </footer>
+
+  <script>
+    const API_BASE = "https://t-bond-backend.onrender.com/api";
+
+    const entityLabels = {
+      individual: { heading: "Individual Account Application", section: "Account Owner Information" },
+      corporation: { heading: "Corporation Account Application", section: "Corporation Information" },
+      partnership: { heading: "Partnership Account Application", section: "Partnership Information" },
+      llc: { heading: "LLC Account Application", section: "LLC Information" },
+      pllc: { heading: "PLLC Account Application", section: "PLLC Information" },
+      sole_proprietorship: { heading: "Sole Proprietorship Account Application", section: "Business Information" },
+      deceased_estate: { heading: "Deceased Estate Account Application", section: "Estate Information" },
+      living_estate: { heading: "Living Estate Account Application", section: "Estate Information" },
+      trust: { heading: "Trust Account Application", section: "Trust Information" },
+    };
+
+    let selectedType = "individual";
+    let selectedImage = null;
+
+    document.querySelectorAll(".type-option").forEach((el) => {
+      el.addEventListener("click", () => {
+        document.querySelectorAll(".type-option").forEach((o) => o.classList.remove("selected"));
+        el.classList.add("selected");
+        el.querySelector("input[type=radio]").checked = true;
+        selectedType = el.dataset.type;
+      });
+    });
+
+    async function loadImageOptions() {
+      try {
+        const res = await fetch(`${API_BASE}/auth/image-options`);
+        const images = await res.json();
+        const grid = document.getElementById("imageGrid");
+        grid.innerHTML = "";
+
+        images.forEach((img) => {
+          const tile = document.createElement("div");
+          tile.className = "image-tile";
+          tile.dataset.key = img.key;
+          tile.innerHTML = `<div class="swatch">${img.label}</div><div class="tile-label">${img.label}</div>`;
+          tile.addEventListener("click", () => {
+            document.querySelectorAll(".image-tile").forEach((t) => t.classList.remove("selected"));
+            tile.classList.add("selected");
+            selectedImage = img.key;
+          });
+          grid.appendChild(tile);
+        });
+      } catch (err) {
+        document.getElementById("imageGrid").innerHTML = `<div style="font-size:12px; color:#a33;">Unable to load images. You can skip this step and set it later.</div>`;
+      }
+    }
+    loadImageOptions();
+
+    let questionBank = [];
+
+    async function loadQuestionBank() {
+      try {
+        const res = await fetch(`${API_BASE}/auth/security-question-bank`);
+        questionBank = await res.json();
+        ["secQ1", "secQ2", "secQ3"].forEach((id) => {
+          const select = document.getElementById(id);
+          select.innerHTML = `<option value="">— Select a question —</option>` +
+            questionBank.map((q) => `<option value="${q}">${q}</option>`).join("");
+        });
+      } catch (err) {
+        // non-critical; user can skip security questions if this fails to load
+      }
+    }
+    loadQuestionBank();
+
+    function goToStep(step) {
+      document.querySelectorAll(".step-panel").forEach((p) => p.classList.remove("active"));
+      document.getElementById("step" + step).classList.add("active");
+
+      document.querySelectorAll(".progressbox .steps div").forEach((p) => p.classList.remove("active", "done"));
+      for (let i = 1; i < step; i++) document.getElementById("pStep" + i).classList.add("done");
+      document.getElementById("pStep" + step).classList.add("active");
+
+      const crumbs = { 1: "Account Type", 2: "Online Application", 3: "Review & Submit" };
+      document.getElementById("crumbLabel").textContent = crumbs[step];
+      document.getElementById("pSubLabel").textContent = crumbs[step];
+
+      if (step === 2) {
+        const labels = entityLabels[selectedType];
+        document.getElementById("step2Heading").textContent = labels.heading;
+        document.getElementById("ownerSectionTitle").textContent = labels.section;
+
+        const isEntity = selectedType !== "individual";
+        document.getElementById("entityFields").style.display = isEntity ? "block" : "none";
+        document.getElementById("dobRow").style.display = isEntity ? "none" : "flex";
+        document.getElementById("taxIdLabel").textContent = isEntity
+          ? "Employer Identification Number (EIN):"
+          : "Taxpayer Identification Number (SSN):";
+      }
+
+      if (step === 3) buildReview();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function validateStep2AndContinue() {
+      const fullName = document.getElementById("fullName").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+
+      if (!fullName || !email || !password) {
+        showAlert("Please complete all required fields before continuing.", "error");
+        return;
+      }
+      if (password.length < 6) {
+        showAlert("Password must be at least 6 characters.", "error");
+        return;
+      }
+      if (selectedType !== "individual") {
+        const entityName = document.getElementById("entityName").value.trim();
+        const repName = document.getElementById("representativeName").value.trim();
+        const repRole = document.getElementById("representativeRole").value.trim();
+        if (!entityName || !repName || !repRole) {
+          showAlert("Please complete all required entity fields before continuing.", "error");
+          return;
+        }
+      }
+      if (selectedImage && !document.getElementById("personalizedCaption").value.trim()) {
+        showAlert("Please enter a caption for your chosen image, or deselect it to skip this step.", "error");
+        return;
+      }
+
+      const q1 = document.getElementById("secQ1").value;
+      const q2 = document.getElementById("secQ2").value;
+      const q3 = document.getElementById("secQ3").value;
+      const anyQuestionFilled = q1 || q2 || q3;
+
+      if (anyQuestionFilled) {
+        if (!q1 || !q2 || !q3) {
+          showAlert("Please select all three security questions, or leave all of them blank to skip this step.", "error");
+          return;
+        }
+        if (new Set([q1, q2, q3]).size !== 3) {
+          showAlert("Please choose three different security questions.", "error");
+          return;
+        }
+        const a1 = document.getElementById("secA1").value.trim();
+        const a2 = document.getElementById("secA2").value.trim();
+        const a3 = document.getElementById("secA3").value.trim();
+        if (!a1 || !a2 || !a3) {
+          showAlert("Please provide an answer for each of your three security questions.", "error");
+          return;
+        }
+      }
+
+      document.getElementById("alertBox").className = "alert";
+      goToStep(3);
+    }
+
+    function buildReview() {
+      const fullName = document.getElementById("fullName").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const typeLabelMap = {
+        individual: "Individual", corporation: "Corporation", partnership: "Partnership",
+        llc: "LLC", pllc: "PLLC", sole_proprietorship: "Sole Proprietorship",
+        deceased_estate: "Deceased Estate", living_estate: "Living Estate", trust: "Trust",
+      };
+
+      let rows = `
+    <tr><td>Account Type</td><td>${typeLabelMap[selectedType]}</td></tr>
+    <tr><td>Full Name</td><td>${fullName}</td></tr>
+    <tr><td>Email</td><td>${email}</td></tr>
+  `;
+      if (selectedType !== "individual") {
+        rows += `
+      <tr><td>Entity Name</td><td>${document.getElementById("entityName").value}</td></tr>
+      <tr><td>Representative</td><td>${document.getElementById("representativeName").value} (${document.getElementById("representativeRole").value})</td></tr>
+    `;
+      }
+      const city = document.getElementById("city").value;
+      const state = document.getElementById("state").value;
+      if (city || state) rows += `<tr><td>Location</td><td>${[city, state].filter(Boolean).join(", ")}</td></tr>`;
+
+      const bankName = document.getElementById("bankName").value;
+      if (bankName) rows += `<tr><td>Bank</td><td>${bankName}</td></tr>`;
+
+      if (selectedImage) rows += `<tr><td>Personalized Image</td><td>${selectedImage} — "${document.getElementById("personalizedCaption").value}"</td></tr>`;
+
+      const rq1 = document.getElementById("secQ1").value;
+      if (rq1) rows += `<tr><td>Security Questions</td><td>3 questions set</td></tr>`;
+
+      document.getElementById("reviewTable").innerHTML = rows;
+    }
+
+    function showAlert(message, type) {
+      const box = document.getElementById("alertBox");
+      box.textContent = message;
+      box.className = "alert show" + (type === "success" ? " success" : "");
+      box.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+
+    async function submitApplication() {
+      if (!document.getElementById("certifyCheck").checked) {
+        showAlert("You must certify the information before submitting.", "error");
+        return;
+      }
+
+      let recaptchaToken = "";
+      if (typeof grecaptcha !== "undefined") {
+        recaptchaToken = grecaptcha.getResponse();
+        if (!recaptchaToken) {
+          showAlert("Please complete the reCAPTCHA verification before submitting.", "error");
+          return;
+        }
+      }
+
+      const submitBtn = document.getElementById("submitBtn");
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Submitting…";
+
+      const payload = {
+        name: document.getElementById("fullName").value.trim(),
+        email: document.getElementById("email").value.trim(),
+        password: document.getElementById("password").value,
+        accountType: selectedType,
+        dateOfBirth: document.getElementById("dateOfBirth").value || null,
+        taxIdNumber: document.getElementById("taxIdNumber").value || null,
+        phoneNumber: document.getElementById("phoneNumber").value || null,
+        personalizedImage: selectedImage || null,
+        personalizedCaption: document.getElementById("personalizedCaption").value.trim() || null,
+        recaptchaToken,
+        address: {
+          street: document.getElementById("street").value || null,
+          city: document.getElementById("city").value || null,
+          state: document.getElementById("state").value || null,
+          postalCode: document.getElementById("postalCode").value || null,
+          country: document.getElementById("country").value || null,
+        },
+        bankDetails: {
+          bankName: document.getElementById("bankName").value || null,
+          accountName: document.getElementById("accountName").value || null,
+          accountNumber: document.getElementById("accountNumber").value || null,
+          routingNumber: document.getElementById("routingNumber").value || null,
+        },
+      };
+
+      if (selectedType !== "individual") {
+        payload.entityDetails = {
+          entityName: document.getElementById("entityName").value,
+          representativeName: document.getElementById("representativeName").value,
+          representativeRole: document.getElementById("representativeRole").value,
+        };
+      }
+
+      const q1 = document.getElementById("secQ1").value;
+      const q2 = document.getElementById("secQ2").value;
+      const q3 = document.getElementById("secQ3").value;
+      if (q1 && q2 && q3) {
+        payload.securityQuestions = [
+          { question: q1, answer: document.getElementById("secA1").value.trim() },
+          { question: q2, answer: document.getElementById("secA2").value.trim() },
+          { question: q3, answer: document.getElementById("secA3").value.trim() },
+        ];
+      }
+
+      try {
+        const res = await fetch(`${API_BASE}/auth/register`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+        const data = await res.json();
+
+        if (!res.ok) {
+          showAlert(data.message || "Registration failed. Please try again.", "error");
+          submitBtn.disabled = false;
+          submitBtn.textContent = "Submit";
+          if (typeof grecaptcha !== "undefined") grecaptcha.reset();
+          return;
+        }
+
+        document.querySelectorAll(".step-panel").forEach((p) => p.classList.remove("active"));
+        document.querySelector(".progressbox").style.display = "none";
+        document.getElementById("idValue").textContent = data.loginId;
+        document.getElementById("idReveal").classList.add("show");
+
+        localStorage.setItem("td_token", data.token);
+        localStorage.setItem("td_user", JSON.stringify(data));
+      } catch (err) {
+        showAlert("Unable to reach the server. Please make sure the backend is running.", "error");
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Submit";
+      }
+    }
+  </script>
+
+</body>
+
+</html>

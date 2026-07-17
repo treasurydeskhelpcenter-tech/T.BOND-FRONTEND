@@ -1,0 +1,1528 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Panel — TreasuryDirect</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f4f6f8;
+      color: #1b1b1b;
+      font-size: 13px;
+    }
+
+    .topbar {
+      height: 8px;
+      background: #b31942;
+    }
+
+    header.site-header {
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #ccc;
+      background: #fff;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .logo .direct {
+      color: #205493;
+    }
+
+    .logo .admin-tag {
+      background: #b31942;
+      color: #fff;
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 10px;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+
+    .user-box {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 13px;
+    }
+
+    .user-box .name {
+      font-weight: bold;
+      color: #205493;
+    }
+
+    .logout-btn {
+      background: #71767a;
+      color: #fff;
+      border: none;
+      padding: 6px 14px;
+      border-radius: 2px;
+      cursor: pointer;
+      font-size: 12px;
+    }
+
+    .logout-btn:hover {
+      background: #565a5d;
+    }
+
+    .nav-tabs {
+      background: #205493;
+      display: flex;
+      padding: 0 20px;
+      flex-wrap: wrap;
+    }
+
+    .nav-tabs .tab {
+      color: #fff;
+      padding: 10px 18px;
+      font-size: 13px;
+      font-weight: bold;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      background: none;
+    }
+
+    .nav-tabs .tab:hover {
+      background: #163e6f;
+    }
+
+    .nav-tabs .tab.active {
+      background: #e57200;
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 24px 20px 60px;
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+
+    @media (max-width: 900px) {
+      .summary-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .summary-card {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-top: 4px solid #205493;
+      padding: 14px;
+    }
+
+    .summary-card .label {
+      font-size: 10px;
+      color: #71767a;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .summary-card .value {
+      font-size: 20px;
+      font-weight: bold;
+      color: #1b1b1b;
+    }
+
+    .panel {
+      background: #fff;
+      border: 1px solid #ddd;
+      margin-bottom: 24px;
+    }
+
+    .panel-header {
+      background: #566573;
+      color: #fff;
+      font-weight: bold;
+      padding: 10px 16px;
+      font-size: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .panel-header button.refresh {
+      background: #205493;
+      color: #fff;
+      border: none;
+      padding: 6px 14px;
+      border-radius: 2px;
+      cursor: pointer;
+      font-size: 12px;
+    }
+
+    .panel-body {
+      padding: 16px;
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 700px;
+    }
+
+    th {
+      text-align: left;
+      padding: 10px 8px;
+      font-size: 11px;
+      text-transform: uppercase;
+      color: #205493;
+      background: #eef4fb;
+      border-bottom: 2px solid #d6e3f0;
+    }
+
+    td {
+      padding: 10px 8px;
+      font-size: 13px;
+      border-bottom: 1px solid #eee;
+      white-space: nowrap;
+    }
+
+    .badge {
+      padding: 3px 9px;
+      border-radius: 10px;
+      font-size: 11px;
+      font-weight: bold;
+    }
+
+    .badge.active {
+      background: #e6f4ea;
+      color: #1a5c2a;
+    }
+
+    .badge.suspended {
+      background: #fdeaea;
+      color: #6f1c26;
+    }
+
+    .badge.pending {
+      background: #fff3cd;
+      color: #856404;
+    }
+
+    .badge.approved {
+      background: #e6f4ea;
+      color: #1a5c2a;
+    }
+
+    .badge.rejected {
+      background: #fdeaea;
+      color: #6f1c26;
+    }
+
+    .badge.admin {
+      background: #dcebf7;
+      color: #205493;
+    }
+
+    .badge.user {
+      background: #e2e3e5;
+      color: #383d41;
+    }
+
+    .badge.verified {
+      background: #e6f4ea;
+      color: #1a5c2a;
+    }
+
+    .badge.unverified {
+      background: #fff3cd;
+      color: #856404;
+    }
+
+    .action-btn {
+      border: none;
+      padding: 6px 12px;
+      font-size: 11px;
+      font-weight: bold;
+      border-radius: 2px;
+      cursor: pointer;
+      color: #fff;
+      margin-right: 4px;
+      margin-bottom: 4px;
+    }
+
+    .action-btn.approve {
+      background: #2e8540;
+    }
+
+    .action-btn.approve:hover {
+      background: #1f5c2c;
+    }
+
+    .action-btn.reject {
+      background: #c00;
+    }
+
+    .action-btn.reject:hover {
+      background: #900;
+    }
+
+    .action-btn.suspend {
+      background: #e5a300;
+    }
+
+    .action-btn.suspend:hover {
+      background: #b88000;
+    }
+
+    .action-btn.restore {
+      background: #205493;
+    }
+
+    .action-btn.restore:hover {
+      background: #163e6f;
+    }
+
+    .action-btn.delete {
+      background: #6f1c26;
+    }
+
+    .action-btn.delete:hover {
+      background: #4d1119;
+    }
+
+    .action-btn.promote {
+      background: #566573;
+    }
+
+    .action-btn.promote:hover {
+      background: #3d4650;
+    }
+
+    .action-btn.view {
+      background: #6b46c1;
+    }
+
+    .action-btn.view:hover {
+      background: #553399;
+    }
+
+    .action-btn.resend {
+      background: #0e7c86;
+    }
+
+    .action-btn.resend:hover {
+      background: #0a5a61;
+    }
+
+    .action-btn.edit {
+      background: #205493;
+    }
+
+    .action-btn.edit:hover {
+      background: #163e6f;
+    }
+
+    .empty-msg {
+      color: #71767a;
+      text-align: center;
+      padding: 30px;
+      font-size: 13px;
+    }
+
+    .alert {
+      display: none;
+      font-size: 13px;
+      padding: 10px 14px;
+      margin-bottom: 16px;
+      border-left: 4px solid #c00;
+      background: #fdeaea;
+      color: #6f1c26;
+    }
+
+    .alert.show {
+      display: block;
+    }
+
+    .alert.success {
+      border-left-color: #2e8540;
+      background: #e6f4ea;
+      color: #1a5c2a;
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    .pm-form,
+    .bond-form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px 16px;
+      margin-bottom: 16px;
+    }
+
+    .pm-form label,
+    .bond-form label {
+      font-size: 12px;
+      font-weight: bold;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .pm-form input,
+    .pm-form select,
+    .pm-form textarea,
+    .bond-form input,
+    .bond-form select {
+      width: 100%;
+      padding: 7px 9px;
+      border: 1px solid #888;
+      border-radius: 2px;
+      font-size: 13px;
+    }
+
+    .pm-form .full,
+    .bond-form .full {
+      grid-column: 1 / -1;
+    }
+
+    .btn {
+      display: inline-block;
+      background: #205493;
+      color: #fff;
+      border: none;
+      padding: 9px 18px;
+      font-size: 13px;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 2px;
+    }
+
+    .btn:hover {
+      background: #163e6f;
+    }
+
+    /* Modal for user detail */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      align-items: flex-start;
+      justify-content: center;
+      padding: 40px 20px;
+      overflow-y: auto;
+      z-index: 100;
+    }
+
+    .modal-overlay.show {
+      display: flex;
+    }
+
+    .modal-box {
+      background: #fff;
+      max-width: 800px;
+      width: 100%;
+      border-top: 4px solid #205493;
+    }
+
+    .modal-header {
+      background: #566573;
+      color: #fff;
+      padding: 14px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-header h3 {
+      font-size: 16px;
+    }
+
+    .modal-close {
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    .modal-body {
+      padding: 20px;
+      max-height: 70vh;
+      overflow-y: auto;
+    }
+
+    .modal-section-title {
+      font-weight: bold;
+      color: #205493;
+      margin: 18px 0 8px;
+      font-size: 14px;
+    }
+
+    .modal-section-title:first-child {
+      margin-top: 0;
+    }
+
+    .detail-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px 20px;
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+
+    .detail-grid .dlabel {
+      color: #71767a;
+    }
+
+    .detail-grid .dvalue {
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="topbar"></div>
+  <header class="site-header">
+    <div class="logo">Treasury<span class="direct">Direct</span><span class="admin-tag">ADMIN</span></div>
+    <div class="user-box">
+      <span>Welcome, <span class="name" id="userName">—</span></span>
+      <button class="logout-btn" onclick="logout()">Log Out</button>
+    </div>
+  </header>
+  <nav class="nav-tabs">
+    <button class="tab active" onclick="showTab('overview', event)">Overview</button>
+    <button class="tab" onclick="showTab('deposits', event)">Pending Deposits</button>
+    <button class="tab" onclick="showTab('transactions', event)">Pending Purchases</button>
+    <button class="tab" onclick="showTab('users', event)">Manage Users</button>
+    <button class="tab" onclick="showTab('bonds', event)">Manage Bonds</button>
+    <button class="tab" onclick="showTab('payments', event)">Payment Methods</button>
+  </nav>
+
+  <main>
+    <div class="alert" id="alertBox"></div>
+
+    <!-- OVERVIEW -->
+    <div class="tab-content active" id="tab-overview">
+      <div class="summary-grid">
+        <div class="summary-card">
+          <div class="label">Total Users</div>
+          <div class="value" id="statUsers">0</div>
+        </div>
+        <div class="summary-card">
+          <div class="label">Active Securities</div>
+          <div class="value" id="statHoldings">0</div>
+        </div>
+        <div class="summary-card">
+          <div class="label">Value Under Mgmt</div>
+          <div class="value" id="statVUM">$0</div>
+        </div>
+        <div class="summary-card">
+          <div class="label">Pending Purchases</div>
+          <div class="value" id="statPendingTx">0</div>
+        </div>
+        <div class="summary-card">
+          <div class="label">Pending Deposits</div>
+          <div class="value" id="statPendingDep">0</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PENDING DEPOSITS -->
+    <div class="tab-content" id="tab-deposits">
+      <div class="panel">
+        <div class="panel-header">Pending Deposit Requests <button class="refresh"
+            onclick="loadPendingDeposits()">Refresh</button></div>
+        <div class="panel-body">
+          <table>
+            <thead>
+              <tr>
+                <th>User</th>
+                <th>Login ID</th>
+                <th>Amount</th>
+                <th>Reference</th>
+                <th>Receipt</th>
+                <th>Date</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="depositsBody"></tbody>
+          </table>
+          <div class="empty-msg" id="depositsEmpty" style="display:none;">No pending deposits.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PENDING TRANSACTIONS -->
+    <div class="tab-content" id="tab-transactions">
+      <div class="panel">
+        <div class="panel-header">Pending Purchase / Redemption Requests <button class="refresh"
+            onclick="loadPendingTransactions()">Refresh</button></div>
+        <div class="panel-body">
+          <table>
+            <thead>
+              <tr>
+                <th>User</th>
+                <th>Login ID</th>
+                <th>Type</th>
+                <th>Security</th>
+                <th>Amount</th>
+                <th>Date</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="transactionsBody"></tbody>
+          </table>
+          <div class="empty-msg" id="transactionsEmpty" style="display:none;">No pending purchase or redemption
+            requests.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- USERS -->
+    <div class="tab-content" id="tab-users">
+      <div class="panel">
+        <div class="panel-header">All Users <button class="refresh" onclick="loadUsers()">Refresh List</button></div>
+        <div class="panel-body">
+          <input type="text" id="userSearchInput" placeholder="Search by name, email, or login ID…"
+            style="width:100%; padding:8px 10px; border:1px solid #888; border-radius:2px; font-size:13px; margin-bottom:12px;"
+            oninput="renderUsers()" />
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Login ID</th>
+                <th>Email</th>
+                <th>Balance</th>
+                <th>Email Verified</th>
+                <th>Status</th>
+                <th>Role</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="usersBody"></tbody>
+          </table>
+          <div class="empty-msg" id="usersEmpty" style="display:none;">No users found.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BONDS -->
+    <div class="tab-content" id="tab-bonds">
+      <div class="panel">
+        <div class="panel-header">Add New Security</div>
+        <div class="panel-body">
+          <div class="bond-form">
+            <div><label>Name</label><input type="text" id="bondName" placeholder="e.g. Series EE Savings Bond" /></div>
+            <div><label>Type</label>
+              <select id="bondTypeInput">
+                <option value="EE">EE</option>
+                <option value="I">I</option>
+                <option value="T-Bill">T-Bill</option>
+                <option value="T-Note">T-Note</option>
+                <option value="T-Bond">T-Bond</option>
+                <option value="TIPS">TIPS</option>
+                <option value="FRN">FRN</option>
+              </select>
+            </div>
+            <div><label>Interest Rate (%)</label><input type="text" id="bondRate" placeholder="e.g. 4.5" /></div>
+            <div><label>Term (Years)</label><input type="text" id="bondTerm" placeholder="e.g. 20" /></div>
+            <div><label>Min Purchase ($)</label><input type="text" id="bondMin" placeholder="25" /></div>
+            <div><label>Max Purchase ($)</label><input type="text" id="bondMax" placeholder="10000" /></div>
+            <div class="full"><label>Description</label><input type="text" id="bondDescription" /></div>
+          </div>
+          <button class="btn" onclick="createBond()">Add Security</button>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">Existing Securities <button class="refresh"
+            onclick="loadBondsAdmin()">Refresh</button></div>
+        <div class="panel-body">
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Rate</th>
+                <th>Term</th>
+                <th>Min / Max</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="bondsBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- PAYMENT METHODS -->
+    <div class="tab-content" id="tab-payments">
+      <div class="panel">
+        <div class="panel-header">Add Payment Method</div>
+        <div class="panel-body">
+          <div class="pm-form">
+            <div><label>Type</label>
+              <select id="pmType" onchange="togglePmFields()">
+                <option value="bank_transfer">Bank Transfer</option>
+                <option value="crypto">Crypto</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div><label>Label</label><input type="text" id="pmLabel" placeholder="e.g. USDT Deposit" /></div>
+
+            <div id="pmBankFields" class="full" style="display:contents;">
+              <div><label>Bank Name</label><input type="text" id="pmBankName" /></div>
+              <div><label>Account Name</label><input type="text" id="pmAccountName" /></div>
+              <div><label>Account Number</label><input type="text" id="pmAccountNumber" /></div>
+              <div><label>Routing Number</label><input type="text" id="pmRoutingNumber" /></div>
+              <div><label>SWIFT Code</label><input type="text" id="pmSwiftCode" /></div>
+            </div>
+
+            <div id="pmCryptoFields" class="full" style="display:none;">
+              <div><label>Currency</label><input type="text" id="pmCurrency" placeholder="e.g. USDT" /></div>
+              <div><label>Network</label><input type="text" id="pmNetwork" placeholder="e.g. Tron (TRC20)" /></div>
+              <div class="full"><label>Wallet Address</label><input type="text" id="pmWalletAddress" /></div>
+              <div class="full">
+                <label>Custom QR Code</label>
+                <input type="file" id="pmQrImage" accept="image/*" onchange="previewPmQrImage()" />
+                <div id="pmQrPreviewWrap" style="display:none; margin-top:8px;">
+                  <div style="font-size:12px; color:#888; margin-bottom:4px;">Current QR code:</div>
+                  <img id="pmQrPreview" src="" alt="QR code preview"
+                    style="max-width:140px; max-height:140px; border:1px solid #ddd; border-radius:4px;" />
+                  <div>
+                    <button type="button" class="action-btn delete" style="margin-top:6px;"
+                      onclick="removePmQrImage()">Remove QR Code</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="full"><label>Instructions</label><textarea id="pmInstructions" rows="2"></textarea></div>
+          </div>
+          <button class="btn" onclick="createPaymentMethod()">Add Payment Method</button>
+          <button class="btn" id="pmCancelEditBtn" style="display:none; background:#666; margin-left:8px;"
+            onclick="cancelEditPaymentMethod()">Cancel Edit</button>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">Existing Payment Methods <button class="refresh"
+            onclick="loadAllPaymentMethods()">Refresh</button></div>
+        <div class="panel-body">
+          <table>
+            <thead>
+              <tr>
+                <th>Label</th>
+                <th>Type</th>
+                <th>Status</th>
+                <th>Details</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="pmBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- USER DETAIL MODAL -->
+  <div class="modal-overlay" id="userModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 id="modalUserName">User Details</h3>
+        <button class="modal-close" onclick="closeUserModal()">&times;</button>
+      </div>
+      <div class="modal-body" id="modalBody">Loading…</div>
+    </div>
+  </div>
+
+  <!-- GENERIC CONFIRM MODAL (replaces confirm()) -->
+  <div class="modal-overlay" id="confirmModal">
+    <div class="modal-box" style="max-width:420px;">
+      <div class="modal-header">
+        <h3>Please Confirm</h3>
+        <button class="modal-close" onclick="closeConfirmModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p id="confirmMessage" style="margin-bottom:18px;"></p>
+        <div style="text-align:right;">
+          <button class="action-btn" style="background:#71767a;" onclick="closeConfirmModal()">Cancel</button>
+          <button class="action-btn reject" id="confirmActionBtn">Confirm</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- REASON MODAL (replaces prompt() for rejection reasons) -->
+  <div class="modal-overlay" id="reasonModal">
+    <div class="modal-box" style="max-width:480px;">
+      <div class="modal-header">
+        <h3 id="reasonModalTitle">Reason</h3>
+        <button class="modal-close" onclick="closeReasonModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <label style="font-size:12px; font-weight:bold; display:block; margin-bottom:6px;">Reason (optional)</label>
+        <textarea id="reasonInput" rows="3"
+          style="width:100%; padding:8px; border:1px solid #888; border-radius:2px; font-size:13px;"></textarea>
+        <div style="text-align:right; margin-top:14px;">
+          <button class="action-btn" style="background:#71767a;" onclick="closeReasonModal()">Cancel</button>
+          <button class="action-btn reject" id="reasonActionBtn">Submit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BALANCE ADJUSTMENT MODAL (replaces the 3-step prompt() chain) -->
+  <div class="modal-overlay" id="balanceModal">
+    <div class="modal-box" style="max-width:480px;">
+      <div class="modal-header">
+        <h3 id="balanceModalTitle">Adjust Balance</h3>
+        <button class="modal-close" onclick="closeBalanceModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div style="margin-bottom:12px;">
+          <label style="font-size:12px; font-weight:bold; display:block; margin-bottom:6px;">Action</label>
+          <select id="balanceType"
+            style="width:100%; padding:7px 9px; border:1px solid #888; border-radius:2px; font-size:13px;">
+            <option value="credit">Credit (add funds)</option>
+            <option value="debit">Debit (remove funds)</option>
+          </select>
+        </div>
+        <div style="margin-bottom:12px;">
+          <label style="font-size:12px; font-weight:bold; display:block; margin-bottom:6px;">Amount ($)</label>
+          <input type="number" id="balanceAmount" min="0" step="0.01"
+            style="width:100%; padding:7px 9px; border:1px solid #888; border-radius:2px; font-size:13px;" />
+        </div>
+        <div style="margin-bottom:12px;">
+          <label style="font-size:12px; font-weight:bold; display:block; margin-bottom:6px;">Reason (required — kept on
+            record)</label>
+          <textarea id="balanceReason" rows="3"
+            style="width:100%; padding:8px; border:1px solid #888; border-radius:2px; font-size:13px;"></textarea>
+        </div>
+        <div style="text-align:right;">
+          <button class="action-btn" style="background:#71767a;" onclick="closeBalanceModal()">Cancel</button>
+          <button class="action-btn edit" id="balanceActionBtn">Submit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RATE EDIT MODAL -->
+  <div class="modal-overlay" id="rateModal">
+    <div class="modal-box" style="max-width:380px;">
+      <div class="modal-header">
+        <h3>Edit Interest Rate</h3>
+        <button class="modal-close" onclick="closeRateModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size:12px; color:#71767a; margin-bottom:10px;">Current rate: <span id="rateModalCurrent"></span>
+        </p>
+        <label style="font-size:12px; font-weight:bold; display:block; margin-bottom:6px;">New Rate (%)</label>
+        <input type="number" id="rateInput" min="0" step="0.01"
+          style="width:100%; padding:7px 9px; border:1px solid #888; border-radius:2px; font-size:13px;" />
+        <div style="text-align:right; margin-top:14px;">
+          <button class="action-btn" style="background:#71767a;" onclick="closeRateModal()">Cancel</button>
+          <button class="action-btn edit" id="rateActionBtn">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const API_BASE = "https://t-bond-backend.onrender.com/api";
+    const token = localStorage.getItem("td_token");
+
+    if (!token) window.location.href = "login.html";
+
+    function logout() {
+      localStorage.removeItem("td_token");
+      localStorage.removeItem("td_user");
+      window.location.href = "login.html";
+    }
+
+    function authHeaders(extra = {}) {
+      return { Authorization: `Bearer ${token}`, ...extra };
+    }
+
+    function showAlert(message, type) {
+      const box = document.getElementById("alertBox");
+      box.textContent = message;
+      box.className = "alert show" + (type === "success" ? " success" : "");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function showTab(name, evt) {
+      document.querySelectorAll(".tab-content").forEach((el) => el.classList.remove("active"));
+      document.getElementById("tab-" + name).classList.add("active");
+      document.querySelectorAll(".nav-tabs .tab").forEach((el) => el.classList.remove("active"));
+      if (evt && evt.target) evt.target.classList.add("active");
+    }
+
+    function money(n) {
+      return "$" + Number(n || 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    async function apiCall(path, method = "GET", body = null) {
+      const opts = { method, headers: authHeaders({ "Content-Type": "application/json" }) };
+      if (body) opts.body = JSON.stringify(body);
+      let res;
+      try {
+        res = await fetch(`${API_BASE}${path}`, opts);
+      } catch (err) {
+        showAlert("Unable to reach the server. Check your connection and try again.", "error");
+        return null;
+      }
+      if (res.status === 401 || res.status === 403) {
+        const data = await res.json().catch(() => ({}));
+        if (data.message && data.message.includes("Admin")) {
+          showAlert("Admin access required — this account is not an admin.", "error");
+          return null;
+        }
+        logout();
+        return null;
+      }
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        showAlert(data.message || `Request failed (${res.status}).`, "error");
+        return null;
+      }
+      return res.json();
+    }
+
+    async function loadMe() {
+      const user = await apiCall("/auth/me");
+      if (!user) return;
+      document.getElementById("userName").textContent = user.name;
+    }
+
+    async function loadStats() {
+      const stats = await apiCall("/admin/stats");
+      if (!stats) return;
+      document.getElementById("statUsers").textContent = stats.totalUsers;
+      document.getElementById("statHoldings").textContent = stats.totalActiveHoldings;
+      document.getElementById("statVUM").textContent = money(stats.totalValueUnderManagement);
+      document.getElementById("statPendingTx").textContent = stats.pendingTransactions;
+      document.getElementById("statPendingDep").textContent = stats.pendingDeposits;
+    }
+
+    // ---------- USERS ----------
+    let allUsersCache = [];
+
+    async function loadUsers() {
+      document.getElementById("usersBody").innerHTML = `<tr><td colspan="8" class="empty-msg">Loading…</td></tr>`;
+      const users = await apiCall("/admin/users");
+      if (!users) return;
+      allUsersCache = users;
+      renderUsers();
+    }
+
+    function renderUsers() {
+      const query = (document.getElementById("userSearchInput")?.value || "").trim().toLowerCase();
+      const users = query
+        ? allUsersCache.filter((u) =>
+          (u.name || "").toLowerCase().includes(query) ||
+          (u.email || "").toLowerCase().includes(query) ||
+          (u.loginId || "").toLowerCase().includes(query))
+        : allUsersCache;
+
+      const body = document.getElementById("usersBody");
+      body.innerHTML = "";
+      if (users.length === 0) {
+        document.getElementById("usersEmpty").style.display = "block";
+        return;
+      }
+      document.getElementById("usersEmpty").style.display = "none";
+
+      users.forEach((u) => {
+        body.innerHTML += `
+      <tr>
+        <td>${u.name}</td>
+        <td>${u.loginId}</td>
+        <td>${u.email}</td>
+        <td>${money(u.cashBalance)}</td>
+        <td><span class="badge ${u.isEmailVerified ? "verified" : "unverified"}">${u.isEmailVerified ? "Verified" : "Unverified"}</span></td>
+        <td><span class="badge ${u.status}">${u.status}</span></td>
+        <td><span class="badge ${u.role}">${u.role}</span></td>
+        <td>
+          <button class="action-btn view" onclick="viewUser('${u._id}')">View</button>
+          ${u.status === "active"
+            ? `<button class="action-btn suspend" onclick="suspendUser('${u._id}')">Suspend</button>`
+            : `<button class="action-btn restore" onclick="restoreUser('${u._id}')">Restore</button>`}
+          ${u.role === "user"
+            ? `<button class="action-btn promote" onclick="promoteUser('${u._id}')">Make Admin</button>`
+            : ""}
+          ${!u.isEmailVerified
+            ? `<button class="action-btn resend" onclick="resendVerification('${u.email}')">Resend Verify</button>`
+            : ""}
+            <button class="action-btn edit" onclick="adjustBalance('${u._id}', '${u.name}')">Adjust Balance</button>
+          <button class="action-btn delete" onclick="deleteUser('${u._id}', '${u.name}')">Delete</button>
+        </td>
+      </tr>`;
+      });
+    }
+
+    async function suspendUser(id) {
+      askConfirm("Suspend this user? They will be blocked from logging in.", async () => {
+        const data = await apiCall(`/admin/users/${id}/suspend`, "PUT");
+        if (data) { showAlert(data.message, "success"); loadUsers(); }
+      });
+    }
+
+    async function restoreUser(id) {
+      const data = await apiCall(`/admin/users/${id}/reactivate`, "PUT");
+      if (data) { showAlert(data.message, "success"); loadUsers(); }
+    }
+
+    async function promoteUser(id) {
+      askConfirm("Grant admin access to this user?", async () => {
+        const data = await apiCall(`/admin/users/${id}/role`, "PUT", { role: "admin" });
+        if (data) { showAlert(data.message, "success"); loadUsers(); }
+      });
+    }
+
+    async function deleteUser(id, name) {
+      askConfirm(`Permanently delete ${name}'s account? This cannot be undone.`, async () => {
+        const data = await apiCall(`/admin/users/${id}`, "DELETE");
+        if (data) { showAlert(data.message, "success"); loadUsers(); }
+      });
+    }
+
+    async function resendVerification(email) {
+      try {
+        const res = await fetch(`${API_BASE}/auth/resend-verification`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email }),
+        });
+        const data = await res.json();
+        showAlert(data.message, "success");
+      } catch (err) {
+        showAlert("Unable to reach the server.", "error");
+      }
+    }
+
+    function adjustBalance(id, name) {
+      openBalanceModal(id, name);
+    }
+
+    // ---------- USER DETAIL MODAL ----------
+    async function viewUser(id) {
+      document.getElementById("userModal").classList.add("show");
+      document.getElementById("modalBody").innerHTML = "Loading…";
+
+      const data = await apiCall(`/admin/users/${id}`);
+      if (!data) return;
+
+      const { user, holdings, transactions, deposits } = data;
+      document.getElementById("modalUserName").textContent = `${user.name} (${user.loginId})`;
+
+      let html = `
+    <div class="modal-section-title">Account Info</div>
+    <div class="detail-grid">
+      <div class="dlabel">Email</div><div class="dvalue">${user.email}</div>
+      <div class="dlabel">Account Type</div><div class="dvalue" style="text-transform:capitalize;">${(user.accountType || "individual").replace("_", " ")}</div>
+      <div class="dlabel">Cash Balance</div><div class="dvalue">${money(user.cashBalance)}</div>
+      <div class="dlabel">Status</div><div class="dvalue">${user.status}</div>
+      <div class="dlabel">Phone</div><div class="dvalue">${user.phoneNumber || "—"}</div>
+      <div class="dlabel">Address</div><div class="dvalue">${[user.address?.street, user.address?.city, user.address?.state, user.address?.postalCode].filter(Boolean).join(", ") || "—"}</div>
+      <div class="dlabel">Bank</div><div class="dvalue">${user.bankDetails?.bankName || "—"} ${user.bankDetails?.accountNumber ? "(" + user.bankDetails.accountNumber + ")" : ""}</div>
+    </div>
+
+    <div class="modal-section-title">Holdings (${holdings.length})</div>
+  `;
+
+      if (holdings.length === 0) {
+        html += `<div class="empty-msg" style="padding:12px;">No holdings.</div>`;
+      } else {
+        html += `<table><thead><tr><th>Security</th><th>Principal</th><th>Current Value</th><th>Status</th></tr></thead><tbody>`;
+        holdings.forEach((h) => {
+          html += `<tr><td>${h.bond?.name || "—"}</td><td>${money(h.principal)}</td><td>${money(h.currentValue)}</td><td><span class="badge ${h.status}">${h.status}</span></td></tr>`;
+        });
+        html += `</tbody></table>`;
+      }
+
+      html += `<div class="modal-section-title">Transactions (${transactions.length})</div>`;
+      if (transactions.length === 0) {
+        html += `<div class="empty-msg" style="padding:12px;">No transactions.</div>`;
+      } else {
+        html += `<table><thead><tr><th>Type</th><th>Amount</th><th>Status</th><th>Date</th></tr></thead><tbody>`;
+        transactions.forEach((t) => {
+          html += `<tr><td style="text-transform:capitalize;">${t.type}</td><td>${money(t.amount)}</td><td><span class="badge ${t.status}">${t.status}</span></td><td>${new Date(t.createdAt).toLocaleDateString()}</td></tr>`;
+        });
+        html += `</tbody></table>`;
+      }
+
+      html += `<div class="modal-section-title">Deposits (${deposits.length})</div>`;
+      if (deposits.length === 0) {
+        html += `<div class="empty-msg" style="padding:12px;">No deposits.</div>`;
+      } else {
+        html += `<table><thead><tr><th>Reference</th><th>Amount</th><th>Status</th><th>Date</th></tr></thead><tbody>`;
+        deposits.forEach((d) => {
+          html += `<tr><td>${d.referenceCode}</td><td>${money(d.amount)}</td><td><span class="badge ${d.status}">${d.status}</span></td><td>${new Date(d.createdAt).toLocaleDateString()}</td></tr>`;
+        });
+        html += `</tbody></table>`;
+      }
+
+      document.getElementById("modalBody").innerHTML = html;
+    }
+
+    function closeUserModal() {
+      document.getElementById("userModal").classList.remove("show");
+    }
+
+    // ---------- CONFIRM MODAL ----------
+    function askConfirm(message, onConfirm) {
+      document.getElementById("confirmMessage").textContent = message;
+      const btn = document.getElementById("confirmActionBtn");
+      const freshBtn = btn.cloneNode(true); // strip old listeners
+      btn.parentNode.replaceChild(freshBtn, btn);
+      freshBtn.addEventListener("click", () => {
+        closeConfirmModal();
+        onConfirm();
+      });
+      document.getElementById("confirmModal").classList.add("show");
+    }
+    function closeConfirmModal() {
+      document.getElementById("confirmModal").classList.remove("show");
+    }
+
+    // ---------- REASON MODAL ----------
+    function askReason(title, onSubmit) {
+      document.getElementById("reasonModalTitle").textContent = title;
+      document.getElementById("reasonInput").value = "";
+      const btn = document.getElementById("reasonActionBtn");
+      const freshBtn = btn.cloneNode(true);
+      btn.parentNode.replaceChild(freshBtn, btn);
+      freshBtn.addEventListener("click", () => {
+        const reason = document.getElementById("reasonInput").value.trim() || "No reason provided";
+        closeReasonModal();
+        onSubmit(reason);
+      });
+      document.getElementById("reasonModal").classList.add("show");
+    }
+    function closeReasonModal() {
+      document.getElementById("reasonModal").classList.remove("show");
+    }
+
+    // ---------- BALANCE MODAL ----------
+    function openBalanceModal(id, name) {
+      document.getElementById("balanceModalTitle").textContent = `Adjust Balance — ${name}`;
+      document.getElementById("balanceType").value = "credit";
+      document.getElementById("balanceAmount").value = "";
+      document.getElementById("balanceReason").value = "";
+      const btn = document.getElementById("balanceActionBtn");
+      const freshBtn = btn.cloneNode(true);
+      btn.parentNode.replaceChild(freshBtn, btn);
+      freshBtn.addEventListener("click", async () => {
+        const type = document.getElementById("balanceType").value;
+        const amount = Number(document.getElementById("balanceAmount").value);
+        const reason = document.getElementById("balanceReason").value.trim();
+
+        if (!amount || amount <= 0) { showAlert("Please enter a valid amount.", "error"); return; }
+        if (!reason) { showAlert("A reason is required.", "error"); return; }
+
+        const data = await apiCall(`/admin/users/${id}/balance`, "PUT", { type, amount, reason });
+        if (data) {
+          showAlert(data.message, "success");
+          closeBalanceModal();
+          loadUsers();
+          loadStats();
+        }
+      });
+      document.getElementById("balanceModal").classList.add("show");
+    }
+    function closeBalanceModal() {
+      document.getElementById("balanceModal").classList.remove("show");
+    }
+
+    // ---------- PENDING DEPOSITS ----------
+    async function loadPendingDeposits() {
+      document.getElementById("depositsBody").innerHTML = `<tr><td colspan="7" class="empty-msg">Loading…</td></tr>`;
+      const deposits = await apiCall("/admin/deposits/pending");
+      if (!deposits) return;
+      const body = document.getElementById("depositsBody");
+      body.innerHTML = "";
+      if (deposits.length === 0) {
+        document.getElementById("depositsEmpty").style.display = "block";
+        return;
+      }
+      document.getElementById("depositsEmpty").style.display = "none";
+
+      deposits.forEach((d) => {
+        body.innerHTML += `
+      <tr>
+        <td>${d.user?.name || "—"}</td>
+        <td>${d.user?.loginId || "—"}</td>
+        <td>${money(d.amount)}</td>
+        <td>${d.referenceCode}</td>
+        <td>${d.receiptUrl ? `<a href="https://t-bond-backend.onrender.com${d.receiptUrl}" target="_blank">View</a>` : "None"}</td>
+        <td>${new Date(d.createdAt).toLocaleDateString()}</td>
+        <td>
+          <button class="action-btn approve" onclick="approveDeposit('${d._id}')">Approve</button>
+          <button class="action-btn reject" onclick="rejectDeposit('${d._id}')">Reject</button>
+        </td>
+      </tr>`;
+      });
+    }
+
+    async function approveDeposit(id) {
+      const data = await apiCall(`/admin/deposits/${id}/approve`, "PUT");
+      if (data) { showAlert(data.message, "success"); loadPendingDeposits(); loadStats(); }
+    }
+
+    function rejectDeposit(id) {
+      askReason("Reason for rejecting this deposit", async (reason) => {
+        const data = await apiCall(`/admin/deposits/${id}/reject`, "PUT", { reason });
+        if (data) { showAlert(data.message, "success"); loadPendingDeposits(); loadStats(); }
+      });
+    }
+
+    // ---------- PENDING TRANSACTIONS ----------
+    async function loadPendingTransactions() {
+      document.getElementById("transactionsBody").innerHTML = `<tr><td colspan="7" class="empty-msg">Loading…</td></tr>`;
+      const txs = await apiCall("/admin/transactions/pending");
+      if (!txs) return;
+      const body = document.getElementById("transactionsBody");
+      body.innerHTML = "";
+      if (txs.length === 0) {
+        document.getElementById("transactionsEmpty").style.display = "block";
+        return;
+      }
+      document.getElementById("transactionsEmpty").style.display = "none";
+
+      txs.forEach((t) => {
+        body.innerHTML += `
+      <tr>
+        <td>${t.user?.name || "—"}</td>
+        <td>${t.user?.loginId || "—"}</td>
+        <td style="text-transform:capitalize;">${t.type}</td>
+        <td>${t.bond?.name || "—"}</td>
+        <td>${money(t.amount)}</td>
+        <td>${new Date(t.createdAt).toLocaleDateString()}</td>
+        <td>
+          <button class="action-btn approve" onclick="approveTransaction('${t._id}')">Approve</button>
+          <button class="action-btn reject" onclick="rejectTransaction('${t._id}')">Reject</button>
+        </td>
+      </tr>`;
+      });
+    }
+
+    async function approveTransaction(id) {
+      const data = await apiCall(`/admin/transactions/${id}/approve`, "PUT");
+      if (data) { showAlert(data.message, "success"); loadPendingTransactions(); loadStats(); }
+    }
+
+    function rejectTransaction(id) {
+      askReason("Reason for rejecting this transaction", async (reason) => {
+        const data = await apiCall(`/admin/transactions/${id}/reject`, "PUT", { reason });
+        if (data) { showAlert(data.message, "success"); loadPendingTransactions(); loadStats(); }
+      });
+    }
+
+    // ---------- BONDS ----------
+    async function loadBondsAdmin() {
+      document.getElementById("bondsBody").innerHTML = `<tr><td colspan="6" class="empty-msg">Loading…</td></tr>`;
+      const bonds = await apiCall("/admin/bonds");
+      if (!bonds) return;
+      const body = document.getElementById("bondsBody");
+      body.innerHTML = "";
+      bonds.forEach((b) => {
+        body.innerHTML += `
+      <tr>
+        <td>${b.name}</td>
+        <td>${b.type}</td>
+        <td style="color:#2e8540; font-weight:bold;">${b.interestRate}%</td>
+        <td>${b.termYears} yr</td>
+        <td>${money(b.minPurchase)} – ${money(b.maxPurchase)}</td>
+        <td>
+          <button class="action-btn edit" onclick="editBondRate('${b._id}', ${b.interestRate})">Edit Rate</button>
+          <button class="action-btn delete" onclick="deleteBond('${b._id}')">Delete</button>
+        </td>
+      </tr>`;
+      });
+    }
+
+    async function createBond() {
+      const payload = {
+        name: document.getElementById("bondName").value,
+        type: document.getElementById("bondTypeInput").value,
+        interestRate: Number(document.getElementById("bondRate").value),
+        termYears: Number(document.getElementById("bondTerm").value),
+        minPurchase: Number(document.getElementById("bondMin").value) || 25,
+        maxPurchase: Number(document.getElementById("bondMax").value) || 10000,
+        description: document.getElementById("bondDescription").value,
+      };
+
+      if (!payload.name || !payload.interestRate || !payload.termYears) {
+        showAlert("Please fill in name, rate, and term.", "error");
+        return;
+      }
+
+      const data = await apiCall("/admin/bonds", "POST", payload);
+      if (data) { showAlert("Security added.", "success"); loadBondsAdmin(); }
+    }
+
+    function editBondRate(id, currentRate) {
+      document.getElementById("rateModalCurrent").textContent = currentRate + "%";
+      document.getElementById("rateInput").value = currentRate;
+      const btn = document.getElementById("rateActionBtn");
+      const freshBtn = btn.cloneNode(true);
+      btn.parentNode.replaceChild(freshBtn, btn);
+      freshBtn.addEventListener("click", async () => {
+        const newRate = Number(document.getElementById("rateInput").value);
+        if (isNaN(newRate) || newRate < 0) { showAlert("Please enter a valid rate.", "error"); return; }
+        const data = await apiCall(`/admin/bonds/${id}`, "PUT", { interestRate: newRate });
+        if (data) {
+          showAlert("Rate updated. Existing holdings are unaffected.", "success");
+          closeRateModal();
+          loadBondsAdmin();
+        }
+      });
+      document.getElementById("rateModal").classList.add("show");
+    }
+    function closeRateModal() {
+      document.getElementById("rateModal").classList.remove("show");
+    }
+
+    function deleteBond(id) {
+      askConfirm("Delete this security? This will fail if any user currently holds it.", async () => {
+        const data = await apiCall(`/admin/bonds/${id}`, "DELETE");
+        if (data) { showAlert(data.message, data.message.includes("Cannot") ? "error" : "success"); loadBondsAdmin(); }
+      });
+    }
+
+    // ---------- PAYMENT METHODS ----------
+    let editingPaymentMethodId = null;
+    let editingCustomQrImage = null;
+    let pmQrImageRemoved = false;
+
+    function togglePmFields() {
+      const type = document.getElementById("pmType").value;
+      document.getElementById("pmBankFields").style.display = type === "bank_transfer" ? "contents" : "none";
+      document.getElementById("pmCryptoFields").style.display = type === "crypto" ? "contents" : "none";
+    }
+
+    async function createPaymentMethod() {
+      const type = document.getElementById("pmType").value;
+      const payload = {
+        type,
+        label: document.getElementById("pmLabel").value,
+        instructions: document.getElementById("pmInstructions").value,
+      };
+
+      if (type === "bank_transfer") {
+        payload.bankName = document.getElementById("pmBankName").value;
+        payload.accountName = document.getElementById("pmAccountName").value;
+        payload.accountNumber = document.getElementById("pmAccountNumber").value;
+        payload.routingNumber = document.getElementById("pmRoutingNumber").value;
+        payload.swiftCode = document.getElementById("pmSwiftCode").value;
+      } else if (type === "crypto") {
+        payload.cryptoCurrency = document.getElementById("pmCurrency").value;
+        payload.network = document.getElementById("pmNetwork").value;
+        payload.walletAddress = document.getElementById("pmWalletAddress").value;
+
+        const file = document.getElementById("pmQrImage").files[0];
+        if (file) {
+          payload.customQrImage = await new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.onload = () => resolve(reader.result);
+            reader.readAsDataURL(file);
+          });
+        } else if (pmQrImageRemoved) {
+          payload.customQrImage = null;
+        } else if (editingPaymentMethodId && editingCustomQrImage) {
+          payload.customQrImage = editingCustomQrImage;
+        }
+      }
+
+      if (!payload.label) { showAlert("Please provide a label.", "error"); return; }
+
+      let data;
+      if (editingPaymentMethodId) {
+        data = await apiCall(`/admin/payment-methods/${editingPaymentMethodId}`, "PUT", payload);
+        if (data) {
+          showAlert("Payment method updated.", "success");
+          resetPaymentMethodForm();
+        }
+      } else {
+        data = await apiCall("/admin/payment-methods", "POST", payload);
+        if (data) {
+          showAlert("Payment method added.", "success");
+          resetPaymentMethodForm();
+        }
+      }
+      loadAllPaymentMethods();
+    }
+
+    async function editPaymentMethod(id) {
+      const methods = await apiCall("/admin/payment-methods");
+      if (!methods) return;
+      const method = methods.find((m) => m._id === id);
+      if (!method) return;
+
+      editingPaymentMethodId = id;
+      const button = document.querySelector('button[onclick="createPaymentMethod()"]');
+      if (button) button.textContent = "Update Payment Method";
+      const cancelBtn = document.getElementById("pmCancelEditBtn");
+      if (cancelBtn) cancelBtn.style.display = "inline-block";
+
+      document.getElementById("pmType").value = method.type;
+      document.getElementById("pmLabel").value = method.label || "";
+      document.getElementById("pmInstructions").value = method.instructions || "";
+
+      if (method.type === "bank_transfer") {
+        document.getElementById("pmBankName").value = method.bankName || "";
+        document.getElementById("pmAccountName").value = method.accountName || "";
+        document.getElementById("pmAccountNumber").value = method.accountNumber || "";
+        document.getElementById("pmRoutingNumber").value = method.routingNumber || "";
+        document.getElementById("pmSwiftCode").value = method.swiftCode || "";
+      }
+      if (method.type === "crypto") {
+        document.getElementById("pmCurrency").value = method.cryptoCurrency || "";
+        document.getElementById("pmNetwork").value = method.network || "";
+        document.getElementById("pmWalletAddress").value = method.walletAddress || "";
+      }
+
+      editingCustomQrImage = method.customQrImage || null;
+      pmQrImageRemoved = false;
+      document.getElementById("pmQrImage").value = "";
+      showPmQrPreview(editingCustomQrImage);
+
+      togglePmFields();
+      document.querySelector(".pm-form").scrollIntoView({ behavior: "smooth", block: "start" });
+      showAlert("Payment method loaded. You can now edit it.", "success");
+    }
+
+    function showPmQrPreview(src) {
+      const wrap = document.getElementById("pmQrPreviewWrap");
+      const img = document.getElementById("pmQrPreview");
+      if (src) {
+        img.src = src;
+        wrap.style.display = "block";
+      } else {
+        img.src = "";
+        wrap.style.display = "none";
+      }
+    }
+
+    function previewPmQrImage() {
+      const file = document.getElementById("pmQrImage").files[0];
+      if (!file) return;
+      pmQrImageRemoved = false;
+      const reader = new FileReader();
+      reader.onload = () => showPmQrPreview(reader.result);
+      reader.readAsDataURL(file);
+    }
+
+    function removePmQrImage() {
+      document.getElementById("pmQrImage").value = "";
+      editingCustomQrImage = null;
+      pmQrImageRemoved = true;
+      showPmQrPreview(null);
+    }
+
+    function resetPaymentMethodForm() {
+      editingPaymentMethodId = null;
+      editingCustomQrImage = null;
+      pmQrImageRemoved = false;
+      showPmQrPreview(null);
+
+      document.getElementById("pmType").value = "bank_transfer";
+      document.getElementById("pmLabel").value = "";
+      document.getElementById("pmInstructions").value = "";
+      document.getElementById("pmBankName").value = "";
+      document.getElementById("pmAccountName").value = "";
+      document.getElementById("pmAccountNumber").value = "";
+      document.getElementById("pmRoutingNumber").value = "";
+      document.getElementById("pmSwiftCode").value = "";
+      document.getElementById("pmCurrency").value = "";
+      document.getElementById("pmNetwork").value = "";
+      document.getElementById("pmWalletAddress").value = "";
+      document.getElementById("pmQrImage").value = "";
+      togglePmFields();
+
+      const button = document.querySelector('button[onclick="createPaymentMethod()"]');
+      if (button) button.textContent = "Add Payment Method";
+      const cancelBtn = document.getElementById("pmCancelEditBtn");
+      if (cancelBtn) cancelBtn.style.display = "none";
+    }
+
+    function cancelEditPaymentMethod() {
+      resetPaymentMethodForm();
+      showAlert("Edit cancelled.", "success");
+    }
+
+    async function loadAllPaymentMethods() {
+      document.getElementById("pmBody").innerHTML = `<tr><td colspan="5" class="empty-msg">Loading…</td></tr>`;
+      const methods = await apiCall("/admin/payment-methods");
+      if (!methods) return;
+      const body = document.getElementById("pmBody");
+      body.innerHTML = "";
+      methods.forEach((m) => {
+        let details = "";
+        if (m.type === "bank_transfer") details = `${m.bankName || "-"} • ${m.accountNumber || "-"}`;
+        if (m.type === "crypto") details = `${m.cryptoCurrency || "-"} (${m.network || "-"})`;
+
+        body.innerHTML += `
+      <tr>
+        <td>${m.label}</td>
+        <td style="text-transform:capitalize;">${m.type.replace("_", " ")}</td>
+        <td><span class="badge ${m.isActive ? "active" : "suspended"}">${m.isActive ? "Active" : "Hidden"}</span></td>
+        <td>${details}</td>
+        <td>
+          <button class="action-btn edit" onclick="editPaymentMethod('${m._id}')">Edit</button>
+          ${m.isActive
+            ? `<button class="action-btn suspend" onclick="togglePaymentMethod('${m._id}', false)">Hide</button>`
+            : `<button class="action-btn restore" onclick="togglePaymentMethod('${m._id}', true)">Activate</button>`}
+          <button class="action-btn delete" onclick="deletePaymentMethod('${m._id}')">Delete</button>
+        </td>
+      </tr>`;
+      });
+    }
+
+    async function togglePaymentMethod(id, activate) {
+      const data = await apiCall(`/admin/payment-methods/${id}`, "PUT", { isActive: activate });
+      if (data) { showAlert("Payment method updated.", "success"); loadAllPaymentMethods(); }
+    }
+
+    function deletePaymentMethod(id) {
+      askConfirm("Delete this payment method?", async () => {
+        const data = await apiCall(`/admin/payment-methods/${id}`, "DELETE");
+        if (data) { showAlert(data.message, "success"); loadAllPaymentMethods(); }
+      });
+    }
+
+    // Initial load
+    loadMe();
+    loadStats();
+    loadUsers();
+    loadPendingDeposits();
+    loadPendingTransactions();
+    loadBondsAdmin();
+    loadAllPaymentMethods();
+  </script>
+
+</body>
+
+</html>

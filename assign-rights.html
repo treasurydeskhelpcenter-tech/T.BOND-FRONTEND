@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Assign Rights - TreasuryDirect</title>
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 13px;
+      color: #333;
+      margin: 0;
+      background: #fff;
+    }
+
+    a {
+      color: #0000cc;
+      text-decoration: underline;
+    }
+
+    a:hover {
+      color: #cc3300;
+    }
+
+    .header-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .header-table td {
+      padding: 10px 20px;
+      vertical-align: middle;
+    }
+
+    .logo {
+      font-size: 26px;
+      font-weight: bold;
+      color: #2f6a31;
+    }
+
+    .logo span {
+      color: #1a4fa0;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 4px 14px;
+      font-size: 12px;
+      font-weight: bold;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 3px;
+      border: 1px solid rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-help {
+      background: #4caf50;
+    }
+
+    .btn-logoff {
+      background: #e07a1f;
+      cursor: pointer;
+    }
+
+    .navbar {
+      width: 100%;
+      border-collapse: collapse;
+      background: #1a4fa0;
+    }
+
+    .navbar td {
+      padding: 8px 16px;
+      color: #fff;
+      font-weight: bold;
+      font-size: 12px;
+      text-align: center;
+      border-right: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .navbar td.active {
+      background: #e07a1f;
+    }
+
+    .navbar a {
+      color: #fff;
+      text-decoration: none;
+      display: block;
+    }
+
+    .content {
+      padding: 20px 30px;
+      max-width: 900px;
+    }
+
+    .breadcrumb {
+      color: #cc5500;
+      font-weight: bold;
+      font-size: 16px;
+      margin-bottom: 4px;
+    }
+
+    .subtext {
+      font-size: 12px;
+      color: #444;
+      margin-bottom: 16px;
+    }
+
+    .acct-line {
+      text-align: right;
+      font-size: 12px;
+      color: #333;
+      margin-top: -30px;
+      margin-bottom: 10px;
+    }
+
+    table.data {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 12px 0 20px;
+    }
+
+    table.data th {
+      background: #1a4fa0;
+      color: #fff;
+      text-align: left;
+      padding: 6px 10px;
+      font-size: 12px;
+    }
+
+    table.data td {
+      border: 1px solid #ccc;
+      padding: 8px 10px;
+      font-size: 13px;
+    }
+
+    table.data tr.row-option {
+      cursor: pointer;
+    }
+
+    table.data tr.row-option:hover td {
+      background: #eef4fb;
+    }
+
+    table.data tr.row-option.selected td {
+      background: #dceafd;
+    }
+
+    .rights-tag {
+      background: #eef4fb;
+      color: #1a4fa0;
+      font-size: 10px;
+      font-weight: bold;
+      padding: 2px 6px;
+      border-radius: 2px;
+    }
+
+    .rights-tag.transact {
+      background: #fdf3e3;
+      color: #8a5a00;
+    }
+
+    .rights-tag.none {
+      background: #f0f0f0;
+      color: #777;
+    }
+
+    fieldset {
+      border: 1px solid #999;
+      padding: 14px;
+      margin-bottom: 16px;
+    }
+
+    legend {
+      font-weight: bold;
+      color: #1a4fa0;
+      padding: 0 6px;
+    }
+
+    label {
+      display: inline-block;
+      width: 220px;
+      font-size: 13px;
+    }
+
+    input[type="text"] {
+      border: 1px solid #666;
+      padding: 4px 6px;
+      font-size: 13px;
+      width: 220px;
+    }
+
+    .radio-inline label {
+      width: auto;
+      margin-right: 20px;
+    }
+
+    .field-row {
+      margin-bottom: 12px;
+    }
+
+    .action-btn {
+      background: #1a4fa0;
+      color: #fff;
+      border: 1px solid #12407e;
+      padding: 6px 18px;
+      font-weight: bold;
+      font-size: 12px;
+      cursor: pointer;
+      border-radius: 2px;
+    }
+
+    .action-btn:disabled {
+      background: #9aa8bb;
+      border-color: #8593a6;
+      cursor: not-allowed;
+    }
+
+    .action-btn.cancel {
+      background: #e07a1f;
+      border-color: #b3610f;
+    }
+
+    .action-btn.danger {
+      background: #a33;
+      border-color: #822;
+    }
+
+    .error-banner {
+      background: #fdeaea;
+      border: 1px solid #d99;
+      color: #a33;
+      padding: 10px 14px;
+      margin-bottom: 16px;
+      font-size: 12px;
+      display: none;
+    }
+
+    .error-banner.show {
+      display: block;
+    }
+
+    .error-title {
+      font-weight: bold;
+      margin-bottom: 4px;
+    }
+
+    .success-box {
+      background: #eef8ee;
+      border: 1px solid #a9d4a9;
+      color: #235c23;
+      padding: 10px 14px;
+      margin-bottom: 16px;
+      font-size: 12px;
+      display: none;
+    }
+
+    .success-box.show {
+      display: block;
+    }
+
+    .detail-box {
+      border: 1px solid #ccc;
+      padding: 16px 18px;
+      margin: 14px 0 20px;
+      background: #fafafa;
+    }
+
+    .detail-box .row {
+      margin-bottom: 8px;
+    }
+
+    .detail-box .label {
+      display: inline-block;
+      width: 200px;
+      font-weight: bold;
+      color: #444;
+    }
+
+    .field-error {
+      font-size: 11px;
+      color: #a33;
+      margin-top: 4px;
+      display: none;
+    }
+
+    .empty-msg {
+      padding: 20px;
+      text-align: center;
+      color: #666;
+      font-style: italic;
+    }
+
+    .loading-msg {
+      padding: 20px;
+      text-align: center;
+      color: #666;
+    }
+
+    .footer {
+      border-top: 1px solid #ccc;
+      text-align: center;
+      padding: 14px;
+      font-size: 11px;
+      color: #666;
+      margin-top: 30px;
+    }
+
+    .footer a {
+      margin: 0 6px;
+    }
+
+    #step1,
+    #step2 {
+      display: none;
+    }
+
+    #step1.active,
+    #step2.active {
+      display: block;
+    }
+  </style>
+</head>
+
+<body>
+
+  <table class="header-table">
+    <tr>
+      <td class="logo">Treasury<span>Direct</span>.</td>
+      <td style="text-align:right;">
+        <a class="btn btn-help" href="help.html">Help</a>
+        <a class="btn btn-logoff" id="logoffBtn">Logoff</a>
+      </td>
+    </tr>
+  </table>
+
+  <table class="navbar">
+    <tr>
+      <td><a href="dashboard.html">My Account</a></td>
+      <td><a href="purchase-bond.html">BuyDirect</a></td>
+      <td><a href="current-holdings.html">Current Holdings</a></td>
+      <td class="active"><a href="#" style="color:#fff;">ManageDirect</a></td>
+      <td><a href="account-info.html">Account Info</a></td>
+      <td><a href="history.html">History</a></td>
+    </tr>
+  </table>
+
+  <div class="content">
+    <div class="breadcrumb">ManageDirect &raquo; Assign View or Transact Rights</div>
+    <div class="acct-line" id="acctLine"></div>
+    <div class="subtext">Select a security below to grant or revoke View or Transact rights for its second-named
+      registrant.</div>
+
+    <div class="error-banner" id="errorBanner">
+      <div class="error-title">The following error occurred:</div>
+      <div id="errorText"></div>
+    </div>
+
+    <div class="success-box" id="successBox"></div>
+
+    <!-- STEP 1: choose an eligible security -->
+    <div id="step1" class="active">
+      <div class="loading-msg" id="loadingMsg">Loading eligible securities…</div>
+      <table class="data" id="holdingsTable" style="display:none;">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Security</th>
+            <th>Registration</th>
+            <th>Current Rights</th>
+          </tr>
+        </thead>
+        <tbody id="holdingsBody"></tbody>
+      </table>
+      <div class="empty-msg" id="emptyMsg" style="display:none;">
+        You have no eligible securities. Only securities registered as <strong>Primary Owner (WITH)</strong> or
+        <strong>Beneficiary (POD)</strong> can have rights assigned. <a href="registration-list.html">Manage your
+          registrations</a>.
+      </div>
+
+      <p>
+        <button class="action-btn" id="continueBtn" disabled>Continue</button>
+        <button class="action-btn cancel" onclick="window.location.href='dashboard.html'">Cancel</button>
+      </p>
+    </div>
+
+    <!-- STEP 2: view / grant / revoke -->
+    <div id="step2">
+      <div class="detail-box" id="securityDetail"></div>
+
+      <fieldset id="revokeBox" style="display:none;">
+        <legend>Current Rights</legend>
+        <p id="currentRightsText"></p>
+        <button class="action-btn danger" id="revokeBtn">Revoke Rights</button>
+      </fieldset>
+
+      <fieldset id="grantBox">
+        <legend>Grant Rights</legend>
+        <div class="field-row">
+          <label>Grantee's TreasuryDirect Account #:</label>
+          <input type="text" id="granteeId" placeholder="e.g. A-123-456-789">
+        </div>
+        <div class="field-row radio-inline">
+          <label style="width:auto;">Rights Type:</label><br><br>
+          <label><input type="radio" name="rightsType" value="view" checked> View rights only</label>
+          <label><input type="radio" name="rightsType" value="transact"> Transact rights</label>
+        </div>
+        <p style="font-size:12px; color:#444;">
+          By granting Transact rights, you are providing the grantee the ability to redeem this security.
+          You remain responsible for any tax liability associated with this security.
+        </p>
+        <div class="field-error" id="grantError"></div>
+      </fieldset>
+
+      <p>
+        <button class="action-btn" id="grantBtn">Grant Rights</button>
+        <button class="action-btn cancel" id="backBtn">Back</button>
+      </p>
+    </div>
+  </div>
+
+  <div class="footer">
+    <a href="privacy-legal.html">Privacy &amp; Legal Notices</a> | <a href="site-map.html">Site Map</a> | <a
+      href="contact-us.html">Contact Us</a>
+  </div>
+
+  <script>
+    const API_BASE = "https://t-bond-backend.onrender.com/api";
+    const token = localStorage.getItem("td_token");
+    const userRaw = localStorage.getItem("td_user");
+
+    if (!token) {
+      window.location.href = "login.html";
+    }
+
+    let currentUser = null;
+    try { currentUser = userRaw ? JSON.parse(userRaw) : null; } catch (e) { currentUser = null; }
+
+    document.getElementById("acctLine").textContent = currentUser?.loginId
+      ? `${currentUser.name || ""}: ${currentUser.loginId}`
+      : "";
+
+    document.getElementById("logoffBtn").addEventListener("click", () => {
+      localStorage.removeItem("td_token");
+      localStorage.removeItem("td_user");
+      window.location.href = "login.html";
+    });
+
+    function showStep(step) {
+      ["step1", "step2"].forEach((id) => {
+        document.getElementById(id).classList.toggle("active", id === step);
+      });
+    }
+
+    function showError(msg) {
+      const banner = document.getElementById("errorBanner");
+      document.getElementById("errorText").textContent = msg;
+      banner.classList.add("show");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function clearError() {
+      document.getElementById("errorBanner").classList.remove("show");
+    }
+
+    function showSuccess(msg) {
+      const box = document.getElementById("successBox");
+      box.textContent = msg;
+      box.classList.add("show");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      setTimeout(() => box.classList.remove("show"), 4000);
+    }
+
+    function formatMoney(n) {
+      return Number(n || 0).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    let holdings = [];
+    let selectedHolding = null;
+
+    async function loadEligible() {
+      try {
+        const res = await fetch(`${API_BASE}/rights/eligible`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        const data = await res.json();
+
+        if (!res.ok) {
+          throw new Error(data.message || "Unable to load your securities.");
+        }
+
+        holdings = data;
+        document.getElementById("loadingMsg").style.display = "none";
+
+        if (holdings.length === 0) {
+          document.getElementById("emptyMsg").style.display = "block";
+          return;
+        }
+
+        const tbody = document.getElementById("holdingsBody");
+        tbody.innerHTML = "";
+
+        holdings.forEach((h) => {
+          const hasRights = !!h.grantedRights?.toUser;
+          const rightsLabel = hasRights
+            ? `<span class="rights-tag ${h.grantedRights.type}">${h.grantedRights.type === "transact" ? "TRANSACT" : "VIEW"} GRANTED</span>`
+            : `<span class="rights-tag none">NONE</span>`;
+
+          const tr = document.createElement("tr");
+          tr.className = "row-option";
+          tr.dataset.id = h._id;
+          tr.innerHTML = `
+          <td><input type="radio" name="holding" value="${h._id}"></td>
+          <td>${h.bond?.name || "Security"} — $${formatMoney(h.currentValue)}</td>
+          <td>${h.registration?.displayLabel || (h.registration ? h.registration.firstName + " " + h.registration.lastName : "-")}</td>
+          <td>${rightsLabel}</td>
+        `;
+          tr.addEventListener("click", () => selectRow(tr, h));
+          tbody.appendChild(tr);
+        });
+
+        document.getElementById("holdingsTable").style.display = "table";
+      } catch (err) {
+        document.getElementById("loadingMsg").style.display = "none";
+        showError(err.message || "Something went wrong loading your securities.");
+      }
+    }
+
+    function selectRow(tr, holding) {
+      document.querySelectorAll("#holdingsBody tr").forEach((r) => r.classList.remove("selected"));
+      tr.classList.add("selected");
+      tr.querySelector("input[type=radio]").checked = true;
+      selectedHolding = holding;
+      document.getElementById("continueBtn").disabled = false;
+    }
+
+    document.getElementById("continueBtn").addEventListener("click", () => {
+      if (!selectedHolding) return;
+      clearError();
+      renderStep2();
+      showStep("step2");
+    });
+
+    document.getElementById("backBtn").addEventListener("click", () => {
+      clearError();
+      showStep("step1");
+    });
+
+    function renderStep2() {
+      const h = selectedHolding;
+      document.getElementById("securityDetail").innerHTML = `
+      <div class="row"><span class="label">Security:</span> ${h.bond?.name || "Security"}</div>
+      <div class="row"><span class="label">Current Value:</span> $${formatMoney(h.currentValue)}</div>
+      <div class="row"><span class="label">Registration:</span> ${h.registration?.firstName || ""} ${h.registration?.lastName || ""} ${h.registration?.ownerType === "primary" ? "WITH" : "POD"} ${h.registration?.secondFirstName || ""} ${h.registration?.secondLastName || ""}</div>
+    `;
+
+      const hasRights = !!h.grantedRights?.toUser;
+      const revokeBox = document.getElementById("revokeBox");
+      const grantBox = document.getElementById("grantBox");
+      const grantBtn = document.getElementById("grantBtn");
+
+      if (hasRights) {
+        revokeBox.style.display = "block";
+        document.getElementById("currentRightsText").textContent =
+          `${h.grantedRights.type === "transact" ? "Transact" : "View"} rights are currently granted on this security.`;
+        grantBox.style.display = "none";
+        grantBtn.style.display = "none";
+      } else {
+        revokeBox.style.display = "none";
+        grantBox.style.display = "block";
+        grantBtn.style.display = "inline-block";
+        document.getElementById("granteeId").value = "";
+        document.querySelector('input[name="rightsType"][value="view"]').checked = true;
+        document.getElementById("grantError").style.display = "none";
+      }
+    }
+
+    document.getElementById("grantBtn").addEventListener("click", async () => {
+      if (!selectedHolding) return;
+      clearError();
+      const errBox = document.getElementById("grantError");
+      const granteeAccountNumber = document.getElementById("granteeId").value.trim();
+      const rightsType = document.querySelector('input[name="rightsType"]:checked').value;
+
+      if (!granteeAccountNumber) {
+        errBox.textContent = "Please enter the grantee's TreasuryDirect Account Number.";
+        errBox.style.display = "block";
+        return;
+      }
+      errBox.style.display = "none";
+
+      const btn = document.getElementById("grantBtn");
+      btn.disabled = true;
+      btn.textContent = "Submitting…";
+
+      try {
+        const res = await fetch(`${API_BASE}/rights/${selectedHolding._id}`, {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ granteeAccountNumber, rightsType }),
+        });
+        const data = await res.json();
+
+        if (!res.ok) {
+          throw new Error(data.message || "Unable to grant rights.");
+        }
+
+        showSuccess(data.message);
+        showStep("step1");
+        loadEligible();
+      } catch (err) {
+        errBox.textContent = err.message || "Something went wrong.";
+        errBox.style.display = "block";
+      } finally {
+        btn.disabled = false;
+        btn.textContent = "Grant Rights";
+      }
+    });
+
+    document.getElementById("revokeBtn").addEventListener("click", async () => {
+      if (!selectedHolding) return;
+      clearError();
+
+      if (!confirm("Revoke all rights on this security? The grantee will lose access immediately.")) {
+        return;
+      }
+
+      try {
+        const res = await fetch(`${API_BASE}/rights/${selectedHolding._id}`, {
+          method: "DELETE",
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        const data = await res.json();
+
+        if (!res.ok) {
+          throw new Error(data.message || "Unable to revoke rights.");
+        }
+
+        showSuccess("Rights revoked.");
+        showStep("step1");
+        loadEligible();
+      } catch (err) {
+        showError(err.message || "Something went wrong revoking rights.");
+      }
+    });
+
+    loadEligible();
+  </script>
+
+</body>
+
+</html>

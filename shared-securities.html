@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Shared Securities - TreasuryDirect</title>
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 13px;
+      color: #333;
+      margin: 0;
+      background: #fff;
+    }
+
+    a {
+      color: #0000cc;
+      text-decoration: underline;
+    }
+
+    .header-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .header-table td {
+      padding: 10px 20px;
+      vertical-align: middle;
+    }
+
+    .logo {
+      font-size: 26px;
+      font-weight: bold;
+      color: #2f6a31;
+    }
+
+    .logo span {
+      color: #1a4fa0;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 4px 14px;
+      font-size: 12px;
+      font-weight: bold;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 3px;
+      border: 1px solid rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-help {
+      background: #4caf50;
+    }
+
+    .btn-logoff {
+      background: #e07a1f;
+      cursor: pointer;
+    }
+
+    .navbar {
+      width: 100%;
+      border-collapse: collapse;
+      background: #1a4fa0;
+    }
+
+    .navbar td {
+      padding: 8px 16px;
+      color: #fff;
+      font-weight: bold;
+      font-size: 12px;
+      text-align: center;
+      border-right: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .navbar td.active {
+      background: #e07a1f;
+    }
+
+    .navbar a {
+      color: #fff;
+      text-decoration: none;
+      display: block;
+    }
+
+    .content {
+      padding: 20px 30px;
+      max-width: 900px;
+    }
+
+    .breadcrumb {
+      color: #cc5500;
+      font-weight: bold;
+      font-size: 16px;
+      margin-bottom: 4px;
+    }
+
+    .subtext {
+      font-size: 12px;
+      color: #444;
+      margin-bottom: 16px;
+    }
+
+    .acct-line {
+      text-align: right;
+      font-size: 12px;
+      color: #333;
+      margin-top: -30px;
+      margin-bottom: 10px;
+    }
+
+    table.data {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 12px 0 20px;
+    }
+
+    table.data th {
+      background: #1a4fa0;
+      color: #fff;
+      text-align: left;
+      padding: 6px 10px;
+      font-size: 12px;
+    }
+
+    table.data td {
+      border: 1px solid #ccc;
+      padding: 8px 10px;
+      font-size: 13px;
+    }
+
+    table.data td.num {
+      text-align: right;
+    }
+
+    .rights-tag {
+      font-size: 10px;
+      font-weight: bold;
+      padding: 2px 6px;
+      border-radius: 2px;
+    }
+
+    .rights-tag.view {
+      background: #eef4fb;
+      color: #1a4fa0;
+    }
+
+    .rights-tag.transact {
+      background: #fdf3e3;
+      color: #8a5a00;
+    }
+
+    .action-btn {
+      background: #1a4fa0;
+      color: #fff;
+      border: 1px solid #12407e;
+      padding: 5px 14px;
+      font-weight: bold;
+      font-size: 11px;
+      cursor: pointer;
+      border-radius: 2px;
+    }
+
+    .action-btn:disabled {
+      background: #9aa8bb;
+      border-color: #8593a6;
+      cursor: not-allowed;
+    }
+
+    .error-banner {
+      background: #fdeaea;
+      border: 1px solid #d99;
+      color: #a33;
+      padding: 10px 14px;
+      margin-bottom: 16px;
+      font-size: 12px;
+      display: none;
+    }
+
+    .error-banner.show {
+      display: block;
+    }
+
+    .success-box {
+      background: #eef8ee;
+      border: 1px solid #a9d4a9;
+      color: #235c23;
+      padding: 10px 14px;
+      margin-bottom: 16px;
+      font-size: 12px;
+      display: none;
+    }
+
+    .success-box.show {
+      display: block;
+    }
+
+    .empty-msg {
+      padding: 20px;
+      text-align: center;
+      color: #666;
+      font-style: italic;
+    }
+
+    .loading-msg {
+      padding: 20px;
+      text-align: center;
+      color: #666;
+    }
+
+    .footer {
+      border-top: 1px solid #ccc;
+      text-align: center;
+      padding: 14px;
+      font-size: 11px;
+      color: #666;
+      margin-top: 30px;
+    }
+
+    .footer a {
+      margin: 0 6px;
+    }
+  </style>
+</head>
+
+<body>
+  <table class="header-table">
+    <tr>
+      <td class="logo">Treasury<span>Direct</span>.</td>
+      <td style="text-align:right;">
+        <a class="btn btn-help" href="help.html">Help</a>
+        <a class="btn btn-logoff" id="logoffBtn">Logoff</a>
+      </td>
+    </tr>
+  </table>
+
+  <table class="navbar">
+    <tr>
+      <td><a href="dashboard.html">My Account</a></td>
+      <td><a href="purchase-bond.html">BuyDirect</a></td>
+      <td><a href="current-holdings.html">Current Holdings</a></td>
+      <td class="active"><a href="#" style="color:#fff;">ManageDirect</a></td>
+      <td><a href="account-info.html">Account Info</a></td>
+      <td><a href="history.html">History</a></td>
+    </tr>
+  </table>
+
+  <div class="content">
+    <div class="breadcrumb">ManageDirect &raquo; Manage My Shared Securities</div>
+    <div class="acct-line" id="acctLine"></div>
+    <div class="subtext">Securities other TreasuryDirect account holders have granted you View or Transact rights on.
+    </div>
+
+    <div class="error-banner" id="errorBanner"></div>
+    <div class="success-box" id="successBox"></div>
+
+    <div class="loading-msg" id="loadingMsg">Loading shared securities…</div>
+    <table class="data" id="sharedTable" style="display:none;">
+      <thead>
+        <tr>
+          <th>Security</th>
+          <th>Owner Account</th>
+          <th>Rights</th>
+          <th style="text-align:right;">Current Value</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="sharedBody"></tbody>
+    </table>
+    <div class="empty-msg" id="emptyMsg" style="display:none;">No securities have been shared with you yet.</div>
+  </div>
+
+  <div class="footer">
+    <a href="help.html">Help</a> | <a href="privacy-legal.html">Privacy &amp; Legal Notices</a> | <a
+      href="site-map.html">Site Map</a> | <a href="contact-us.html">Contact Us</a>
+  </div>
+
+  <script>
+    const API_BASE = "https://t-bond-backend.onrender.com/api";
+    const token = localStorage.getItem("td_token");
+    const userRaw = localStorage.getItem("td_user");
+
+    if (!token) window.location.href = "login.html";
+
+    let currentUser = null;
+    try { currentUser = userRaw ? JSON.parse(userRaw) : null; } catch (e) { }
+
+    document.getElementById("acctLine").textContent = currentUser?.loginId ? `${currentUser.name || ""}: ${currentUser.loginId}` : "";
+
+    document.getElementById("logoffBtn").addEventListener("click", () => {
+      localStorage.removeItem("td_token");
+      localStorage.removeItem("td_user");
+      window.location.href = "login.html";
+    });
+
+    function showError(msg) {
+      const b = document.getElementById("errorBanner");
+      b.textContent = msg;
+      b.classList.add("show");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+    function showSuccess(msg) {
+      const b = document.getElementById("successBox");
+      b.textContent = msg;
+      b.classList.add("show");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      setTimeout(() => b.classList.remove("show"), 4000);
+    }
+    function formatMoney(n) {
+      return Number(n || 0).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    async function loadShared() {
+      try {
+        const res = await fetch(`${API_BASE}/rights/shared-with-me`, { headers: { Authorization: `Bearer ${token}` } });
+        const data = await res.json();
+        document.getElementById("loadingMsg").style.display = "none";
+        if (!res.ok) throw new Error(data.message || "Unable to load shared securities.");
+
+        if (data.length === 0) {
+          document.getElementById("emptyMsg").style.display = "block";
+          return;
+        }
+
+        const tbody = document.getElementById("sharedBody");
+        tbody.innerHTML = "";
+        data.forEach((h) => {
+          const isTransact = h.grantedRights?.type === "transact";
+          tbody.innerHTML += `
+          <tr>
+            <td>${h.bond?.name || "Security"}</td>
+            <td>${h.user?.loginId || "-"} (${h.user?.name || "-"})</td>
+            <td><span class="rights-tag ${isTransact ? "transact" : "view"}">${isTransact ? "TRANSACT" : "VIEW ONLY"}</span></td>
+            <td class="num">$${formatMoney(h.currentValue)}</td>
+            <td>${isTransact ? `<button class="action-btn" onclick="redeemShared('${h._id}', '${(h.bond?.name || "this security").replace(/'/g, "")}')">Redeem</button>` : ""}</td>
+          </tr>
+        `;
+        });
+        document.getElementById("sharedTable").style.display = "table";
+      } catch (err) {
+        showError(err.message || "Something went wrong loading shared securities.");
+      }
+    }
+
+    async function redeemShared(holdingId, bondName) {
+      if (!confirm(`Submit a redemption request for "${bondName}"? Proceeds will be credited to the owner's account, pending admin approval.`)) return;
+
+      try {
+        const res = await fetch(`${API_BASE}/rights/redeem-shared/${holdingId}`, {
+          method: "POST",
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.message || "Unable to submit redemption.");
+
+        showSuccess(data.message);
+        loadShared();
+      } catch (err) {
+        showError(err.message || "Something went wrong submitting this redemption.");
+      }
+    }
+
+    loadShared();
+  </script>
+</body>
+
+</html>

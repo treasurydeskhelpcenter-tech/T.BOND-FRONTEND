@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Current Holdings - TreasuryDirect</title>
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 13px;
+      color: #333;
+      margin: 0;
+      background: #fff;
+    }
+
+    a {
+      color: #0000cc;
+      text-decoration: underline;
+    }
+
+    a:hover {
+      color: #cc3300;
+    }
+
+    .header-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .header-table td {
+      padding: 10px 20px;
+      vertical-align: middle;
+    }
+
+    .logo {
+      font-size: 26px;
+      font-weight: bold;
+      color: #2f6a31;
+    }
+
+    .logo span {
+      color: #1a4fa0;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 4px 14px;
+      font-size: 12px;
+      font-weight: bold;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 3px;
+      border: 1px solid rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-help {
+      background: #4caf50;
+    }
+
+    .btn-logoff {
+      background: #e07a1f;
+      cursor: pointer;
+    }
+
+    .navbar {
+      width: 100%;
+      border-collapse: collapse;
+      background: #1a4fa0;
+    }
+
+    .navbar td {
+      padding: 8px 16px;
+      color: #fff;
+      font-weight: bold;
+      font-size: 12px;
+      text-align: center;
+      border-right: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .navbar td.active {
+      background: #e07a1f;
+    }
+
+    .navbar a {
+      color: #fff;
+      text-decoration: none;
+      display: block;
+    }
+
+    .content {
+      padding: 20px 30px;
+      max-width: 950px;
+    }
+
+    .breadcrumb {
+      color: #cc5500;
+      font-weight: bold;
+      font-size: 16px;
+      margin-bottom: 4px;
+    }
+
+    .subtext {
+      font-size: 12px;
+      color: #444;
+      margin-bottom: 16px;
+    }
+
+    .acct-line {
+      text-align: right;
+      font-size: 12px;
+      color: #333;
+      margin-top: -30px;
+      margin-bottom: 10px;
+    }
+
+    .summary-row {
+      display: flex;
+      gap: 14px;
+      margin-bottom: 22px;
+      flex-wrap: wrap;
+    }
+
+    .summary-box {
+      flex: 1;
+      min-width: 180px;
+      background: #eef4fb;
+      border: 1px solid #b7cbe6;
+      padding: 12px 16px;
+      border-radius: 3px;
+    }
+
+    .summary-box .label {
+      font-size: 11px;
+      color: #555;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .summary-box .value {
+      font-size: 18px;
+      font-weight: bold;
+      color: #1a4fa0;
+      margin-top: 4px;
+    }
+
+    .summary-box.total-value .value {
+      color: #235c23;
+    }
+
+    .holdings-block {
+      border: 1px solid #ccc;
+      margin-bottom: 20px;
+    }
+
+    .holdings-block h3 {
+      background: #f0f0f0;
+      margin: 0;
+      padding: 8px 12px;
+      font-size: 13px;
+      color: #333;
+      border-bottom: 1px solid #ccc;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .holdings-block h3 .block-total {
+      color: #1a4fa0;
+    }
+
+    table.data {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 0;
+    }
+
+    table.data th {
+      background: #fafafa;
+      color: #444;
+      text-align: left;
+      padding: 6px 10px;
+      font-size: 11px;
+      border-bottom: 1px solid #ccc;
+    }
+
+    table.data td {
+      border-top: 1px solid #eee;
+      padding: 7px 10px;
+      font-size: 13px;
+    }
+
+    table.data td.num {
+      text-align: right;
+    }
+
+    table.data tr:nth-child(even) td {
+      background: #fbfbfb;
+    }
+
+    .status-tag {
+      font-size: 11px;
+      padding: 2px 6px;
+      border-radius: 2px;
+    }
+
+    .status-active {
+      background: #eef8ee;
+      color: #235c23;
+    }
+
+    .status-matured {
+      background: #eef4fb;
+      color: #1a4fa0;
+    }
+
+    .status-redeemed {
+      background: #f0f0f0;
+      color: #777;
+    }
+
+    .error-banner {
+      background: #fdeaea;
+      border: 1px solid #d99;
+      color: #a33;
+      padding: 10px 14px;
+      margin-bottom: 16px;
+      font-size: 12px;
+      display: none;
+    }
+
+    .error-banner.show {
+      display: block;
+    }
+
+    .error-title {
+      font-weight: bold;
+      margin-bottom: 4px;
+    }
+
+    .empty-msg {
+      padding: 24px;
+      text-align: center;
+      color: #666;
+      font-style: italic;
+    }
+
+    .loading-msg {
+      padding: 30px;
+      text-align: center;
+      color: #666;
+    }
+
+    .footer {
+      border-top: 1px solid #ccc;
+      text-align: center;
+      padding: 14px;
+      font-size: 11px;
+      color: #666;
+      margin-top: 30px;
+    }
+
+    .footer a {
+      margin: 0 6px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <table class="header-table">
+    <tr>
+      <td class="logo">Treasury<span>Direct</span>.</td>
+      <td style="text-align:right;">
+        <a class="btn btn-help" href="help.html">Help</a>
+        <a class="btn btn-logoff" id="logoffBtn">Logoff</a>
+      </td>
+    </tr>
+  </table>
+
+  <table class="navbar">
+    <tr>
+      <td><a href="dashboard.html">My Account</a></td>
+      <td><a href="purchase-bond.html">BuyDirect</a></td>
+      <td class="active"><a href="#" style="color:#fff;">Current Holdings</a></td>
+      <td><a href="dashboard.html">ManageDirect</a></td>
+      <td><a href="account-info.html">Account Info</a></td>
+      <td><a href="history.html">History</a></td>
+    </tr>
+  </table>
+
+  <div class="content">
+    <div class="breadcrumb">Current Holdings</div>
+    <div class="acct-line" id="acctLine"></div>
+    <div class="subtext">A summary of the securities currently held in your account, grouped by security type.</div>
+
+    <div class="error-banner" id="errorBanner">
+      <div class="error-title">The following error occurred:</div>
+      <div id="errorText"></div>
+    </div>
+
+    <div class="loading-msg" id="loadingMsg">Loading your holdings…</div>
+
+    <div id="pageBody" style="display:none;">
+      <div class="summary-row">
+        <div class="summary-box">
+          <div class="label">Cash Balance</div>
+          <div class="value" id="sumCash">$0.00</div>
+        </div>
+        <div class="summary-box">
+          <div class="label">Total Principal Invested</div>
+          <div class="value" id="sumPrincipal">$0.00</div>
+        </div>
+        <div class="summary-box total-value">
+          <div class="label">Total Current Value</div>
+          <div class="value" id="sumCurrent">$0.00</div>
+        </div>
+        <div class="summary-box total-value">
+          <div class="label">Total Interest Earned</div>
+          <div class="value" id="sumInterest">$0.00</div>
+        </div>
+      </div>
+
+      <div id="groupsContainer"></div>
+
+      <div class="empty-msg" id="emptyMsg" style="display:none;">
+        You have no active securities. <a href="purchase-bond.html">Buy your first security</a>.
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <a href="privacy-legal.html">Privacy &amp; Legal Notices</a> | <a href="site-map.html">Site Map</a> | <a
+      href="contact-us.html">Contact Us</a>
+  </div>
+
+  <script>
+    const API_BASE = "https://t-bond-backend.onrender.com/api";
+    const token = localStorage.getItem("td_token");
+    const userRaw = localStorage.getItem("td_user");
+
+    if (!token) {
+      window.location.href = "login.html";
+    }
+
+    let currentUser = null;
+    try { currentUser = userRaw ? JSON.parse(userRaw) : null; } catch (e) { currentUser = null; }
+
+    document.getElementById("acctLine").textContent = currentUser?.loginId
+      ? `${currentUser.name || ""}: ${currentUser.loginId}`
+      : "";
+
+    document.getElementById("logoffBtn").addEventListener("click", () => {
+      localStorage.removeItem("td_token");
+      localStorage.removeItem("td_user");
+      window.location.href = "login.html";
+    });
+
+    function showError(msg) {
+      const banner = document.getElementById("errorBanner");
+      document.getElementById("errorText").textContent = msg;
+      banner.classList.add("show");
+    }
+
+    function formatMoney(n) {
+      return Number(n || 0).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    function formatDate(d) {
+      if (!d) return "-";
+      return new Date(d).toLocaleDateString("en-US", { year: "numeric", month: "2-digit", day: "2-digit" });
+    }
+
+    // Group bond types the way the real site groups them
+    const GROUP_LABELS = {
+      EE: "Savings Bonds",
+      I: "Savings Bonds",
+      "T-Bill": "Marketable Securities",
+      "T-Note": "Marketable Securities",
+      "T-Bond": "Marketable Securities",
+      TIPS: "Marketable Securities",
+      FRN: "Marketable Securities",
+    };
+
+    function groupLabelFor(type) {
+      return GROUP_LABELS[type] || "Other Securities";
+    }
+
+    function statusTagClass(status) {
+      if (status === "active") return "status-active";
+      if (status === "matured") return "status-matured";
+      return "status-redeemed";
+    }
+
+    async function loadHoldings() {
+      try {
+        const res = await fetch(`${API_BASE}/dashboard`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        const data = await res.json();
+
+        if (!res.ok) {
+          throw new Error(data.message || "Unable to load your holdings.");
+        }
+
+        document.getElementById("loadingMsg").style.display = "none";
+        document.getElementById("pageBody").style.display = "block";
+
+        document.getElementById("sumCash").textContent = `$${formatMoney(data.cashBalance)}`;
+        document.getElementById("sumPrincipal").textContent = `$${formatMoney(data.portfolio?.totalPrincipal)}`;
+        document.getElementById("sumCurrent").textContent = `$${formatMoney(data.portfolio?.totalCurrentValue)}`;
+        document.getElementById("sumInterest").textContent = `$${formatMoney(data.portfolio?.totalInterestEarned)}`;
+
+        const holdings = data.holdings || [];
+
+        if (holdings.length === 0) {
+          document.getElementById("emptyMsg").style.display = "block";
+          return;
+        }
+
+        // Group holdings by display group (Savings Bonds / Marketable Securities / Other)
+        const groups = {};
+        holdings.forEach((h) => {
+          const label = groupLabelFor(h.bond?.type);
+          if (!groups[label]) groups[label] = [];
+          groups[label].push(h);
+        });
+
+        const container = document.getElementById("groupsContainer");
+        container.innerHTML = "";
+
+        Object.keys(groups).forEach((label) => {
+          const items = groups[label];
+          const groupTotal = items.reduce((sum, h) => sum + (h.currentValue || 0), 0);
+
+          const block = document.createElement("div");
+          block.className = "holdings-block";
+
+          let rows = "";
+          items.forEach((h) => {
+            rows += `
+            <tr>
+              <td>${h.bond?.name || "Security"}</td>
+              <td>${h.bond?.type || "-"}</td>
+              <td>${h.bond?.interestRate != null ? h.bond.interestRate + "%" : "-"}</td>
+              <td>${formatDate(h.purchaseDate)}</td>
+              <td>${formatDate(h.maturityDate)}</td>
+              <td><span class="status-tag ${statusTagClass(h.status)}">${h.status}</span></td>
+              <td class="num">$${formatMoney(h.principal)}</td>
+              <td class="num">$${formatMoney(h.currentValue)}</td>
+            </tr>
+          `;
+          });
+
+          block.innerHTML = `
+          <h3>${label} <span class="block-total">$${formatMoney(groupTotal)}</span></h3>
+          <table class="data">
+            <thead>
+              <tr>
+                <th>Security</th>
+                <th>Type</th>
+                <th>Rate</th>
+                <th>Purchase Date</th>
+                <th>Maturity Date</th>
+                <th>Status</th>
+                <th style="text-align:right;">Principal</th>
+                <th style="text-align:right;">Current Value</th>
+              </tr>
+            </thead>
+            <tbody>${rows}</tbody>
+          </table>
+        `;
+          container.appendChild(block);
+        });
+      } catch (err) {
+        document.getElementById("loadingMsg").style.display = "none";
+        showError(err.message || "Something went wrong loading your holdings.");
+      }
+    }
+
+    loadHoldings();
+  </script>
+
+</body>
+
+</html>

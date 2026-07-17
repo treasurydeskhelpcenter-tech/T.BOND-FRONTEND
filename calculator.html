@@ -1,0 +1,1462 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Savings Bond Calculator — TreasuryDirect</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #fff;
+      color: #1b1b1b;
+      font-size: 14px;
+    }
+
+    a {
+      color: #205493;
+    }
+
+    /* Government banner */
+    .gov-banner {
+      background: #162e51;
+      color: #fff;
+      font-size: 12px;
+    }
+
+    .gov-banner a {
+      color: #fff;
+      text-decoration: underline;
+      margin-left: 6px;
+    }
+
+    .gov-banner-top {
+      padding: 8px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .gov-toggle {
+      background: none;
+      border: none;
+      color: #fff;
+      font: inherit;
+      font-size: 12px;
+      text-decoration: underline;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 0;
+    }
+
+    .gov-arrow {
+      font-size: 9px;
+      transition: transform 0.15s ease;
+      display: inline-block;
+    }
+
+    .gov-toggle[aria-expanded="true"] .gov-arrow {
+      transform: rotate(180deg);
+    }
+
+    .gov-panel {
+      border-top: 1px solid rgba(255, 255, 255, 0.25);
+      padding: 24px 20px 30px;
+    }
+
+    .gov-dept-line {
+      margin-bottom: 20px;
+    }
+
+    .gov-dept-line a {
+      margin-left: 0;
+      font-size: 14px;
+    }
+
+    .gov-panel-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 26px;
+      max-width: 900px;
+    }
+
+    @media (min-width: 700px) {
+      .gov-panel-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .gov-item {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+
+    .gov-icon {
+      flex-shrink: 0;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      border: 2px solid;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+    }
+
+    .gov-icon-blue {
+      border-color: #4f9cd9;
+    }
+
+    .gov-icon-green {
+      border-color: #6cc24a;
+    }
+
+    .gov-item h4 {
+      font-size: 15px;
+      margin-bottom: 6px;
+    }
+
+    .gov-item p {
+      font-size: 13px;
+      line-height: 1.6;
+      color: #d6e0ec;
+      margin: 0;
+    }
+
+    .gov-item p strong {
+      color: #fff;
+    }
+
+    /* Top row: flag text + the toggle button that opens/closes the panel */
+    .gov-banner-top {
+      padding: 8px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .gov-toggle {
+      background: none;
+      border: none;
+      color: #fff;
+      font: inherit;
+      font-size: 12px;
+      text-decoration: underline;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 0;
+    }
+
+    .gov-arrow {
+      font-size: 9px;
+      transition: transform 0.15s ease;
+      display: inline-block;
+    }
+
+    .gov-toggle[aria-expanded="true"] .gov-arrow {
+      transform: rotate(180deg);
+    }
+
+    /* Collapsible content panel — hidden by default via the [hidden] attribute */
+    .gov-panel {
+      border-top: 1px solid rgba(255, 255, 255, 0.25);
+      padding: 24px 20px 30px;
+    }
+
+    .gov-dept-line {
+      margin-bottom: 20px;
+    }
+
+    .gov-dept-line a {
+      margin-left: 0;
+      font-size: 14px;
+    }
+
+    .gov-panel-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 26px;
+      max-width: 900px;
+    }
+
+    @media (min-width: 700px) {
+      .gov-panel-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .gov-item {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+
+    .gov-icon {
+      flex-shrink: 0;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      border: 2px solid;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+    }
+
+    .gov-icon-blue {
+      border-color: #4f9cd9;
+    }
+
+    .gov-icon-green {
+      border-color: #6cc24a;
+    }
+
+    .gov-item h4 {
+      font-size: 15px;
+      margin-bottom: 6px;
+    }
+
+    .gov-item p {
+      font-size: 13px;
+      line-height: 1.6;
+      color: #d6e0ec;
+      margin: 0;
+    }
+
+    .gov-item p strong {
+      color: #fff;
+    }
+
+    /* Header */
+    header.site-header {
+      padding: 14px 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .logo {
+      font-size: 26px;
+      font-weight: bold;
+    }
+
+    .logo .treasury {
+      color: #4a7729;
+    }
+
+    .logo .direct {
+      color: #205493;
+    }
+
+    .logo .dot {
+      color: #e57200;
+    }
+
+    .header-links {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .header-links a {
+      color: #333;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .header-links a:hover {
+      text-decoration: underline;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .login-btn {
+      background: #e57200;
+      color: #fff;
+      padding: 9px 22px;
+      border-radius: 3px;
+      font-weight: bold;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .login-btn:hover {
+      background: #b85a00;
+    }
+
+    .search-box {
+      display: flex;
+    }
+
+    .search-box input {
+      padding: 8px 10px;
+      border: 1px solid #ccc;
+      border-right: none;
+      font-size: 13px;
+      width: 150px;
+    }
+
+    .search-box button {
+      background: #205493;
+      border: none;
+      color: #fff;
+      padding: 0 14px;
+      cursor: pointer;
+    }
+
+    /* Secondary nav */
+    .nav-secondary {
+      background: #f4f6f8;
+      border-bottom: 1px solid #ddd;
+      padding: 0 30px;
+      display: flex;
+      gap: 4px;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 50;
+    }
+
+    .nav-secondary>a.plain {
+      color: #1b1b1b;
+      text-decoration: none;
+      font-size: 14px;
+      padding: 12px 14px;
+      display: inline-block;
+      font-weight: 600;
+    }
+
+    .nav-secondary>a.plain:hover {
+      color: #205493;
+    }
+
+    .nav-dropdown {
+      position: relative;
+    }
+
+    .nav-dropdown>.dd-trigger {
+      background: none;
+      border: none;
+      font: inherit;
+      cursor: pointer;
+      color: #1b1b1b;
+      font-size: 14px;
+      padding: 12px 14px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .nav-dropdown>.dd-trigger:hover,
+    .nav-dropdown.open>.dd-trigger {
+      color: #205493;
+      background: #e9eef4;
+    }
+
+    .dd-arrow {
+      font-size: 10px;
+      transition: transform 0.15s ease;
+    }
+
+    .nav-dropdown.open .dd-arrow {
+      transform: rotate(180deg);
+    }
+
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: #fff;
+      border: 1px solid #ccc;
+      border-top: 3px solid #205493;
+      min-width: 260px;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+      padding: 8px 0;
+    }
+
+    .nav-dropdown.open .dropdown-menu {
+      display: block;
+    }
+
+    @media (min-width: 900px) {
+      .nav-dropdown:hover .dropdown-menu {
+        display: block;
+      }
+
+      .nav-dropdown:hover>.dd-trigger {
+        color: #205493;
+        background: #e9eef4;
+      }
+
+      .nav-dropdown:hover .dd-arrow {
+        transform: rotate(180deg);
+      }
+    }
+
+    .dropdown-menu a {
+      display: block;
+      padding: 10px 18px;
+      font-size: 13.5px;
+      color: #1b1b1b;
+      text-decoration: none;
+    }
+
+    .dropdown-menu a:hover {
+      background: #eef4fb;
+      color: #205493;
+    }
+
+    .dropdown-menu .dd-divider {
+      border-top: 1px solid #eee;
+      margin: 6px 0;
+    }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      background-image: url('https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=1600&auto=format&fit=crop');
+      background-size: cover;
+      background-position: center;
+      color: #fff;
+      padding: 60px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 30px;
+    }
+
+    .hero-text,
+    .login-card {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-text {
+      max-width: 480px;
+      background: rgba(10, 20, 40, 0.55);
+      padding: 30px;
+    }
+
+    .hero-text h1 {
+      font-size: 30px;
+      font-weight: normal;
+      margin-bottom: 16px;
+    }
+
+    .hero-text p {
+      font-size: 15px;
+      line-height: 1.6;
+      margin-bottom: 22px;
+      color: #dbe7f5;
+    }
+
+    .hero-text .btn-outline {
+      display: inline-block;
+      background: transparent;
+      border: 2px solid #fff;
+      color: #fff;
+      padding: 10px 22px;
+      font-weight: bold;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .hero-text .btn-outline:hover {
+      background: #fff;
+      color: #1c3a63;
+    }
+
+    .login-card {
+      background: #fff;
+      color: #1b1b1b;
+      padding: 30px;
+      width: 320px;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
+    }
+
+    .login-card h2 {
+      font-size: 26px;
+      font-weight: normal;
+      color: #444;
+      margin-bottom: 6px;
+    }
+
+    .login-card .logo2 {
+      font-size: 22px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .login-card .logo2 .treasury {
+      color: #4a7729;
+    }
+
+    .login-card .logo2 .direct {
+      color: #205493;
+    }
+
+    .login-card .btn-solid {
+      display: block;
+      background: #205493;
+      color: #fff;
+      text-align: center;
+      padding: 12px;
+      font-weight: bold;
+      text-decoration: none;
+      border-radius: 3px;
+      margin-bottom: 16px;
+      font-size: 15px;
+    }
+
+    .login-card .btn-solid:hover {
+      background: #163e6f;
+    }
+
+    .login-card a.link-line {
+      display: block;
+      font-size: 13px;
+      margin-bottom: 8px;
+      color: #205493;
+      text-decoration: underline;
+    }
+
+    .login-card hr {
+      margin: 16px 0;
+      border: none;
+      border-top: 1px solid #ddd;
+    }
+
+    .login-card .partner-logos {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    .login-card .fedinvest {
+      color: #205493;
+    }
+
+    .login-card .slgsafe {
+      color: #4a7729;
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 30px;
+    }
+
+    .section-title {
+      font-size: 28px;
+      font-weight: normal;
+      color: #205493;
+      margin-bottom: 20px;
+    }
+
+    .quicklink-row {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 14px;
+      margin-bottom: 44px;
+    }
+
+    @media (max-width: 900px) {
+      .quicklink-row {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .quicklink-box {
+      border: 1px solid #205493;
+      padding: 22px 16px;
+      color: #205493;
+      font-weight: bold;
+      font-size: 15px;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      min-height: 80px;
+    }
+
+    .quicklink-box:hover {
+      background: #eef4fb;
+    }
+
+    .rates-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+
+    @media (max-width: 700px) {
+      .rates-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .rate-box {
+      border: 1px solid #205493;
+      padding: 24px;
+    }
+
+    .rate-box a.rate-title {
+      font-size: 19px;
+      font-weight: bold;
+      text-decoration: underline;
+    }
+
+    .rate-box .rate-value {
+      font-size: 34px;
+      color: #1b1b1b;
+      margin: 10px 0;
+    }
+
+    .rate-box .rate-note {
+      font-size: 13px;
+      color: #555;
+    }
+
+    .btn-solid-blue {
+      display: inline-block;
+      background: #205493;
+      color: #fff;
+      padding: 12px 24px;
+      font-weight: bold;
+      text-decoration: none;
+      border-radius: 3px;
+      margin: 18px 8px 30px 0;
+      font-size: 14px;
+    }
+
+    .btn-solid-blue:hover {
+      background: #163e6f;
+    }
+
+    .info-box {
+      background: #eaf3fb;
+      border: 1px solid #205493;
+      padding: 24px;
+      margin-bottom: 30px;
+    }
+
+    .info-box h3 {
+      font-size: 20px;
+      color: #162e51;
+      margin-bottom: 12px;
+    }
+
+    .info-box p,
+    .info-box li {
+      font-size: 13.5px;
+      color: #333;
+      margin-bottom: 10px;
+      line-height: 1.6;
+    }
+
+    .info-box ul {
+      margin-left: 18px;
+    }
+
+    .announce-box {
+      background: #eaf3fb;
+      border: 1px solid #205493;
+      padding: 24px;
+      margin-bottom: 44px;
+    }
+
+    .announce-box h3 {
+      font-size: 19px;
+      color: #162e51;
+      margin-bottom: 14px;
+    }
+
+    .announce-box ul {
+      list-style: none;
+    }
+
+    .announce-box li {
+      font-size: 13.5px;
+      margin-bottom: 10px;
+      padding-left: 18px;
+      position: relative;
+    }
+
+    .announce-box li::before {
+      content: "›";
+      color: #b31942;
+      font-weight: bold;
+      position: absolute;
+      left: 0;
+    }
+
+    .news-month {
+      margin-bottom: 22px;
+    }
+
+    .news-month h4 {
+      font-size: 16px;
+      color: #1b1b1b;
+      margin-bottom: 8px;
+    }
+
+    .news-month ul {
+      list-style: disc;
+      margin-left: 20px;
+    }
+
+    .news-month li {
+      font-size: 13.5px;
+      margin-bottom: 6px;
+    }
+
+    .news-month a {
+      text-decoration: underline;
+    }
+
+    .guides-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+      margin: 30px 0 46px;
+    }
+
+    @media (max-width: 800px) {
+      .guides-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .guide-col h4 {
+      font-size: 17px;
+      margin-bottom: 14px;
+      color: #1b1b1b;
+    }
+
+    .guide-col a {
+      display: block;
+      font-size: 13.5px;
+      padding: 10px 0;
+      border-bottom: 1px solid #eee;
+      text-decoration: none;
+      color: #205493;
+    }
+
+    .guide-col a:hover {
+      text-decoration: underline;
+    }
+
+    .gift-banner {
+      background: #eaf3fb;
+      padding: 30px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+
+    .gift-banner .coin {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      background: #d8b26a;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+    }
+
+    .gift-banner a {
+      font-size: 22px;
+      color: #205493;
+      text-decoration: none;
+    }
+
+    .gift-banner a:hover {
+      text-decoration: underline;
+    }
+
+    .help-section {
+      margin-bottom: 30px;
+    }
+
+    .help-section h3 {
+      font-size: 24px;
+      color: #205493;
+      font-weight: normal;
+      margin-bottom: 16px;
+    }
+
+    .help-section .contact-line {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 15px;
+    }
+
+    .help-section .contact-line a {
+      text-decoration: underline;
+      font-weight: bold;
+    }
+
+    hr.red-rule {
+      border: none;
+      border-top: 3px solid #b31942;
+      margin: 0;
+    }
+
+    footer {
+      background: #f4f6f8;
+      padding: 40px 30px;
+    }
+
+    .footer-logo {
+      text-align: center;
+      font-size: 26px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .footer-logo .treasury {
+      color: #4a7729;
+    }
+
+    .footer-logo .direct {
+      color: #205493;
+    }
+
+    .footer-search {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 40px;
+    }
+
+    .footer-search input {
+      padding: 10px 14px;
+      border: 1px solid #ccc;
+      width: 320px;
+      font-size: 13px;
+    }
+
+    .footer-search button {
+      background: #4a7729;
+      border: none;
+      color: #fff;
+      padding: 0 18px;
+      cursor: pointer;
+    }
+
+    .footer-columns {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 700px) {
+      .footer-columns {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .footer-columns h4 {
+      font-size: 20px;
+      font-weight: normal;
+      color: #444;
+      margin-bottom: 16px;
+    }
+
+    .footer-columns a {
+      display: block;
+      font-size: 13.5px;
+      margin-bottom: 12px;
+      text-decoration: underline;
+      color: #1b1b1b;
+    }
+
+    /* --- Detail-page classes (breadcrumb, spec table, FAQ) --- */
+    .breadcrumb {
+      font-size: 13px;
+      margin-bottom: 10px;
+      color: #555;
+    }
+
+    .breadcrumb a {
+      text-decoration: underline;
+    }
+
+    .page-title {
+      font-size: 30px;
+      font-weight: normal;
+      color: #162e51;
+      margin-bottom: 18px;
+    }
+
+    .page-intro p {
+      font-size: 14.5px;
+      line-height: 1.7;
+      margin-bottom: 14px;
+      max-width: 760px;
+    }
+
+    .page-intro strong {
+      color: #162e51;
+    }
+
+    .subhead {
+      font-size: 20px;
+      color: #205493;
+      margin: 30px 0 12px;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid #e2e6ea;
+      padding: 14px 0;
+      max-width: 760px;
+    }
+
+    .faq-item summary {
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 14.5px;
+      color: #162e51;
+    }
+
+    .faq-item p {
+      font-size: 13.5px;
+      line-height: 1.6;
+      margin-top: 10px;
+      color: #333;
+    }
+
+    .pdf-link-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      margin-bottom: 16px;
+      max-width: 760px;
+    }
+
+    .pdf-link-row .pdf-icon {
+      color: #c9302c;
+      margin-top: 2px;
+    }
+
+    .pdf-link-row a {
+      font-size: 13.5px;
+    }
+
+    /* --- Topic card grid, used on Manage Savings Bonds --- */
+    .topic-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin: 24px 0 40px;
+    }
+
+    @media (max-width: 700px) {
+      .topic-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .topic-card {
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      padding: 18px 20px;
+    }
+
+    .topic-card h3 {
+      font-size: 16px;
+      color: #162e51;
+      margin-bottom: 10px;
+    }
+
+    .topic-card a {
+      font-size: 13.5px;
+      display: block;
+      text-decoration: none;
+      color: #205493;
+    }
+
+    .topic-card a::before {
+      content: "❯ ";
+      color: #b31942;
+    }
+
+    .topic-card a:hover {
+      text-decoration: underline;
+    }
+
+    .topic-card a+a {
+      margin-top: 8px;
+    }
+
+    /* --- Calculator-page-specific styles --- */
+    .note-box {
+      background: #fff3cd;
+      border-left: 4px solid #e5a300;
+      padding: 16px 18px;
+      margin: 20px 0;
+      font-size: 14.5px;
+      max-width: 760px;
+    }
+
+    h2.section-heading {
+      font-size: 26px;
+      color: #1b1b1b;
+      margin: 40px 0 16px;
+    }
+
+    .calc-form {
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 24px;
+      margin: 24px 0;
+      background: #f9fbfd;
+      max-width: 760px;
+    }
+
+    .calc-form label {
+      display: block;
+      font-size: 13px;
+      font-weight: bold;
+      margin-bottom: 6px;
+      margin-top: 14px;
+    }
+
+    .calc-form label:first-child {
+      margin-top: 0;
+    }
+
+    .calc-form select,
+    .calc-form input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #bbb;
+      border-radius: 3px;
+      font-size: 14px;
+      background: #fff;
+    }
+
+    .calc-form button {
+      background: #205493;
+      color: #fff;
+      border: none;
+      padding: 12px 26px;
+      border-radius: 4px;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 14px;
+      margin-top: 20px;
+    }
+
+    .calc-form button:hover {
+      background: #163e6f;
+    }
+
+    .calc-result {
+      border: 2px solid #205493;
+      border-radius: 4px;
+      padding: 20px;
+      margin-top: 20px;
+      background: #eef6fb;
+      display: none;
+      max-width: 760px;
+    }
+
+    .calc-result.visible {
+      display: block;
+    }
+
+    .calc-result .result-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid #cfe0ee;
+      font-size: 14px;
+    }
+
+    .calc-result .result-row:last-child {
+      border-bottom: none;
+    }
+
+    .calc-result .result-label {
+      color: #444;
+    }
+
+    .calc-result .result-value {
+      font-weight: bold;
+      color: #205493;
+    }
+
+    .calc-error {
+      color: #b31942;
+      font-size: 13.5px;
+      margin-top: 10px;
+      display: none;
+    }
+
+    .calc-error.visible {
+      display: block;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="gov-banner">
+    <div class="gov-banner-top">
+      <span>🇺🇸 An official website of the United States government</span>
+      <button type="button" class="gov-toggle" id="govToggle" aria-expanded="false" aria-controls="govPanel">
+        Here's how you know <span class="gov-arrow">▾</span>
+      </button>
+    </div>
+    <div class="gov-panel" id="govPanel" hidden>
+      <div class="gov-dept-line"><a href="#">U.S. Department of the Treasury</a></div>
+      <div class="gov-panel-grid">
+        <div class="gov-item">
+          <div class="gov-icon gov-icon-blue">🏛️</div>
+          <div>
+            <h4>Official websites use .gov</h4>
+            <p>A <strong>.gov</strong> website belongs to an official government organization in the United States.</p>
+          </div>
+        </div>
+        <div class="gov-item">
+          <div class="gov-icon gov-icon-green">🔒</div>
+          <div>
+            <h4>Secure .gov websites use HTTPS</h4>
+            <p>A <strong>lock</strong> (🔒) or <strong>https://</strong> means you've safely connected to the .gov
+              website. Share sensitive information only on official, secure websites.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <header class="site-header">
+    <div class="logo"><span class="treasury">Treasury</span><span class="direct">Direct</span><span class="dot">.</span>
+    </div>
+    <div class="header-links">
+      <a href="mailing-lists.html">Mailing Lists</a>
+      <a href="news.html">News</a>
+      <a href="about-treasurydirect.html">About</a>
+      <a href="forms-hub.html">Forms</a>
+      <a href="help-center.html">Help Center</a>
+      <a href="contact-us.html">Contact Us</a>
+    </div>
+    <div class="header-actions">
+      <a href="login.html" class="login-btn">Log In</a>
+      <div class="search-box">
+        <input type="text" placeholder="Search..." />
+        <button>🔍</button>
+      </div>
+    </div>
+  </header>
+
+  <nav class="nav-secondary" id="mainNav">
+    <a href="index.html" class="plain">🏠</a>
+
+    <div class="nav-dropdown">
+      <button class="dd-trigger" type="button">Savings Bonds <span class="dd-arrow">▾</span></button>
+      <div class="dropdown-menu">
+        <a href="about-savings-bonds.html">About U.S. Savings Bonds</a>
+        <a href="buy-a-bond.html">Buy a Bond</a>
+        <a href="gift-a-bond.html">Gift a Savings Bond</a>
+        <a href="treasury-bonds-combined.html">Cash In a Bond</a>
+        <a href="calculator.html">Savings Bond Value Calculator</a>
+        <a href="manage-savings-bonds.html">Manage Bonds</a>
+        <a href="forms-for-savings-bonds.html">Forms for Savings Bonds</a>
+        <a href="treasury-hunt.html">Treasury Hunt</a>
+      </div>
+    </div>
+
+    <div class="nav-dropdown">
+      <button class="dd-trigger" type="button">Treasury Marketable Securities <span class="dd-arrow">▾</span></button>
+      <div class="dropdown-menu">
+        <a href="about-marketable-securities.html">About Treasury Marketable Securities</a>
+        <a href="bills.html">Treasury Bills</a>
+        <a href="notes.html">Treasury Notes</a>
+        <a href="bonds.html">Treasury Bonds</a>
+        <a href="tips.html">TIPS</a>
+        <a href="frns.html">Floating Rate Notes (FRNs)</a>
+        <a href="strips.html">STRIPS</a>
+        <div class="dd-divider"></div>
+        <a href="forms.html">Forms for Treasury Marketable Securities</a>
+        <a href="treasury-hunt.html">Treasury Hunt</a>
+      </div>
+    </div>
+
+    <div class="nav-dropdown">
+      <button class="dd-trigger" type="button">Auctions <span class="dd-arrow">▾</span></button>
+      <div class="dropdown-menu">
+        <a href="about-auctions.html">About Auctions</a>
+        <a href="how-auctions-work.html">How Auctions Work (Participating)</a>
+        <a href="when-auctions-happen.html">When Auctions Happen (Schedules)</a>
+        <a href="reopenings.html">Reopenings</a>
+        <a href="announcements-data-results.html">Announcements, Data &amp; Results</a>
+        <a href="buyback-announcements.html">Buyback Announcements and Results</a>
+        <a href="upcoming-auctions.html">Upcoming Auctions</a>
+        <a href="recent-auction-results.html">Recent Auction Results</a>
+        <a href="auction-search.html">Auction Search (Query)</a>
+        <a href="auction-press-releases.html">Auction Press Releases</a>
+        <a href="auction-regulations.html">Auction Regulations (UOC)</a>
+      </div>
+    </div>
+
+    <div class="nav-dropdown">
+      <button class="dd-trigger" type="button">Laws and Regulations <span class="dd-arrow">▾</span></button>
+      <div class="dropdown-menu">
+        <a href="laws-regulations.html">About Laws and Regulations</a>
+        <a href="auction-regulations.html">Auction Regulations (UOC)</a>
+        <a href="collateral-programs.html">Collateral Programs</a>
+        <a href="commercial-book-entry-regulations.html">Commercial Book-Entry Regulations (TRADES)</a>
+        <a href="frauds-phonies-scams.html">Frauds, Phonies, &amp; Scams</a>
+        <a href="government-securities-act.html">Government Securities Act (GSA) Regulations</a>
+        <a href="large-position-reporting.html">Large Position Reporting (LPR)</a>
+        <a href="redemption-buyback-regulations.html">Redemption (Buyback) Operations Regulations</a>
+        <a href="treasury-marketable-securities-regulations.html">Treasury Marketable Securities Regulations</a>
+        <a href="savings-bond-regulations.html">Savings Bond Regulations</a>
+        <a href="treasurydirect-regulations.html">TreasuryDirect Regulations</a>
+        <div class="dd-divider"></div>
+        <a href="links-to-other-sites.html">Links to Other Sites</a>
+      </div>
+    </div>
+
+    <a href="research-center.html" class="plain">Research Center</a>
+
+    <div class="nav-dropdown">
+      <button class="dd-trigger" type="button">Government Users <span class="dd-arrow">▾</span></button>
+      <div class="dropdown-menu">
+        <a href="government-users.html">For Government Users</a>
+        <a href="federal-investments-program.html">Federal Investments Program</a>
+        <a href="slgs.html">SLGS &amp; SLGSafe</a>
+        <a href="security-liquidation.html">Security Liquidation &amp; Proceeds</a>
+        <a href="federal-borrowings-program.html">Federal Borrowings Program</a>
+        <a href="treasury-managed-accounts.html">Treasury Managed Accounts</a>
+        <a href="funds-management-program.html">Funds Management Program Reports</a>
+        <a href="history-of-debt.html">History of the Debt</a>
+        <a href="public-debt-reports.html">Public Debt Reports</a>
+        <a href="interest-rates-prices.html">Interest Rates and Prices</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <div class="breadcrumb"><a href="index.html">Home</a> / <a href="manage-savings-bonds.html">Savings Bonds</a> /
+      Savings Bond Calculator</div>
+    <h1 class="page-title">Savings Bond Calculator</h1>
+
+    <p>Find out what your paper savings bond is worth. Enter the bond's series, denomination, and issue date, then click
+      Calculate.</p>
+
+    <div class="note-box">
+      <strong>Note:</strong> This calculator gives an approximate estimate for study purposes. For electronic bonds,
+      always check the exact value in your TreasuryDirect account.
+    </div>
+
+    <div class="calc-form">
+      <label for="series">Bond Series</label>
+      <select id="series">
+        <option value="EE">Series EE</option>
+        <option value="I">Series I</option>
+      </select>
+
+      <label for="denom">Denomination ($)</label>
+      <input type="number" id="denom" placeholder="e.g. 100" min="25" step="0.01" />
+
+      <label for="issue">Issue Date</label>
+      <input type="month" id="issue" />
+
+      <button id="calcBtn" type="button">Calculate</button>
+      <div class="calc-error" id="calcError">Please fill in a denomination and issue date first.</div>
+    </div>
+
+    <div class="calc-result" id="calcResult">
+      <div class="result-row"><span class="result-label">Series</span><span class="result-value" id="rSeries"></span>
+      </div>
+      <div class="result-row"><span class="result-label">Original amount</span><span class="result-value"
+          id="rDenom"></span></div>
+      <div class="result-row"><span class="result-label">Years held</span><span class="result-value" id="rYears"></span>
+      </div>
+      <div class="result-row"><span class="result-label">Interest rate used</span><span class="result-value"
+          id="rRate"></span></div>
+      <div class="result-row"><span class="result-label">Estimated current value</span><span class="result-value"
+          id="rValue"></span></div>
+      <div class="result-row"><span class="result-label">Estimated interest earned</span><span class="result-value"
+          id="rInterest"></span></div>
+    </div>
+
+    <h2 class="section-heading">Current Rates</h2>
+    <div class="rates-row">
+      <div class="rate-box">
+        <span class="rate-title">Series EE Savings Bonds</span>
+        <div class="rate-value">2.40%</div>
+        <div class="rate-note">For EE bonds issued May 1, 2026 to October 31, 2026.</div>
+      </div>
+      <div class="rate-box">
+        <span class="rate-title">Series I Savings Bonds</span>
+        <div class="rate-value">4.26%</div>
+        <div class="rate-note">This includes a fixed rate of 0.90%. For I bonds issued May 1, 2026 to October 31, 2026.
+        </div>
+      </div>
+    </div>
+
+    <h2 class="section-heading">How this estimate works</h2>
+    <p>This calculator uses simple compound interest as an approximation: it takes the number of full years between your
+      issue date and today, applies the current annual rate for that series, and compounds it once per year.</p>
+    <p>Real Treasury bonds compound semi-annually and I bonds have a rate that changes every 6 months, so your actual
+      bond's real value (found in the Savings Bond Calculator on TreasuryDirect.gov) may differ slightly from this
+      estimate.</p>
+
+  </main>
+
+  <hr class="red-rule" />
+
+  <footer>
+    <div class="footer-logo"><span class="treasury">Treasury</span><span class="direct">Direct</span><span
+        class="dot">.</span></div>
+    <div class="footer-search">
+      <input type="text" placeholder="Search..." />
+      <button>🔍</button>
+    </div>
+    <div class="footer-columns">
+      <div>
+        <h4>Connect With Us</h4>
+        <a href="#">𝕏 X (formerly Twitter)</a>
+        <a href="#">📘 Facebook</a>
+        <a href="#">▶️ YouTube</a>
+        <a href="#">📡 RSS Feeds</a>
+      </div>
+      <div>
+        <h4>Legal Information</h4>
+        <a href="#">Freedom of Information Act</a>
+        <a href="#">Privacy</a>
+        <a href="#">Terms &amp; Conditions</a>
+        <a href="#">Data Quality</a>
+        <a href="#">For Web Developers</a>
+        <a href="#">Accessibility</a>
+      </div>
+      <div>
+        <h4>Related Sites</h4>
+        <a href="#">treasury.gov ↗</a>
+        <a href="#">fiscaldata.treasury.gov ↗</a>
+        <a href="#">USAspending.gov ↗</a>
+        <a href="#">Bureau of the Fiscal Service ↗</a>
+        <a href="#">USA.gov ↗</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // "Here's how you know" banner: tapping the button reveals/hides the panel.
+    const govToggle = document.getElementById("govToggle");
+    const govPanel = document.getElementById("govPanel");
+    govToggle.addEventListener("click", () => {
+      const isOpen = govToggle.getAttribute("aria-expanded") === "true";
+      govToggle.setAttribute("aria-expanded", String(!isOpen));
+      govPanel.hidden = isOpen;
+    });
+
+    // Real working dropdowns: hover opens them on desktop (handled by CSS),
+    // but tapping/clicking also works — needed for touch devices and keyboard users.
+    const dropdowns = document.querySelectorAll(".nav-dropdown");
+
+    dropdowns.forEach((dd) => {
+      const trigger = dd.querySelector(".dd-trigger");
+      trigger.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const isOpen = dd.classList.contains("open");
+        dropdowns.forEach((d) => d.classList.remove("open"));
+        if (!isOpen) dd.classList.add("open");
+      });
+    });
+
+    document.addEventListener("click", () => {
+      dropdowns.forEach((d) => d.classList.remove("open"));
+    });
+
+    document.querySelectorAll(".dropdown-menu").forEach((menu) => {
+      menu.addEventListener("click", (e) => e.stopPropagation());
+    });
+
+    // ============================================================
+    // Real, working calculator logic (runs entirely in the browser)
+    // ============================================================
+    const CURRENT_RATES = { EE: 0.0240, I: 0.0426 };
+
+    const calcBtn = document.getElementById('calcBtn');
+    const errorEl = document.getElementById('calcError');
+    const resultEl = document.getElementById('calcResult');
+
+    calcBtn.addEventListener('click', () => {
+      const series = document.getElementById('series').value;
+      const denomInput = document.getElementById('denom').value;
+      const issueInput = document.getElementById('issue').value;
+
+      if (!denomInput || !issueInput) {
+        errorEl.classList.add('visible');
+        resultEl.classList.remove('visible');
+        return;
+      }
+      errorEl.classList.remove('visible');
+
+      const denom = parseFloat(denomInput);
+      const issueDate = new Date(issueInput + '-01');
+      const today = new Date();
+
+      let years = today.getFullYear() - issueDate.getFullYear();
+      const monthDiff = today.getMonth() - issueDate.getMonth();
+      if (monthDiff < 0) years -= 1;
+      years = Math.max(years, 0);
+
+      const rate = CURRENT_RATES[series];
+
+      const currentValue = denom * Math.pow(1 + rate, years);
+      const interestEarned = currentValue - denom;
+
+      document.getElementById('rSeries').textContent = 'Series ' + series;
+      document.getElementById('rDenom').textContent = '$' + denom.toFixed(2);
+      document.getElementById('rYears').textContent = years + (years === 1 ? ' year' : ' years');
+      document.getElementById('rRate').textContent = (rate * 100).toFixed(2) + '%';
+      document.getElementById('rValue').textContent = '$' + currentValue.toFixed(2);
+      document.getElementById('rInterest').textContent = '$' + interestEarned.toFixed(2);
+
+      resultEl.classList.add('visible');
+    });
+
+
+  </script>
+
+</body>
+
+</html>

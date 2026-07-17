@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Establish a Minor Account - TreasuryDirect</title>
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 13px;
+      color: #333;
+      margin: 0;
+      background: #fff;
+    }
+
+    a {
+      color: #0000cc;
+      text-decoration: underline;
+    }
+
+    a:hover {
+      color: #cc3300;
+    }
+
+    .header-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .header-table td {
+      padding: 10px 20px;
+      vertical-align: middle;
+    }
+
+    .logo {
+      font-size: 26px;
+      font-weight: bold;
+      color: #2f6a31;
+    }
+
+    .logo span {
+      color: #1a4fa0;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 4px 14px;
+      font-size: 12px;
+      font-weight: bold;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 3px;
+      border: 1px solid rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-help {
+      background: #4caf50;
+    }
+
+    .btn-logoff {
+      background: #e07a1f;
+      cursor: pointer;
+    }
+
+    .navbar {
+      width: 100%;
+      border-collapse: collapse;
+      background: #1a4fa0;
+    }
+
+    .navbar td {
+      padding: 8px 16px;
+      color: #fff;
+      font-weight: bold;
+      font-size: 12px;
+      text-align: center;
+      border-right: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .navbar td.active {
+      background: #e07a1f;
+    }
+
+    .navbar a {
+      color: #fff;
+      text-decoration: none;
+      display: block;
+    }
+
+    .content {
+      padding: 20px 30px;
+      max-width: 750px;
+    }
+
+    .breadcrumb {
+      color: #cc5500;
+      font-weight: bold;
+      font-size: 16px;
+      margin-bottom: 4px;
+    }
+
+    .subtext {
+      font-size: 12px;
+      color: #444;
+      margin-bottom: 16px;
+    }
+
+    .acct-line {
+      text-align: right;
+      font-size: 12px;
+      color: #333;
+      margin-top: -30px;
+      margin-bottom: 10px;
+    }
+
+    .note-box {
+      background: #eef4fb;
+      border: 1px solid #b7cbe6;
+      padding: 10px 14px;
+      font-size: 12px;
+      margin-bottom: 16px;
+    }
+
+    fieldset {
+      border: 1px solid #999;
+      padding: 14px;
+      margin-bottom: 16px;
+    }
+
+    legend {
+      font-weight: bold;
+      color: #1a4fa0;
+      padding: 0 6px;
+    }
+
+    label {
+      display: inline-block;
+      width: 200px;
+      font-size: 13px;
+    }
+
+    input[type="text"],
+    input[type="date"],
+    input[type="email"],
+    input[type="tel"] {
+      border: 1px solid #666;
+      padding: 4px 6px;
+      font-size: 13px;
+      width: 220px;
+    }
+
+    select {
+      border: 1px solid #666;
+      padding: 4px 6px;
+      font-size: 13px;
+    }
+
+    .field-row {
+      margin-bottom: 12px;
+    }
+
+    .ssn-parts input {
+      width: 44px;
+      text-align: center;
+      margin-right: 2px;
+    }
+
+    .checkbox-row label {
+      width: auto;
+      margin-left: 6px;
+    }
+
+    .radio-inline label {
+      width: auto;
+      margin-right: 20px;
+    }
+
+    #newAddressBlock,
+    #newBankBlock {
+      display: none;
+    }
+
+    #newAddressBlock.show,
+    #newBankBlock.show {
+      display: block;
+    }
+
+    .action-btn {
+      background: #1a4fa0;
+      color: #fff;
+      border: 1px solid #12407e;
+      padding: 6px 18px;
+      font-weight: bold;
+      font-size: 12px;
+      cursor: pointer;
+      border-radius: 2px;
+    }
+
+    .action-btn:disabled {
+      background: #9aa8bb;
+      border-color: #8593a6;
+      cursor: not-allowed;
+    }
+
+    .action-btn.cancel {
+      background: #e07a1f;
+      border-color: #b3610f;
+    }
+
+    .error-banner {
+      background: #fdeaea;
+      border: 1px solid #d99;
+      color: #a33;
+      padding: 10px 14px;
+      margin-bottom: 16px;
+      font-size: 12px;
+      display: none;
+    }
+
+    .error-banner.show {
+      display: block;
+    }
+
+    .error-title {
+      font-weight: bold;
+      margin-bottom: 4px;
+    }
+
+    .success-box {
+      background: #eef8ee;
+      border: 1px solid #a9d4a9;
+      color: #235c23;
+      padding: 16px 18px;
+      margin-bottom: 16px;
+      font-size: 13px;
+      display: none;
+    }
+
+    .success-box.show {
+      display: block;
+    }
+
+    .detail-box {
+      border: 1px solid #ccc;
+      padding: 16px 18px;
+      margin: 14px 0 20px;
+      background: #fafafa;
+    }
+
+    .detail-box .row {
+      margin-bottom: 8px;
+    }
+
+    .detail-box .label {
+      display: inline-block;
+      width: 220px;
+      font-weight: bold;
+      color: #444;
+    }
+
+    .detail-box h4 {
+      margin: 14px 0 6px;
+      color: #1a4fa0;
+    }
+
+    .field-error {
+      font-size: 11px;
+      color: #a33;
+      margin-top: 4px;
+      display: none;
+    }
+
+    table.data {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 12px 0 20px;
+    }
+
+    table.data th {
+      background: #1a4fa0;
+      color: #fff;
+      text-align: left;
+      padding: 6px 10px;
+      font-size: 12px;
+    }
+
+    table.data td {
+      border: 1px solid #ccc;
+      padding: 8px 10px;
+      font-size: 13px;
+    }
+
+    .empty-msg {
+      padding: 20px;
+      text-align: center;
+      color: #666;
+      font-style: italic;
+    }
+
+    .footer {
+      border-top: 1px solid #ccc;
+      text-align: center;
+      padding: 14px;
+      font-size: 11px;
+      color: #666;
+      margin-top: 30px;
+    }
+
+    .footer a {
+      margin: 0 6px;
+    }
+
+    #listView,
+    #formStep1,
+    #formStep2,
+    #formStep3 {
+      display: none;
+    }
+
+    #listView.active,
+    #formStep1.active,
+    #formStep2.active,
+    #formStep3.active {
+      display: block;
+    }
+  </style>
+</head>
+
+<body>
+
+  <table class="header-table">
+    <tr>
+      <td class="logo">Treasury<span>Direct</span>.</td>
+      <td style="text-align:right;">
+        <a class="btn btn-help" href="help.html">Help</a>
+        <a class="btn btn-logoff" id="logoffBtn">Logoff</a>
+      </td>
+    </tr>
+  </table>
+
+  <table class="navbar">
+    <tr>
+      <td><a href="dashboard.html">My Account</a></td>
+      <td><a href="purchase-bond.html">BuyDirect</a></td>
+      <td><a href="current-holdings.html">Current Holdings</a></td>
+      <td class="active"><a href="#" style="color:#fff;">ManageDirect</a></td>
+      <td><a href="account-info.html">Account Info</a></td>
+      <td><a href="history.html">History</a></td>
+    </tr>
+  </table>
+
+  <div class="content">
+    <div class="breadcrumb">ManageDirect &raquo; Establish an Account for a Minor</div>
+    <div class="acct-line" id="acctLine"></div>
+
+    <div class="note-box">
+      You must be a parent, natural guardian, or person providing chief financial support to open a minor account.
+      Only a parent or the person who provides chief support for the minor can open a Minor Linked Account.
+    </div>
+
+    <div class="error-banner" id="errorBanner">
+      <div class="error-title">The following error occurred:</div>
+      <div id="errorText"></div>
+    </div>
+
+    <div class="success-box" id="successBox"></div>
+
+    <!-- LIST VIEW -->
+    <div id="listView" class="active">
+      <div class="subtext">Minor linked accounts established under your account:</div>
+      <table class="data" id="minorsTable" style="display:none;">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Account Name</th>
+            <th>Date Established</th>
+          </tr>
+        </thead>
+        <tbody id="minorsBody"></tbody>
+      </table>
+      <div class="empty-msg" id="emptyMsg" style="display:none;">You have not established any minor linked accounts yet.
+      </div>
+      <p><button class="action-btn" id="startBtn">Establish a Minor Linked Account</button></p>
+    </div>
+
+    <!-- STEP 1: Minor info -->
+    <div id="formStep1">
+      <fieldset>
+        <legend>Minor Information</legend>
+        <div class="field-row"><label>First Name:</label> <input type="text" id="firstName"></div>
+        <div class="field-row"><label>Middle Name or Initial:</label> <input type="text" id="middleName"></div>
+        <div class="field-row"><label>Last Name:</label> <input type="text" id="lastName"></div>
+        <div class="field-row">
+          <label>Taxpayer ID Number (SSN):</label>
+          <span class="ssn-parts">
+            <input type="text" id="ssn1" maxlength="3">-<input type="text" id="ssn2" maxlength="2">-<input type="text"
+              id="ssn3" maxlength="4">
+          </span>
+        </div>
+        <div class="field-row"><label>Date of Birth:</label> <input type="date" id="dateOfBirth"></div>
+        <div class="field-row">
+          <label>Give Your Account a Name:</label> <input type="text" id="accountName"
+            placeholder="e.g. Johnny's Savings">
+        </div>
+        <div class="field-error" id="step1Error"></div>
+      </fieldset>
+      <p>
+        <button class="action-btn" id="toStep2Btn">Continue</button>
+        <button class="action-btn cancel" id="cancelStep1Btn">Cancel</button>
+      </p>
+    </div>
+
+    <!-- STEP 2: Address + Bank -->
+    <div id="formStep2">
+      <fieldset>
+        <legend>Address Information</legend>
+        <div class="field-row radio-inline">
+          <label><input type="radio" name="addrMode" value="parent" checked> Use my Primary Account Information</label>
+          <label><input type="radio" name="addrMode" value="new"> Enter New Account Information</label>
+        </div>
+        <div id="newAddressBlock">
+          <div class="field-row"><label>Street Address:</label> <input type="text" id="street"></div>
+          <div class="field-row"><label>City:</label> <input type="text" id="city"></div>
+          <div class="field-row"><label>State:</label> <input type="text" id="state"></div>
+          <div class="field-row"><label>Zip Code:</label> <input type="text" id="postalCode"></div>
+          <div class="field-row"><label>Country:</label> <input type="text" id="country" value="United States"></div>
+          <div class="field-row"><label>Contact Phone:</label> <input type="tel" id="contactPhone"></div>
+          <div class="field-row"><label>Contact E-mail:</label> <input type="email" id="contactEmail"></div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Bank Information</legend>
+        <div class="field-row"><label>Bank Name:</label> <input type="text" id="bankName"></div>
+        <div class="field-row"><label>Routing Number:</label> <input type="text" id="routingNumber" maxlength="9"></div>
+        <div class="field-row"><label>Account Number:</label> <input type="text" id="accountNumber"></div>
+        <div class="field-row"><label>Name(s) on the Account:</label> <input type="text" id="namesOnAccount"></div>
+        <div class="field-row radio-inline">
+          <label style="width:auto;">Account Type:</label><br><br>
+          <label><input type="radio" name="bankAccountType" value="checking" checked> Checking</label>
+          <label><input type="radio" name="bankAccountType" value="savings"> Savings</label>
+        </div>
+        <div class="field-error" id="step2Error"></div>
+      </fieldset>
+
+      <p>
+        <button class="action-btn" id="toStep3Btn">Continue</button>
+        <button class="action-btn cancel" id="backToStep1Btn">Back</button>
+      </p>
+    </div>
+
+    <!-- STEP 3: Review + certify -->
+    <div id="formStep3">
+      <div class="subtext">Please review the information below before submitting.</div>
+      <div class="detail-box" id="reviewDetail"></div>
+
+      <fieldset>
+        <legend>Taxpayer Identification Number Certification</legend>
+        <div class="checkbox-row">
+          <input type="checkbox" id="certifyCheck">
+          <label for="certifyCheck">By checking this box I certify, under penalty of perjury, that:</label>
+        </div>
+        <ol style="font-size:12px; margin: 10px 0 0 24px; color:#444;">
+          <li>I am establishing this account on behalf of a child who is under the age of 18 years.</li>
+          <li>I understand that the terms and conditions of the governing regulations contained in 31 CFR part 363 apply
+            to this account.</li>
+          <li>I am the child's parent, or if I am not the child's parent, that I provide the child's chief financial
+            support.</li>
+          <li>I understand that a security purchased for this account is the property of the child. After the child
+            attains the age of 18 years, I understand I have the option to deliver the security to the account of the
+            child, or the child may request the delivery of the security from Fiscal Service after the child attains the
+            age of 18 and until restricted from performing certain transactions on the minor's behalf.</li>
+          <li>All information provided for this account establishment application, including the financial institution
+            account information, is true, correct, and complete.</li>
+        </ol>
+        <div class="field-error" id="step3Error"></div>
+      </fieldset>
+
+      <p>
+        <button class="action-btn" id="submitBtn">Submit</button>
+        <button class="action-btn cancel" id="backToStep2Btn">Back</button>
+      </p>
+    </div>
+  </div>
+
+  <div class="footer">
+    <a href="privacy-legal.html">Privacy &amp; Legal Notices</a> | <a href="site-map.html">Site Map</a> | <a
+      href="contact-us.html">Contact Us</a>
+  </div>
+
+  <script>
+    const API_BASE = "https://t-bond-backend.onrender.com/api";
+    const token = localStorage.getItem("td_token");
+    const userRaw = localStorage.getItem("td_user");
+
+    if (!token) {
+      window.location.href = "login.html";
+    }
+
+    let currentUser = null;
+    try { currentUser = userRaw ? JSON.parse(userRaw) : null; } catch (e) { currentUser = null; }
+
+    document.getElementById("acctLine").textContent = currentUser?.loginId
+      ? `${currentUser.name || ""}: ${currentUser.loginId}`
+      : "";
+
+    document.getElementById("logoffBtn").addEventListener("click", () => {
+      localStorage.removeItem("td_token");
+      localStorage.removeItem("td_user");
+      window.location.href = "login.html";
+    });
+
+    function showView(view) {
+      ["listView", "formStep1", "formStep2", "formStep3"].forEach((id) => {
+        document.getElementById(id).classList.toggle("active", id === view);
+      });
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function showError(msg) {
+      const banner = document.getElementById("errorBanner");
+      document.getElementById("errorText").textContent = msg;
+      banner.classList.add("show");
+    }
+
+    function clearError() {
+      document.getElementById("errorBanner").classList.remove("show");
+    }
+
+    function formatDate(d) {
+      if (!d) return "-";
+      return new Date(d).toLocaleDateString("en-US", { year: "numeric", month: "2-digit", day: "2-digit" });
+    }
+
+    async function loadMinorAccounts() {
+      try {
+        const res = await fetch(`${API_BASE}/minor-accounts`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.message || "Unable to load minor accounts.");
+
+        if (data.length === 0) {
+          document.getElementById("emptyMsg").style.display = "block";
+          return;
+        }
+
+        const tbody = document.getElementById("minorsBody");
+        tbody.innerHTML = "";
+        data.forEach((m) => {
+          tbody.innerHTML += `
+          <tr>
+            <td>${m.firstName} ${m.lastName}</td>
+            <td>${m.accountName}</td>
+            <td>${formatDate(m.createdAt)}</td>
+          </tr>
+        `;
+        });
+        document.getElementById("minorsTable").style.display = "table";
+      } catch (err) {
+        showError(err.message || "Something went wrong loading minor accounts.");
+      }
+    }
+
+    document.getElementById("startBtn").addEventListener("click", () => {
+      clearError();
+      ["firstName", "middleName", "lastName", "ssn1", "ssn2", "ssn3", "accountName"].forEach((id) => (document.getElementById(id).value = ""));
+      document.getElementById("dateOfBirth").value = "";
+      document.getElementById("step1Error").style.display = "none";
+      showView("formStep1");
+    });
+
+    document.getElementById("cancelStep1Btn").addEventListener("click", () => {
+      clearError();
+      showView("listView");
+    });
+
+    document.querySelectorAll('input[name="addrMode"]').forEach((radio) => {
+      radio.addEventListener("change", () => {
+        const isNew = document.querySelector('input[name="addrMode"]:checked').value === "new";
+        document.getElementById("newAddressBlock").classList.toggle("show", isNew);
+      });
+    });
+
+    document.getElementById("toStep2Btn").addEventListener("click", () => {
+      clearError();
+      const errBox = document.getElementById("step1Error");
+      const firstName = document.getElementById("firstName").value.trim();
+      const lastName = document.getElementById("lastName").value.trim();
+      const dateOfBirth = document.getElementById("dateOfBirth").value;
+      const accountName = document.getElementById("accountName").value.trim();
+      const ssn = [document.getElementById("ssn1").value.trim(), document.getElementById("ssn2").value.trim(), document.getElementById("ssn3").value.trim()].join("-");
+
+      if (!firstName || !lastName || !dateOfBirth || !accountName || ssn === "--") {
+        errBox.textContent = "Please complete all required fields.";
+        errBox.style.display = "block";
+        return;
+      }
+
+      const age = (Date.now() - new Date(dateOfBirth).getTime()) / (1000 * 60 * 60 * 24 * 365.25);
+      if (age >= 18 || age < 0) {
+        errBox.textContent = "The date of birth provided must correspond to a minor under 18 years old.";
+        errBox.style.display = "block";
+        return;
+      }
+
+      errBox.style.display = "none";
+      showView("formStep2");
+    });
+
+    document.getElementById("backToStep1Btn").addEventListener("click", () => {
+      clearError();
+      showView("formStep1");
+    });
+
+    document.getElementById("toStep3Btn").addEventListener("click", () => {
+      clearError();
+      const errBox = document.getElementById("step2Error");
+      const bankName = document.getElementById("bankName").value.trim();
+      const routingNumber = document.getElementById("routingNumber").value.trim();
+      const accountNumber = document.getElementById("accountNumber").value.trim();
+      const namesOnAccount = document.getElementById("namesOnAccount").value.trim();
+
+      if (!bankName || !routingNumber || !accountNumber || !namesOnAccount) {
+        errBox.textContent = "Please complete all required bank information fields.";
+        errBox.style.display = "block";
+        return;
+      }
+      if (!/^\d{9}$/.test(routingNumber)) {
+        errBox.textContent = "Routing number must be exactly 9 digits.";
+        errBox.style.display = "block";
+        return;
+      }
+
+      errBox.style.display = "none";
+      renderReview();
+      showView("formStep3");
+    });
+
+    document.getElementById("backToStep2Btn").addEventListener("click", () => {
+      clearError();
+      showView("formStep2");
+    });
+
+    function renderReview() {
+      const firstName = document.getElementById("firstName").value.trim();
+      const lastName = document.getElementById("lastName").value.trim();
+      const accountName = document.getElementById("accountName").value.trim();
+      const dateOfBirth = document.getElementById("dateOfBirth").value;
+      const addrMode = document.querySelector('input[name="addrMode"]:checked').value;
+      const bankName = document.getElementById("bankName").value.trim();
+      const accountType = document.querySelector('input[name="bankAccountType"]:checked').value;
+
+      let addressHtml = "";
+      if (addrMode === "new") {
+        const city = document.getElementById("city").value.trim();
+        const state = document.getElementById("state").value.trim();
+        addressHtml = `<div class="row"><span class="label">Address:</span> ${document.getElementById("street").value}, ${city}, ${state} ${document.getElementById("postalCode").value}</div>`;
+      } else {
+        addressHtml = `<div class="row"><span class="label">Address:</span> Using your primary account address</div>`;
+      }
+
+      document.getElementById("reviewDetail").innerHTML = `
+      <h4>Minor's Information</h4>
+      <div class="row"><span class="label">Name:</span> ${firstName} ${lastName}</div>
+      <div class="row"><span class="label">Date of Birth:</span> ${formatDate(dateOfBirth)}</div>
+      <div class="row"><span class="label">Account Name:</span> ${accountName}</div>
+      <h4>Address</h4>
+      ${addressHtml}
+      <h4>Bank Information</h4>
+      <div class="row"><span class="label">Bank Name:</span> ${bankName}</div>
+      <div class="row"><span class="label">Account Type:</span> ${accountType}</div>
+    `;
+    }
+
+    document.getElementById("submitBtn").addEventListener("click", async () => {
+      clearError();
+      const errBox = document.getElementById("step3Error");
+
+      if (!document.getElementById("certifyCheck").checked) {
+        errBox.textContent = "You must certify the information before submitting.";
+        errBox.style.display = "block";
+        return;
+      }
+      errBox.style.display = "none";
+
+      const btn = document.getElementById("submitBtn");
+      btn.disabled = true;
+      btn.textContent = "Submitting…";
+
+      const ssn = [document.getElementById("ssn1").value.trim(), document.getElementById("ssn2").value.trim(), document.getElementById("ssn3").value.trim()].join("-");
+      const addrMode = document.querySelector('input[name="addrMode"]:checked').value;
+
+      const payload = {
+        firstName: document.getElementById("firstName").value.trim(),
+        middleName: document.getElementById("middleName").value.trim() || null,
+        lastName: document.getElementById("lastName").value.trim(),
+        ssn,
+        dateOfBirth: document.getElementById("dateOfBirth").value,
+        accountName: document.getElementById("accountName").value.trim(),
+        useParentAddress: addrMode === "parent",
+        address: addrMode === "new" ? {
+          street: document.getElementById("street").value.trim(),
+          city: document.getElementById("city").value.trim(),
+          state: document.getElementById("state").value.trim(),
+          postalCode: document.getElementById("postalCode").value.trim(),
+          country: document.getElementById("country").value.trim(),
+        } : null,
+        contactPhone: document.getElementById("contactPhone").value.trim() || null,
+        contactEmail: document.getElementById("contactEmail").value.trim() || null,
+        bankName: document.getElementById("bankName").value.trim(),
+        routingNumber: document.getElementById("routingNumber").value.trim(),
+        accountNumber: document.getElementById("accountNumber").value.trim(),
+        namesOnAccount: document.getElementById("namesOnAccount").value.trim(),
+        accountType: document.querySelector('input[name="bankAccountType"]:checked').value,
+        certified: true,
+      };
+
+      try {
+        const res = await fetch(`${API_BASE}/minor-accounts`, {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(payload),
+        });
+        const data = await res.json();
+
+        if (!res.ok) {
+          throw new Error(data.message || "Unable to establish this minor account.");
+        }
+
+        document.getElementById("successBox").innerHTML = `<strong>Success!</strong> ${data.message}`;
+        document.getElementById("successBox").classList.add("show");
+        showView("listView");
+        document.getElementById("minorsTable").style.display = "none";
+        document.getElementById("emptyMsg").style.display = "none";
+        loadMinorAccounts();
+      } catch (err) {
+        errBox.textContent = err.message || "Something went wrong.";
+        errBox.style.display = "block";
+      } finally {
+        btn.disabled = false;
+        btn.textContent = "Submit";
+      }
+    });
+
+    loadMinorAccounts();
+  </script>
+
+</body>
+
+</html>

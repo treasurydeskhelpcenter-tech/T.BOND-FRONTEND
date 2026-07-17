@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>My Account — TreasuryDirect</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: Arial, Helvetica, sans-serif; background: #f4f6f8; color: #1b1b1b; font-size: 13px; }
+  .topbar { height: 8px; background: #205493; }
+  header.site-header { padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #ccc; background:#fff; flex-wrap: wrap; gap: 10px; }
+  .logo { font-size: 22px; font-weight: bold; color: #333; }
+  .logo .direct { color: #205493; }
+  .user-box { display: flex; align-items: center; gap: 14px; font-size: 13px; flex-wrap: wrap; }
+  .user-box .name { font-weight: bold; color: #205493; }
+  .logout-btn { background: #71767a; color: #fff; border: none; padding: 6px 14px; border-radius: 2px; cursor: pointer; font-size: 12px; }
+  .logout-btn:hover { background: #565a5d; }
+  .help-btn { background: #4a7729; color: #fff; padding: 6px 14px; border-radius: 2px; font-size: 12px; font-weight: bold; text-decoration: none; }
+
+  .nav-tabs { background: #205493; display: flex; padding: 0 20px; flex-wrap: wrap; }
+  .nav-tabs .tab { color: #fff; padding: 10px 18px; font-size: 13px; font-weight: bold; text-decoration: none; cursor: pointer; border: none; background: none; }
+  .nav-tabs .tab:hover { background: #163e6f; }
+  .nav-tabs .tab.active { background: #e57200; }
+
+  /* ManageDirect quick-links row — its own clean row below the nav, not crammed in the header */
+  .quicklinks-bar {
+    background: #eef2f6;
+    border-bottom: 1px solid #d3dae1;
+    padding: 10px 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .quicklinks-bar a {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 2px;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: bold;
+    color: #fff;
+  }
+  .ql-blue { background: #1a4fa0; }
+  .ql-orange { background: #e07a1f; }
+  .ql-green { background: #4caf50; }
+
+  main { max-width: 1050px; margin: 0 auto; padding: 24px 20px 60px; }
+
+  .summary-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+  @media (max-width: 800px) { .summary-grid { grid-template-columns: 1fr 1fr; } }
+  .summary-card { background: #fff; border: 1px solid #ddd; border-top: 4px solid #205493; padding: 16px; }
+  .summary-card .label { font-size: 11px; color: #71767a; text-transform: uppercase; margin-bottom: 6px; }
+  .summary-card .value { font-size: 22px; font-weight: bold; color: #1b1b1b; }
+  .summary-card.balance { border-top-color: #2e8540; }
+  .summary-card.balance .value { color: #2e8540; }
+
+  .panel { background: #fff; border: 1px solid #ddd; margin-bottom: 24px; }
+  .panel-header { background: #566573; color: #fff; font-weight: bold; padding: 10px 16px; font-size: 14px; display:flex; justify-content:space-between; align-items:center; }
+  .panel-body { padding: 18px; }
+
+  table { width: 100%; border-collapse: collapse; }
+  th { text-align: left; padding: 8px; font-size: 11px; text-transform: uppercase; color: #71767a; border-bottom: 2px solid #eee; }
+  td { padding: 10px 8px; font-size: 13px; border-bottom: 1px solid #eee; }
+  .badge { padding: 3px 9px; border-radius: 10px; font-size: 11px; font-weight: bold; }
+  .badge.active { background: #e6f4ea; color: #1a5c2a; }
+  .badge.pending { background: #fff3cd; color: #856404; }
+  .badge.redeemed { background: #e2e3e5; color: #383d41; }
+  .badge.approved { background: #e6f4ea; color: #1a5c2a; }
+  .badge.rejected { background: #fdeaea; color: #6f1c26; }
+
+  .empty-msg { color: #71767a; text-align: center; padding: 30px; font-size: 13px; }
+
+  .btn { display: inline-block; background: #205493; color: #fff; border: none; padding: 8px 16px; font-size: 12px; font-weight: bold; cursor: pointer; border-radius: 2px; text-decoration: none; }
+  .btn:hover { background: #163e6f; }
+  .btn.small { padding: 5px 12px; font-size: 11px; }
+  .btn.orange { background: #e57200; }
+  .btn.orange:hover { background: #b85a00; }
+
+  .form-row { display: flex; align-items: center; padding: 8px 0; gap: 10px; flex-wrap: wrap; }
+  .form-row label { font-weight: bold; width: 140px; flex-shrink: 0; }
+  .form-row input, .form-row select { flex: 1; min-width: 180px; padding: 7px 9px; border: 1px solid #888; border-radius: 2px; font-size: 13px; }
+
+  .alert { display: none; font-size: 13px; padding: 10px 14px; margin-bottom: 16px; border-left: 4px solid #c00; background: #fdeaea; color: #6f1c26; }
+  .alert.show { display: block; }
+  .alert.success { border-left-color: #2e8540; background: #e6f4ea; color: #1a5c2a; }
+
+  .qr-box { text-align: center; margin-top: 14px; }
+  .qr-box img { width: 160px; height: 160px; border: 1px solid #ccc; padding: 8px; background: #fff; }
+  .wallet-address { font-family: monospace; font-size: 12px; word-break: break-all; background: #f4f6f8; padding: 8px; border-radius: 3px; margin-top: 6px; }
+
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  .verify-banner { background: #fff3cd; color: #856404; padding: 10px 16px; font-size: 13px; border-left: 4px solid #e5a300; margin-bottom: 18px; }
+
+  footer { margin-top: 20px; padding: 18px 20px; text-align: center; font-size: 11px; color: #71767a; border-top: 1px solid #ccc; background: #fff; }
+  footer a { color: #205493; text-decoration: underline; margin: 0 6px; }
+</style>
+</head>
+<body>
+
+<div class="topbar"></div>
+<header class="site-header">
+  <div class="logo">Treasury<span class="direct">Direct</span></div>
+  <div class="user-box">
+    <span>Welcome, <span class="name" id="userName">—</span></span>
+    <span id="userLoginId" style="color:#71767a;"></span>
+    <a href="admin-dashboard.html" id="adminPanelLink" style="display:none; background:#b31942; color:#fff; padding:6px 14px; border-radius:2px; text-decoration:none; font-size:12px; font-weight:bold;">Admin Panel</a>
+    <a href="help.html" class="help-btn">Help</a>
+    <button class="logout-btn" onclick="logout()">Log Out</button>
+  </div>
+</header>
+<nav class="nav-tabs">
+  <button class="tab active" onclick="showTab('overview', event)">Overview</button>
+  <button class="tab" onclick="showTab('buy', event)">Buy Securities</button>
+  <button class="tab" onclick="showTab('deposit', event)">Deposit Funds</button>
+  <button class="tab" onclick="showTab('profile', event)">My Profile</button>
+</nav>
+
+<!-- ManageDirect quick links — moved out of the header into their own row -->
+<div class="quicklinks-bar">
+  <a class="ql-blue" href="redeem-securities.html">Redeem Securities</a>
+  <a class="ql-orange" href="assign-rights.html">Assign Rights</a>
+  <a class="ql-green" href="current-holdings.html">Current Holdings</a>
+  <a class="ql-blue" href="bank-information.html">Bank Information</a>
+  <a class="ql-green" href="change-password.html">Change Password</a>
+  <a class="ql-blue" href="gift-box.html">Gift Box</a>
+  <a class="ql-orange" href="registration-list.html">Registration List</a>
+  <a class="ql-green" href="minor-account.html">Minor Account</a>
+  <a class="ql-orange" href="account-settings.html">Account Settings</a>
+<a class="ql-green" href="shared-securities.html">Shared Securities</a>
+</div>
+
+<main>
+  <div class="alert" id="alertBox"></div>
+  <div class="verify-banner" id="verifyBanner" style="display:none;">
+    Your email is not yet verified. Please check your inbox for the verification link.
+  </div>
+
+  <!-- OVERVIEW -->
+  <div class="tab-content active" id="tab-overview">
+    <div class="summary-grid">
+      <div class="summary-card balance">
+        <div class="label">Cash Balance</div>
+        <div class="value" id="cashBalance">$0.00</div>
+      </div>
+      <div class="summary-card">
+        <div class="label">Active Securities</div>
+        <div class="value" id="activeCount">0</div>
+      </div>
+      <div class="summary-card">
+        <div class="label">Total Invested</div>
+        <div class="value" id="totalPrincipal">$0.00</div>
+      </div>
+      <div class="summary-card">
+        <div class="label">Interest Earned</div>
+        <div class="value" id="totalInterest">$0.00</div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-header">My Holdings</div>
+      <div class="panel-body">
+        <table id="holdingsTable">
+          <thead><tr><th>Security</th><th>Principal</th><th>Current Value</th><th>Purchased</th><th>Matures</th><th>Status</th><th></th></tr></thead>
+          <tbody id="holdingsBody"></tbody>
+        </table>
+        <div class="empty-msg" id="holdingsEmpty" style="display:none;">You don't have any securities yet. Visit "Buy Securities" to get started.</div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-header">Recent Transactions</div>
+      <div class="panel-body">
+        <table>
+          <thead><tr><th>Type</th><th>Amount</th><th>Status</th><th>Date</th></tr></thead>
+          <tbody id="transactionsBody"></tbody>
+        </table>
+        <div class="empty-msg" id="transactionsEmpty" style="display:none;">No transactions yet.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BUY SECURITIES -->
+  <div class="tab-content" id="tab-buy">
+    <div class="panel">
+      <div class="panel-header">Available Securities</div>
+      <div class="panel-body">
+        <table>
+          <thead><tr><th>Name</th><th>Type</th><th>Rate</th><th>Term</th><th>Min / Max</th><th></th></tr></thead>
+          <tbody id="bondsBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- DEPOSIT -->
+  <div class="tab-content" id="tab-deposit">
+    <div class="panel">
+      <div class="panel-header">Available Payment Methods</div>
+      <div class="panel-body" id="paymentMethodsBody">
+        <div class="empty-msg">Loading payment methods…</div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-header">Submit a Deposit Request</div>
+      <div class="panel-body">
+        <div class="form-row"><label>Amount ($)</label><input type="text" id="depositAmount" /></div>
+        <div class="form-row"><label>Payment Method</label>
+          <select id="depositMethodSelect"><option value="">— Select a method —</option></select>
+        </div>
+        <div class="form-row"><label>Upload Receipt</label><input type="file" id="depositReceipt" accept="image/*,.pdf" /></div>
+        <div class="form-row"><label></label><button class="btn orange" onclick="submitDeposit()">Submit Deposit Request</button></div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-header">My Deposit History</div>
+      <div class="panel-body">
+        <table>
+          <thead><tr><th>Reference Code</th><th>Amount</th><th>Status</th><th>Date</th></tr></thead>
+          <tbody id="depositsBody"></tbody>
+        </table>
+        <div class="empty-msg" id="depositsEmpty" style="display:none;">No deposit requests yet.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROFILE -->
+  <div class="tab-content" id="tab-profile">
+    <div class="panel">
+      <div class="panel-header">Contact Information</div>
+      <div class="panel-body">
+        <div class="form-row"><label>Phone Number</label><input type="text" id="profilePhone" /></div>
+        <div class="form-row"><label>Street Address</label><input type="text" id="profileStreet" /></div>
+        <div class="form-row"><label>City</label><input type="text" id="profileCity" /></div>
+        <div class="form-row"><label>State</label><input type="text" id="profileState" /></div>
+        <div class="form-row"><label>Postal Code</label><input type="text" id="profilePostal" /></div>
+        <div class="form-row"><label>Country</label><input type="text" id="profileCountry" /></div>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-header">Bank Information</div>
+      <div class="panel-body">
+        <div class="form-row"><label>Bank Name</label><input type="text" id="profileBankName" /></div>
+        <div class="form-row"><label>Account Name</label><input type="text" id="profileAccountName" /></div>
+        <div class="form-row"><label>Account Number</label><input type="text" id="profileAccountNumber" /></div>
+        <div class="form-row"><label>Routing Number</label><input type="text" id="profileRoutingNumber" /></div>
+        <div class="form-row"><label></label><button class="btn" onclick="saveProfile()">Save Changes</button></div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <a href="help.html">Help</a> |
+  <a href="privacy-legal.html">Privacy &amp; Legal Notices</a> |
+  <a href="site-map.html">Site Map</a> |
+  <a href="contact-us.html">Contact Us</a>
+</footer>
+
+<script>
+const API_BASE = "https://t-bond-backend.onrender.com/api";
+const token = localStorage.getItem("td_token");
+
+if (!token) {
+  window.location.href = "login.html";
+}
+
+function logout() {
+  localStorage.removeItem("td_token");
+  localStorage.removeItem("td_user");
+  window.location.href = "login.html";
+}
+
+function authHeaders(extra = {}) {
+  return { Authorization: `Bearer ${token}`, ...extra };
+}
+
+function showAlert(message, type) {
+  const box = document.getElementById("alertBox");
+  box.textContent = message;
+  box.className = "alert show" + (type === "success" ? " success" : "");
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function showTab(name, evt) {
+  document.querySelectorAll(".tab-content").forEach((el) => el.classList.remove("active"));
+  document.getElementById("tab-" + name).classList.add("active");
+  document.querySelectorAll(".nav-tabs .tab").forEach((el) => el.classList.remove("active"));
+  if (evt && evt.target) evt.target.classList.add("active");
+}
+
+function money(n) {
+  return "$" + Number(n || 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+
+async function apiGet(path) {
+  const res = await fetch(`${API_BASE}${path}`, { headers: authHeaders() });
+  if (res.status === 401 || res.status === 403) { logout(); return null; }
+  return res.json();
+}
+
+async function loadMe() {
+  const user = await apiGet("/auth/me");
+  if (!user) return;
+  document.getElementById("userName").textContent = user.name;
+  document.getElementById("userLoginId").textContent = "(" + user.loginId + ")";
+  if (user.role === "admin") {
+    document.getElementById("adminPanelLink").style.display = "inline-block";
+  }
+  if (user.isEmailVerified === false) document.getElementById("verifyBanner").style.display = "block";
+
+  document.getElementById("profilePhone").value = user.phoneNumber || "";
+  document.getElementById("profileStreet").value = user.address?.street || "";
+  document.getElementById("profileCity").value = user.address?.city || "";
+  document.getElementById("profileState").value = user.address?.state || "";
+  document.getElementById("profilePostal").value = user.address?.postalCode || "";
+  document.getElementById("profileCountry").value = user.address?.country || "";
+  document.getElementById("profileBankName").value = user.bankDetails?.bankName || "";
+  document.getElementById("profileAccountName").value = user.bankDetails?.accountName || "";
+  document.getElementById("profileAccountNumber").value = user.bankDetails?.accountNumber || "";
+  document.getElementById("profileRoutingNumber").value = user.bankDetails?.routingNumber || "";
+}
+
+async function loadDashboard() {
+  const data = await apiGet("/dashboard");
+  if (!data) return;
+
+  document.getElementById("cashBalance").textContent = money(data.cashBalance);
+  document.getElementById("activeCount").textContent = data.portfolio.activeHoldingsCount;
+  document.getElementById("totalPrincipal").textContent = money(data.portfolio.totalPrincipal);
+  document.getElementById("totalInterest").textContent = money(data.portfolio.totalInterestEarned);
+
+  const holdingsBody = document.getElementById("holdingsBody");
+  holdingsBody.innerHTML = "";
+  if (data.holdings.length === 0) {
+    document.getElementById("holdingsEmpty").style.display = "block";
+  } else {
+    document.getElementById("holdingsEmpty").style.display = "none";
+    data.holdings.forEach((h) => {
+      holdingsBody.innerHTML += `
+        <tr>
+          <td>${h.bond?.name || "—"}</td>
+          <td>${money(h.principal)}</td>
+          <td>${money(h.currentValue)}</td>
+          <td>${new Date(h.purchaseDate).toLocaleDateString()}</td>
+          <td>${new Date(h.maturityDate).toLocaleDateString()}</td>
+          <td><span class="badge ${h.status}">${h.status}</span></td>
+          <td>${h.status === "active" ? `<button class="btn small" onclick="redeemHolding('${h._id}')">Redeem</button>` : ""}</td>
+        </tr>`;
+    });
+  }
+
+  const txBody = document.getElementById("transactionsBody");
+  txBody.innerHTML = "";
+  if (data.recentTransactions.length === 0) {
+    document.getElementById("transactionsEmpty").style.display = "block";
+  } else {
+    document.getElementById("transactionsEmpty").style.display = "none";
+    data.recentTransactions.forEach((t) => {
+      txBody.innerHTML += `
+        <tr>
+          <td style="text-transform:capitalize;">${t.type}</td>
+          <td>${money(t.amount)}</td>
+          <td><span class="badge ${t.status}">${t.status}</span></td>
+          <td>${new Date(t.createdAt).toLocaleDateString()}</td>
+        </tr>`;
+    });
+  }
+}
+
+async function loadBonds() {
+  const bonds = await apiGet("/bonds");
+  if (!bonds) return;
+  const body = document.getElementById("bondsBody");
+  body.innerHTML = "";
+  bonds.forEach((b) => {
+    body.innerHTML += `
+      <tr>
+        <td>${b.name}</td>
+        <td>${b.type}</td>
+        <td style="color:#2e8540; font-weight:bold;">${b.interestRate}%</td>
+        <td>${b.termYears} yr</td>
+        <td>${money(b.minPurchase)} – ${money(b.maxPurchase)}</td>
+        <td><button class="btn small orange" onclick="buyBond('${b._id}', ${b.minPurchase}, ${b.maxPurchase}, '${b.name}')">Buy</button></td>
+      </tr>`;
+  });
+}
+
+async function buyBond(bondId, min, max, name) {
+  const amount = prompt(`How much would you like to invest in "${name}"? (Min $${min}, Max $${max})`);
+  if (!amount) return;
+
+  try {
+    const res = await fetch(`${API_BASE}/bonds/${bondId}/buy`, {
+      method: "POST",
+      headers: authHeaders({ "Content-Type": "application/json" }),
+      body: JSON.stringify({ amount: Number(amount) }),
+    });
+    const data = await res.json();
+    if (!res.ok) { showAlert(data.message, "error"); return; }
+    showAlert(data.message, "success");
+    loadDashboard();
+  } catch (err) {
+    showAlert("Unable to reach the server.", "error");
+  }
+}
+
+async function redeemHolding(holdingId) {
+  if (!confirm("Submit a redemption request for this security?")) return;
+  try {
+    const res = await fetch(`${API_BASE}/bonds/redeem/${holdingId}`, {
+      method: "POST",
+      headers: authHeaders({ "Content-Type": "application/json" }),
+    });
+    const data = await res.json();
+    if (!res.ok) { showAlert(data.message, "error"); return; }
+    showAlert(data.message, "success");
+    loadDashboard();
+  } catch (err) {
+    showAlert("Unable to reach the server.", "error");
+  }
+}
+
+let paymentMethods = [];
+
+async function loadPaymentMethods() {
+  const methods = await apiGet("/payment-methods");
+  if (!methods) return;
+  paymentMethods = methods;
+
+  const container = document.getElementById("paymentMethodsBody");
+  const select = document.getElementById("depositMethodSelect");
+  select.innerHTML = `<option value="">— Select a method —</option>`;
+
+  if (methods.length === 0) {
+    container.innerHTML = `<div class="empty-msg">No payment methods available yet. Please contact support.</div>`;
+    return;
+  }
+
+  container.innerHTML = "";
+  methods.forEach((m) => {
+    select.innerHTML += `<option value="${m._id}">${m.label}</option>`;
+
+    let details = "";
+    if (m.type === "bank_transfer") {
+      details = `
+        <table style="margin-top:8px;">
+          <tr><td style="color:#71767a;width:160px;">Bank Name</td><td><strong>${m.bankName || "-"}</strong></td></tr>
+          <tr><td style="color:#71767a;">Account Name</td><td><strong>${m.accountName || "-"}</strong></td></tr>
+          <tr><td style="color:#71767a;">Account Number</td><td><strong>${m.accountNumber || "-"}</strong></td></tr>
+          <tr><td style="color:#71767a;">Routing Number</td><td><strong>${m.routingNumber || "-"}</strong></td></tr>
+        </table>`;
+    } else if (m.type === "crypto") {
+      details = `
+        <table style="margin-top:8px;">
+          <tr><td style="color:#71767a;width:160px;">Currency</td><td><strong>${m.cryptoCurrency || "-"}</strong></td></tr>
+          <tr><td style="color:#71767a;">Network</td><td><strong>${m.network || "-"}</strong></td></tr>
+        </table>
+        <div class="wallet-address">${m.walletAddress || "-"}</div>
+        ${m.qrCode ? `<div class="qr-box"><img src="${m.qrCode}" alt="QR Code" /></div>` : ""}
+      `;
+    }
+
+    container.innerHTML += `
+      <div style="border-bottom:1px solid #eee; padding-bottom:16px; margin-bottom:16px;">
+        <strong style="font-size:14px;">${m.label}</strong>
+        ${details}
+        ${m.instructions ? `<p style="color:#71767a; font-size:12px; margin-top:8px;"><em>${m.instructions}</em></p>` : ""}
+      </div>`;
+  });
+}
+
+async function loadDeposits() {
+  const deposits = await apiGet("/deposits");
+  if (!deposits) return;
+  const body = document.getElementById("depositsBody");
+  body.innerHTML = "";
+  if (deposits.length === 0) {
+    document.getElementById("depositsEmpty").style.display = "block";
+  } else {
+    document.getElementById("depositsEmpty").style.display = "none";
+    deposits.forEach((d) => {
+      body.innerHTML += `
+        <tr>
+          <td>${d.referenceCode}</td>
+          <td>${money(d.amount)}</td>
+          <td><span class="badge ${d.status}">${d.status}</span></td>
+          <td>${new Date(d.createdAt).toLocaleDateString()}</td>
+        </tr>`;
+    });
+  }
+}
+
+async function submitDeposit() {
+  const amount = document.getElementById("depositAmount").value;
+  const paymentMethodId = document.getElementById("depositMethodSelect").value;
+  const fileInput = document.getElementById("depositReceipt");
+
+  if (!amount || Number(amount) <= 0) { showAlert("Please enter a valid amount.", "error"); return; }
+
+  const formData = new FormData();
+  formData.append("amount", amount);
+  if (paymentMethodId) formData.append("paymentMethodId", paymentMethodId);
+  if (fileInput.files[0]) formData.append("receipt", fileInput.files[0]);
+
+  try {
+    const res = await fetch(`${API_BASE}/deposits`, {
+      method: "POST",
+      headers: authHeaders(),
+      body: formData,
+    });
+    const data = await res.json();
+    if (!res.ok) { showAlert(data.message, "error"); return; }
+    showAlert(data.message, "success");
+    document.getElementById("depositAmount").value = "";
+    fileInput.value = "";
+    loadDeposits();
+  } catch (err) {
+    showAlert("Unable to reach the server.", "error");
+  }
+}
+
+async function saveProfile() {
+  const payload = {
+    phoneNumber: document.getElementById("profilePhone").value,
+    address: {
+      street: document.getElementById("profileStreet").value,
+      city: document.getElementById("profileCity").value,
+      state: document.getElementById("profileState").value,
+      postalCode: document.getElementById("profilePostal").value,
+      country: document.getElementById("profileCountry").value,
+    },
+    bankDetails: {
+      bankName: document.getElementById("profileBankName").value,
+      accountName: document.getElementById("profileAccountName").value,
+      accountNumber: document.getElementById("profileAccountNumber").value,
+      routingNumber: document.getElementById("profileRoutingNumber").value,
+    },
+  };
+
+  try {
+    const res = await fetch(`${API_BASE}/auth/profile`, {
+      method: "PUT",
+      headers: authHeaders({ "Content-Type": "application/json" }),
+      body: JSON.stringify(payload),
+    });
+    const data = await res.json();
+    if (!res.ok) { showAlert(data.message, "error"); return; }
+    showAlert("Profile updated successfully.", "success");
+  } catch (err) {
+    showAlert("Unable to reach the server.", "error");
+  }
+}
+
+// Initial load
+loadMe();
+loadDashboard();
+loadBonds();
+loadPaymentMethods();
+loadDeposits();
+</script>
+
+</body>
+</html>

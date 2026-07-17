@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>BuyDirect - TreasuryDirect</title>
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 13px;
+      color: #333;
+      margin: 0;
+      background: #fff;
+    }
+
+    a {
+      color: #0000cc;
+      text-decoration: underline;
+    }
+
+    a:hover {
+      color: #cc3300;
+    }
+
+    .header-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .header-table td {
+      padding: 10px 20px;
+      vertical-align: middle;
+    }
+
+    .logo {
+      font-size: 26px;
+      font-weight: bold;
+      color: #2f6a31;
+    }
+
+    .logo span {
+      color: #1a4fa0;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 4px 14px;
+      font-size: 12px;
+      font-weight: bold;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 3px;
+      border: 1px solid rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-help {
+      background: #4caf50;
+    }
+
+    .btn-logoff {
+      background: #e07a1f;
+      cursor: pointer;
+    }
+
+    .navbar {
+      width: 100%;
+      border-collapse: collapse;
+      background: #1a4fa0;
+    }
+
+    .navbar td {
+      padding: 8px 16px;
+      color: #fff;
+      font-weight: bold;
+      font-size: 12px;
+      text-align: center;
+      border-right: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .navbar td.active {
+      background: #e07a1f;
+    }
+
+    .navbar a {
+      color: #fff;
+      text-decoration: none;
+      display: block;
+    }
+
+    .content {
+      padding: 20px 30px;
+      max-width: 900px;
+    }
+
+    .breadcrumb {
+      color: #cc5500;
+      font-weight: bold;
+      font-size: 16px;
+      margin-bottom: 4px;
+    }
+
+    .subtext {
+      font-size: 12px;
+      color: #444;
+      margin-bottom: 16px;
+    }
+
+    .acct-line {
+      text-align: right;
+      font-size: 12px;
+      color: #333;
+      margin-top: -30px;
+      margin-bottom: 10px;
+    }
+
+    .balance-box {
+      background: #eef4fb;
+      border: 1px solid #b7cbe6;
+      padding: 10px 14px;
+      font-size: 12px;
+      margin-bottom: 18px;
+    }
+
+    .balance-box strong {
+      color: #1a4fa0;
+    }
+
+    table.data {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 12px 0 20px;
+    }
+
+    table.data th {
+      background: #1a4fa0;
+      color: #fff;
+      text-align: left;
+      padding: 6px 10px;
+      font-size: 12px;
+    }
+
+    table.data td {
+      border: 1px solid #ccc;
+      padding: 8px 10px;
+      font-size: 13px;
+    }
+
+    table.data tr.row-option {
+      cursor: pointer;
+    }
+
+    table.data tr.row-option:hover td {
+      background: #eef4fb;
+    }
+
+    table.data tr.row-option.selected td {
+      background: #dceafd;
+    }
+
+    table.data td.num {
+      text-align: right;
+    }
+
+    fieldset {
+      border: 1px solid #999;
+      padding: 14px;
+      margin-bottom: 16px;
+    }
+
+    legend {
+      font-weight: bold;
+      color: #1a4fa0;
+      padding: 0 6px;
+    }
+
+    label {
+      display: inline-block;
+      width: 180px;
+      font-size: 13px;
+    }
+
+    input[type="text"],
+    input[type="number"] {
+      border: 1px solid #666;
+      padding: 4px 6px;
+      font-size: 13px;
+      width: 140px;
+    }
+
+    .action-btn {
+      background: #1a4fa0;
+      color: #fff;
+      border: 1px solid #12407e;
+      padding: 6px 18px;
+      font-weight: bold;
+      font-size: 12px;
+      cursor: pointer;
+      border-radius: 2px;
+    }
+
+    .action-btn:disabled {
+      background: #9aa8bb;
+      border-color: #8593a6;
+      cursor: not-allowed;
+    }
+
+    .action-btn.cancel {
+      background: #e07a1f;
+      border-color: #b3610f;
+    }
+
+    .error-banner {
+      background: #fdeaea;
+      border: 1px solid #d99;
+      color: #a33;
+      padding: 10px 14px;
+      margin-bottom: 16px;
+      font-size: 12px;
+      display: none;
+    }
+
+    .error-banner.show {
+      display: block;
+    }
+
+    .error-title {
+      font-weight: bold;
+      margin-bottom: 4px;
+    }
+
+    .success-box {
+      background: #eef8ee;
+      border: 1px solid #a9d4a9;
+      color: #235c23;
+      padding: 16px 18px;
+      margin-bottom: 16px;
+      font-size: 13px;
+      display: none;
+    }
+
+    .success-box.show {
+      display: block;
+    }
+
+    .detail-box {
+      border: 1px solid #ccc;
+      padding: 16px 18px;
+      margin: 14px 0 20px;
+      background: #fafafa;
+    }
+
+    .detail-box .row {
+      margin-bottom: 8px;
+    }
+
+    .detail-box .label {
+      display: inline-block;
+      width: 160px;
+      font-weight: bold;
+      color: #444;
+    }
+
+    .field-hint {
+      font-size: 11px;
+      color: #666;
+      margin-top: 4px;
+    }
+
+    .field-error {
+      font-size: 11px;
+      color: #a33;
+      margin-top: 4px;
+      display: none;
+    }
+
+    .loading-msg {
+      padding: 20px;
+      text-align: center;
+      color: #666;
+    }
+
+    .footer {
+      border-top: 1px solid #ccc;
+      text-align: center;
+      padding: 14px;
+      font-size: 11px;
+      color: #666;
+      margin-top: 30px;
+    }
+
+    .footer a {
+      margin: 0 6px;
+    }
+
+    #step1,
+    #step2,
+    #step3,
+    #step4 {
+      display: none;
+    }
+
+    #step1.active,
+    #step2.active,
+    #step3.active,
+    #step4.active {
+      display: block;
+    }
+  </style>
+</head>
+
+<body>
+
+  <table class="header-table">
+    <tr>
+      <td class="logo">Treasury<span>Direct</span>.</td>
+      <td style="text-align:right;">
+        <a class="btn btn-help" href="help.html">Help</a>
+        <a class="btn btn-logoff" id="logoffBtn">Logoff</a>
+      </td>
+    </tr>
+  </table>
+
+  <table class="navbar">
+    <tr>
+      <td><a href="dashboard.html">My Account</a></td>
+      <td class="active"><a href="#" style="color:#fff;">BuyDirect</a></td>
+      <td><a href="dashboard.html">Current Holdings</a></td>
+      <td><a href="dashboard.html">ManageDirect</a></td>
+      <td><a href="account-info.html">Account Info</a></td>
+      <td><a href="history.html">History</a></td>
+    </tr>
+  </table>
+
+  <div class="content">
+    <div class="breadcrumb">BuyDirect</div>
+    <div class="acct-line" id="acctLine"></div>
+    <div class="subtext" id="step1Sub">Choose a security below to purchase.</div>
+
+    <div class="error-banner" id="errorBanner">
+      <div class="error-title">The following error occurred:</div>
+      <div id="errorText"></div>
+    </div>
+
+    <div class="success-box" id="successBox">
+      <strong>Purchase request submitted.</strong>
+      <div id="successText" style="margin-top:6px;"></div>
+    </div>
+
+    <div class="balance-box">
+      Available Cash Balance: <strong id="balanceDisplay">$0.00</strong>
+      &nbsp;&mdash;&nbsp; <a href="deposit.html">Deposit more funds</a>
+    </div>
+
+    <!-- STEP 1: choose a bond -->
+    <div id="step1" class="active">
+      <div class="loading-msg" id="loadingMsg">Loading available securities…</div>
+      <table class="data" id="bondsTable" style="display:none;">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Security</th>
+            <th>Type</th>
+            <th>Interest Rate</th>
+            <th>Term</th>
+            <th style="text-align:right;">Min / Max Purchase</th>
+          </tr>
+        </thead>
+        <tbody id="bondsBody"></tbody>
+      </table>
+
+      <p>
+        <button class="action-btn" id="continueBtn" disabled>Continue</button>
+        <button class="action-btn cancel" onclick="window.location.href='dashboard.html'">Cancel</button>
+      </p>
+    </div>
+
+    <!-- STEP 2: enter amount -->
+    <div id="step2">
+      <fieldset>
+        <legend id="chosenBondLegend">Purchase Information</legend>
+        <p>
+          <label>Registration:</label>
+          <select id="registrationSelect" style="width:280px;"></select>
+        <div class="field-hint">Choose how this security will be registered, or <a href="registration-list.html"
+            target="_blank">add a new registration</a>.</div>
+        </p>
+        <p>
+          <label>Purchase Amount:</label> $
+          <input type="number" id="amountInput" min="0" step="0.01">
+        <div class="field-hint" id="amountHint"></div>
+        <div class="field-error" id="amountError"></div>
+        </p>
+      </fieldset>
+      <p>
+        <button class="action-btn" id="reviewBtn">Review Order</button>
+        <button class="action-btn cancel" id="backToStep1">Back</button>
+      </p>
+    </div>
+
+    <!-- STEP 3: review + confirm -->
+    <div id="step3">
+      <div class="subtext">Please review your purchase before submitting.</div>
+      <div class="detail-box" id="reviewDetail"></div>
+      <p style="font-size:12px; color:#444;">
+        By clicking Submit below: I certify that I am authorized to perform this transaction and that the
+        purchase amount will be debited from my TreasuryDirect cash balance once this request is approved.
+      </p>
+      <p>
+        <button class="action-btn" id="submitBuyBtn">Submit</button>
+        <button class="action-btn cancel" id="backToStep2">Back</button>
+      </p>
+    </div>
+
+    <!-- STEP 4: done -->
+    <div id="step4">
+      <p><a href="dashboard.html">Return to My Account</a></p>
+    </div>
+  </div>
+
+  <div class="footer">
+    <a href="privacy-legal.html">Privacy &amp; Legal Notices</a> | <a href="site-map.html">Site Map</a> | <a
+      href="contact-us.html">Contact Us</a>
+  </div>
+
+  <script>
+    const API_BASE = "https://t-bond-backend.onrender.com/api";
+    const token = localStorage.getItem("td_token");
+    const userRaw = localStorage.getItem("td_user");
+
+    if (!token) {
+      window.location.href = "login.html";
+    }
+
+    let currentUser = null;
+    try { currentUser = userRaw ? JSON.parse(userRaw) : null; } catch (e) { currentUser = null; }
+
+    document.getElementById("acctLine").textContent = currentUser?.loginId
+      ? `${currentUser.name || ""}: ${currentUser.loginId}`
+      : "";
+
+    document.getElementById("logoffBtn").addEventListener("click", () => {
+      localStorage.removeItem("td_token");
+      localStorage.removeItem("td_user");
+      window.location.href = "login.html";
+    });
+
+    function showStep(step) {
+      ["step1", "step2", "step3", "step4"].forEach((id) => {
+        document.getElementById(id).classList.toggle("active", id === step);
+      });
+    }
+
+    function showError(msg) {
+      const banner = document.getElementById("errorBanner");
+      document.getElementById("errorText").textContent = msg;
+      banner.classList.add("show");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function clearError() {
+      document.getElementById("errorBanner").classList.remove("show");
+    }
+
+    function formatMoney(n) {
+      return Number(n || 0).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    let bonds = [];
+    let selectedBond = null;
+    let registrations = [];
+
+    async function loadRegistrations() {
+      try {
+        const res = await fetch(`${API_BASE}/registrations`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        const data = await res.json();
+        if (!res.ok) return;
+
+        registrations = data;
+        const select = document.getElementById("registrationSelect");
+        select.innerHTML = "";
+
+        if (registrations.length === 0) {
+          select.innerHTML = `<option value="">No registrations yet — using default</option>`;
+          return;
+        }
+
+        registrations.forEach((r) => {
+          const opt = document.createElement("option");
+          opt.value = r._id;
+          opt.textContent = r.displayLabel + (r.isPreferred ? " (Preferred)" : "");
+          if (r.isPreferred) opt.selected = true;
+          select.appendChild(opt);
+        });
+      } catch (err) {
+        // non-critical; purchase can still proceed without a registration selected
+      }
+    }
+    let cashBalance = 0;
+
+    async function loadBalance() {
+      try {
+        const res = await fetch(`${API_BASE}/dashboard`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        const data = await res.json();
+        if (res.ok) {
+          cashBalance = data.cashBalance || 0;
+          document.getElementById("balanceDisplay").textContent = `$${formatMoney(cashBalance)}`;
+        }
+      } catch (err) {
+        // balance display is non-critical; ignore silently
+      }
+    }
+
+    async function loadBonds() {
+      try {
+        const res = await fetch(`${API_BASE}/bonds`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        const data = await res.json();
+
+        if (!res.ok) {
+          throw new Error(data.message || "Unable to load available securities.");
+        }
+
+        bonds = data;
+        document.getElementById("loadingMsg").style.display = "none";
+
+        const tbody = document.getElementById("bondsBody");
+        tbody.innerHTML = "";
+
+        bonds.forEach((b) => {
+          const tr = document.createElement("tr");
+          tr.className = "row-option";
+          tr.dataset.id = b._id;
+          tr.innerHTML = `
+          <td><input type="radio" name="bond" value="${b._id}"></td>
+          <td>${b.name}</td>
+          <td>${b.type}</td>
+          <td>${b.interestRate}%</td>
+          <td>${b.termYears} year${b.termYears === 1 ? "" : "s"}</td>
+          <td class="num">$${formatMoney(b.minPurchase)} &ndash; $${formatMoney(b.maxPurchase)}</td>
+        `;
+          tr.addEventListener("click", () => selectRow(tr, b));
+          tbody.appendChild(tr);
+        });
+
+        document.getElementById("bondsTable").style.display = "table";
+      } catch (err) {
+        document.getElementById("loadingMsg").style.display = "none";
+        showError(err.message || "Something went wrong loading securities.");
+      }
+    }
+
+    function selectRow(tr, bond) {
+      document.querySelectorAll("#bondsBody tr").forEach((r) => r.classList.remove("selected"));
+      tr.classList.add("selected");
+      tr.querySelector("input[type=radio]").checked = true;
+      selectedBond = bond;
+      document.getElementById("continueBtn").disabled = false;
+    }
+
+    document.getElementById("continueBtn").addEventListener("click", () => {
+      if (!selectedBond) return;
+      clearError();
+      document.getElementById("chosenBondLegend").textContent =
+        `Purchase Information — ${selectedBond.name} (${selectedBond.type})`;
+      document.getElementById("amountHint").textContent =
+        `Minimum $${formatMoney(selectedBond.minPurchase)}, maximum $${formatMoney(selectedBond.maxPurchase)}. Available balance: $${formatMoney(cashBalance)}.`;
+      document.getElementById("amountInput").value = "";
+      document.getElementById("amountError").style.display = "none";
+      showStep("step2");
+    });
+
+    document.getElementById("backToStep1").addEventListener("click", () => {
+      clearError();
+      showStep("step1");
+    });
+
+    document.getElementById("reviewBtn").addEventListener("click", () => {
+      clearError();
+      const amountInput = document.getElementById("amountInput");
+      const amountError = document.getElementById("amountError");
+      const amount = parseFloat(amountInput.value);
+
+      if (!amount || amount <= 0) {
+        amountError.textContent = "Please enter a valid purchase amount.";
+        amountError.style.display = "block";
+        return;
+      }
+      if (amount < selectedBond.minPurchase) {
+        amountError.textContent = `Amount must be at least $${formatMoney(selectedBond.minPurchase)}.`;
+        amountError.style.display = "block";
+        return;
+      }
+      if (amount > selectedBond.maxPurchase) {
+        amountError.textContent = `Amount cannot exceed $${formatMoney(selectedBond.maxPurchase)}.`;
+        amountError.style.display = "block";
+        return;
+      }
+      if (amount > cashBalance) {
+        amountError.textContent = `Insufficient cash balance. You have $${formatMoney(cashBalance)} available.`;
+        amountError.style.display = "block";
+        return;
+      }
+
+      amountError.style.display = "none";
+      renderReview(amount);
+      showStep("step3");
+    });
+
+    document.getElementById("backToStep2").addEventListener("click", () => {
+      clearError();
+      showStep("step2");
+    });
+
+    let purchaseAmount = 0;
+
+    function renderReview(amount) {
+      purchaseAmount = amount;
+      const select = document.getElementById("registrationSelect");
+      const selectedOption = select.options[select.selectedIndex];
+      const registrationLabel = selectedOption ? selectedOption.textContent : (currentUser?.name || "-");
+
+      document.getElementById("reviewDetail").innerHTML = `
+      <div class="row"><span class="label">Registration:</span> ${registrationLabel}</div>
+      <div class="row"><span class="label">Product Type:</span> ${selectedBond.name} (${selectedBond.type})</div>
+      <div class="row"><span class="label">Interest Rate:</span> ${selectedBond.interestRate}%</div>
+      <div class="row"><span class="label">Term:</span> ${selectedBond.termYears} year${selectedBond.termYears === 1 ? "" : "s"}</div>
+      <div class="row"><span class="label">Purchase Amount:</span> $${formatMoney(amount)}</div>
+      <div class="row"><span class="label">Source of Funds:</span> TreasuryDirect Cash Balance</div>
+    `;
+    }
+
+    document.getElementById("submitBuyBtn").addEventListener("click", async () => {
+      if (!selectedBond || !purchaseAmount) return;
+      clearError();
+
+      const btn = document.getElementById("submitBuyBtn");
+      btn.disabled = true;
+      btn.textContent = "Submitting…";
+
+      try {
+        const res = await fetch(`${API_BASE}/bonds/${selectedBond._id}/buy`, {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ amount: purchaseAmount, registrationId: document.getElementById("registrationSelect").value || null }),
+        });
+        const data = await res.json();
+
+        if (!res.ok) {
+          throw new Error(data.message || "Unable to submit purchase request.");
+        }
+
+        document.getElementById("successText").textContent =
+          `Your purchase of $${formatMoney(purchaseAmount)} in ${selectedBond.name} has been submitted and is pending admin approval. You'll receive an email once it's reviewed.`;
+        document.getElementById("successBox").classList.add("show");
+        showStep("step4");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } catch (err) {
+        showStep("step3");
+        showError(err.message || "Something went wrong submitting your purchase.");
+        btn.disabled = false;
+        btn.textContent = "Submit";
+      }
+    });
+
+    loadBalance();
+    loadBonds();
+    loadRegistrations();
+  </script>
+
+</body>
+
+</html>
