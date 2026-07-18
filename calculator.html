@@ -4,7 +4,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Savings Bond Calculator — TreasuryDirect</title><link rel="icon" type="image/png" href="favicon.jpg"><link rel="icon" type="image/png" href="favicon.jpg">
+  <title>Savings Bond Calculators — TreasuryDirect</title>
+  <link rel="icon" type="image/png" href="favicon.jpg">
+  <link rel="icon" type="image/png" href="favicon.jpg">
   <style>
     * {
       box-sizing: border-box;
@@ -23,7 +25,6 @@
       color: #205493;
     }
 
-    /* Government banner */
     .gov-banner {
       background: #162e51;
       color: #fff;
@@ -138,111 +139,6 @@
       color: #fff;
     }
 
-    /* Top row: flag text + the toggle button that opens/closes the panel */
-    .gov-banner-top {
-      padding: 8px 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 6px;
-    }
-
-    .gov-toggle {
-      background: none;
-      border: none;
-      color: #fff;
-      font: inherit;
-      font-size: 12px;
-      text-decoration: underline;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      padding: 4px 0;
-    }
-
-    .gov-arrow {
-      font-size: 9px;
-      transition: transform 0.15s ease;
-      display: inline-block;
-    }
-
-    .gov-toggle[aria-expanded="true"] .gov-arrow {
-      transform: rotate(180deg);
-    }
-
-    /* Collapsible content panel — hidden by default via the [hidden] attribute */
-    .gov-panel {
-      border-top: 1px solid rgba(255, 255, 255, 0.25);
-      padding: 24px 20px 30px;
-    }
-
-    .gov-dept-line {
-      margin-bottom: 20px;
-    }
-
-    .gov-dept-line a {
-      margin-left: 0;
-      font-size: 14px;
-    }
-
-    .gov-panel-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 26px;
-      max-width: 900px;
-    }
-
-    @media (min-width: 700px) {
-      .gov-panel-grid {
-        grid-template-columns: 1fr 1fr;
-      }
-    }
-
-    .gov-item {
-      display: flex;
-      gap: 16px;
-      align-items: flex-start;
-    }
-
-    .gov-icon {
-      flex-shrink: 0;
-      width: 56px;
-      height: 56px;
-      border-radius: 50%;
-      border: 2px solid;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 22px;
-    }
-
-    .gov-icon-blue {
-      border-color: #4f9cd9;
-    }
-
-    .gov-icon-green {
-      border-color: #6cc24a;
-    }
-
-    .gov-item h4 {
-      font-size: 15px;
-      margin-bottom: 6px;
-    }
-
-    .gov-item p {
-      font-size: 13px;
-      line-height: 1.6;
-      color: #d6e0ec;
-      margin: 0;
-    }
-
-    .gov-item p strong {
-      color: #fff;
-    }
-
-    /* Header */
     header.site-header {
       padding: 14px 30px;
       display: flex;
@@ -327,7 +223,6 @@
       cursor: pointer;
     }
 
-    /* Secondary nav */
     .nav-secondary {
       background: #f4f6f8;
       border-bottom: 1px solid #ddd;
@@ -435,138 +330,6 @@
       margin: 6px 0;
     }
 
-    /* Hero */
-    .hero {
-      position: relative;
-      background-image: url('https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=1600&auto=format&fit=crop');
-      background-size: cover;
-      background-position: center;
-      color: #fff;
-      padding: 60px 30px;
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      flex-wrap: wrap;
-      gap: 30px;
-    }
-
-    .hero-text,
-    .login-card {
-      position: relative;
-      z-index: 1;
-    }
-
-    .hero-text {
-      max-width: 480px;
-      background: rgba(10, 20, 40, 0.55);
-      padding: 30px;
-    }
-
-    .hero-text h1 {
-      font-size: 30px;
-      font-weight: normal;
-      margin-bottom: 16px;
-    }
-
-    .hero-text p {
-      font-size: 15px;
-      line-height: 1.6;
-      margin-bottom: 22px;
-      color: #dbe7f5;
-    }
-
-    .hero-text .btn-outline {
-      display: inline-block;
-      background: transparent;
-      border: 2px solid #fff;
-      color: #fff;
-      padding: 10px 22px;
-      font-weight: bold;
-      text-decoration: none;
-      font-size: 14px;
-    }
-
-    .hero-text .btn-outline:hover {
-      background: #fff;
-      color: #1c3a63;
-    }
-
-    .login-card {
-      background: #fff;
-      color: #1b1b1b;
-      padding: 30px;
-      width: 320px;
-      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
-    }
-
-    .login-card h2 {
-      font-size: 26px;
-      font-weight: normal;
-      color: #444;
-      margin-bottom: 6px;
-    }
-
-    .login-card .logo2 {
-      font-size: 22px;
-      font-weight: bold;
-      margin-bottom: 20px;
-    }
-
-    .login-card .logo2 .treasury {
-      color: #4a7729;
-    }
-
-    .login-card .logo2 .direct {
-      color: #205493;
-    }
-
-    .login-card .btn-solid {
-      display: block;
-      background: #205493;
-      color: #fff;
-      text-align: center;
-      padding: 12px;
-      font-weight: bold;
-      text-decoration: none;
-      border-radius: 3px;
-      margin-bottom: 16px;
-      font-size: 15px;
-    }
-
-    .login-card .btn-solid:hover {
-      background: #163e6f;
-    }
-
-    .login-card a.link-line {
-      display: block;
-      font-size: 13px;
-      margin-bottom: 8px;
-      color: #205493;
-      text-decoration: underline;
-    }
-
-    .login-card hr {
-      margin: 16px 0;
-      border: none;
-      border-top: 1px solid #ddd;
-    }
-
-    .login-card .partner-logos {
-      display: flex;
-      gap: 20px;
-      align-items: center;
-      font-weight: bold;
-      font-size: 14px;
-    }
-
-    .login-card .fedinvest {
-      color: #205493;
-    }
-
-    .login-card .slgsafe {
-      color: #4a7729;
-    }
-
     main {
       max-width: 1200px;
       margin: 0 auto;
@@ -578,35 +341,6 @@
       font-weight: normal;
       color: #205493;
       margin-bottom: 20px;
-    }
-
-    .quicklink-row {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 14px;
-      margin-bottom: 44px;
-    }
-
-    @media (max-width: 900px) {
-      .quicklink-row {
-        grid-template-columns: 1fr 1fr;
-      }
-    }
-
-    .quicklink-box {
-      border: 1px solid #205493;
-      padding: 22px 16px;
-      color: #205493;
-      font-weight: bold;
-      font-size: 15px;
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      min-height: 80px;
-    }
-
-    .quicklink-box:hover {
-      background: #eef4fb;
     }
 
     .rates-row {
@@ -642,189 +376,6 @@
     .rate-box .rate-note {
       font-size: 13px;
       color: #555;
-    }
-
-    .btn-solid-blue {
-      display: inline-block;
-      background: #205493;
-      color: #fff;
-      padding: 12px 24px;
-      font-weight: bold;
-      text-decoration: none;
-      border-radius: 3px;
-      margin: 18px 8px 30px 0;
-      font-size: 14px;
-    }
-
-    .btn-solid-blue:hover {
-      background: #163e6f;
-    }
-
-    .info-box {
-      background: #eaf3fb;
-      border: 1px solid #205493;
-      padding: 24px;
-      margin-bottom: 30px;
-    }
-
-    .info-box h3 {
-      font-size: 20px;
-      color: #162e51;
-      margin-bottom: 12px;
-    }
-
-    .info-box p,
-    .info-box li {
-      font-size: 13.5px;
-      color: #333;
-      margin-bottom: 10px;
-      line-height: 1.6;
-    }
-
-    .info-box ul {
-      margin-left: 18px;
-    }
-
-    .announce-box {
-      background: #eaf3fb;
-      border: 1px solid #205493;
-      padding: 24px;
-      margin-bottom: 44px;
-    }
-
-    .announce-box h3 {
-      font-size: 19px;
-      color: #162e51;
-      margin-bottom: 14px;
-    }
-
-    .announce-box ul {
-      list-style: none;
-    }
-
-    .announce-box li {
-      font-size: 13.5px;
-      margin-bottom: 10px;
-      padding-left: 18px;
-      position: relative;
-    }
-
-    .announce-box li::before {
-      content: "›";
-      color: #b31942;
-      font-weight: bold;
-      position: absolute;
-      left: 0;
-    }
-
-    .news-month {
-      margin-bottom: 22px;
-    }
-
-    .news-month h4 {
-      font-size: 16px;
-      color: #1b1b1b;
-      margin-bottom: 8px;
-    }
-
-    .news-month ul {
-      list-style: disc;
-      margin-left: 20px;
-    }
-
-    .news-month li {
-      font-size: 13.5px;
-      margin-bottom: 6px;
-    }
-
-    .news-month a {
-      text-decoration: underline;
-    }
-
-    .guides-row {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 30px;
-      margin: 30px 0 46px;
-    }
-
-    @media (max-width: 800px) {
-      .guides-row {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .guide-col h4 {
-      font-size: 17px;
-      margin-bottom: 14px;
-      color: #1b1b1b;
-    }
-
-    .guide-col a {
-      display: block;
-      font-size: 13.5px;
-      padding: 10px 0;
-      border-bottom: 1px solid #eee;
-      text-decoration: none;
-      color: #205493;
-    }
-
-    .guide-col a:hover {
-      text-decoration: underline;
-    }
-
-    .gift-banner {
-      background: #eaf3fb;
-      padding: 30px;
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      margin-bottom: 40px;
-    }
-
-    .gift-banner .coin {
-      width: 90px;
-      height: 90px;
-      border-radius: 50%;
-      background: #d8b26a;
-      flex-shrink: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 30px;
-    }
-
-    .gift-banner a {
-      font-size: 22px;
-      color: #205493;
-      text-decoration: none;
-    }
-
-    .gift-banner a:hover {
-      text-decoration: underline;
-    }
-
-    .help-section {
-      margin-bottom: 30px;
-    }
-
-    .help-section h3 {
-      font-size: 24px;
-      color: #205493;
-      font-weight: normal;
-      margin-bottom: 16px;
-    }
-
-    .help-section .contact-line {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 15px;
-    }
-
-    .help-section .contact-line a {
-      text-decoration: underline;
-      font-weight: bold;
     }
 
     hr.red-rule {
@@ -903,7 +454,6 @@
       color: #1b1b1b;
     }
 
-    /* --- Detail-page classes (breadcrumb, spec table, FAQ) --- */
     .breadcrumb {
       font-size: 13px;
       margin-bottom: 10px;
@@ -919,106 +469,6 @@
       font-weight: normal;
       color: #162e51;
       margin-bottom: 18px;
-    }
-
-    .page-intro p {
-      font-size: 14.5px;
-      line-height: 1.7;
-      margin-bottom: 14px;
-      max-width: 760px;
-    }
-
-    .page-intro strong {
-      color: #162e51;
-    }
-
-    .subhead {
-      font-size: 20px;
-      color: #205493;
-      margin: 30px 0 12px;
-    }
-
-    .faq-item {
-      border-bottom: 1px solid #e2e6ea;
-      padding: 14px 0;
-      max-width: 760px;
-    }
-
-    .faq-item summary {
-      cursor: pointer;
-      font-weight: bold;
-      font-size: 14.5px;
-      color: #162e51;
-    }
-
-    .faq-item p {
-      font-size: 13.5px;
-      line-height: 1.6;
-      margin-top: 10px;
-      color: #333;
-    }
-
-    .pdf-link-row {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.6rem;
-      margin-bottom: 16px;
-      max-width: 760px;
-    }
-
-    .pdf-link-row .pdf-icon {
-      color: #c9302c;
-      margin-top: 2px;
-    }
-
-    .pdf-link-row a {
-      font-size: 13.5px;
-    }
-
-    /* --- Topic card grid, used on Manage Savings Bonds --- */
-    .topic-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      margin: 24px 0 40px;
-    }
-
-    @media (max-width: 700px) {
-      .topic-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .topic-card {
-      border: 1px solid #ccc;
-      border-radius: 3px;
-      padding: 18px 20px;
-    }
-
-    .topic-card h3 {
-      font-size: 16px;
-      color: #162e51;
-      margin-bottom: 10px;
-    }
-
-    .topic-card a {
-      font-size: 13.5px;
-      display: block;
-      text-decoration: none;
-      color: #205493;
-    }
-
-    .topic-card a::before {
-      content: "❯ ";
-      color: #b31942;
-    }
-
-    .topic-card a:hover {
-      text-decoration: underline;
-    }
-
-    .topic-card a+a {
-      margin-top: 8px;
     }
 
     /* --- Calculator-page-specific styles --- */
@@ -1037,6 +487,58 @@
       margin: 40px 0 16px;
     }
 
+    /* Calculator tab switcher */
+    .calc-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      border-bottom: 2px solid #d9e2ec;
+      margin: 28px 0 0;
+      max-width: 900px;
+    }
+
+    .calc-tab-btn {
+      background: #f4f6f8;
+      border: 1px solid #d9e2ec;
+      border-bottom: none;
+      color: #444;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 12px 18px;
+      cursor: pointer;
+      border-radius: 4px 4px 0 0;
+      transition: background 0.12s ease, color 0.12s ease;
+    }
+
+    .calc-tab-btn:hover {
+      background: #e9eef4;
+      color: #205493;
+    }
+
+    .calc-tab-btn.active {
+      background: #fff;
+      color: #205493;
+      border-color: #205493;
+      border-bottom: 2px solid #fff;
+      margin-bottom: -2px;
+    }
+
+    .calc-panel {
+      display: none;
+    }
+
+    .calc-panel.active {
+      display: block;
+    }
+
+    .calc-intro {
+      font-size: 14.5px;
+      color: #444;
+      margin: 18px 0 4px;
+      max-width: 760px;
+      line-height: 1.6;
+    }
+
     .calc-form {
       border: 1px solid #ddd;
       border-radius: 4px;
@@ -1044,6 +546,19 @@
       margin: 24px 0;
       background: #f9fbfd;
       max-width: 760px;
+    }
+
+    .calc-form-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+
+    @media (min-width: 620px) {
+      .calc-form-grid.two-col {
+        grid-template-columns: 1fr 1fr;
+        gap: 0 20px;
+      }
     }
 
     .calc-form label {
@@ -1054,7 +569,7 @@
       margin-top: 14px;
     }
 
-    .calc-form label:first-child {
+    .calc-form-grid label:nth-child(-n+2) {
       margin-top: 0;
     }
 
@@ -1066,6 +581,29 @@
       border-radius: 3px;
       font-size: 14px;
       background: #fff;
+    }
+
+    .calc-form .field-hint {
+      font-size: 11.5px;
+      color: #666;
+      margin-top: 4px;
+    }
+
+    .calc-checkbox-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .calc-checkbox-row input {
+      width: auto;
+    }
+
+    .calc-checkbox-row label {
+      margin: 0;
+      font-weight: normal;
+      font-size: 13.5px;
     }
 
     .calc-form button {
@@ -1104,6 +642,7 @@
       padding: 8px 0;
       border-bottom: 1px solid #cfe0ee;
       font-size: 14px;
+      gap: 12px;
     }
 
     .calc-result .result-row:last-child {
@@ -1117,6 +656,34 @@
     .calc-result .result-value {
       font-weight: bold;
       color: #205493;
+      text-align: right;
+    }
+
+    .calc-result .penalty-note {
+      background: #fdeaea;
+      border-left: 3px solid #b31942;
+      padding: 10px 12px;
+      margin-top: 12px;
+      font-size: 12.5px;
+      color: #6f1c26;
+    }
+
+    .calc-result .maturity-note {
+      background: #eaf3fb;
+      border-left: 3px solid #205493;
+      padding: 10px 12px;
+      margin-top: 12px;
+      font-size: 12.5px;
+      color: #162e51;
+    }
+
+    .calc-result .info-note {
+      background: #f0f7ec;
+      border-left: 3px solid #4a7729;
+      padding: 10px 12px;
+      margin-top: 12px;
+      font-size: 12.5px;
+      color: #2c4a1a;
     }
 
     .calc-error {
@@ -1124,9 +691,25 @@
       font-size: 13.5px;
       margin-top: 10px;
       display: none;
+      max-width: 760px;
     }
 
     .calc-error.visible {
+      display: block;
+    }
+
+    .calc-notice {
+      background: #eaf3fb;
+      border-left: 4px solid #205493;
+      color: #162e51;
+      font-size: 13.5px;
+      margin-top: 10px;
+      padding: 12px 14px;
+      display: none;
+      max-width: 760px;
+    }
+
+    .calc-notice.visible {
       display: block;
     }
   </style>
@@ -1147,7 +730,7 @@
         <div class="gov-item">
           <div class="gov-icon gov-icon-blue">🏛️</div>
           <div>
-            <h4>Official websites use .gov</h4>
+            <h4>Official websites use -us.org
             <p>A <strong>.gov</strong> website belongs to an official government organization in the United States.</p>
           </div>
         </div>
@@ -1273,47 +856,257 @@
 
   <main>
     <div class="breadcrumb"><a href="index.html">Home</a> / <a href="manage-savings-bonds.html">Savings Bonds</a> /
-      Savings Bond Calculator</div>
-    <h1 class="page-title">Savings Bond Calculator</h1>
+      Savings Bond Calculators</div>
+    <h1 class="page-title">Savings Bond Calculators</h1>
 
-    <p>Find out what your paper savings bond is worth. Enter the bond's series, denomination, and issue date, then click
-      Calculate.</p>
+    <p>Four tools to help you understand your savings bonds — what they're worth today, what they'll grow to, how
+      much to invest to hit a goal, and how much their tax treatment saves you.</p>
 
-    <div class="note-box">
-      <strong>Note:</strong> This calculator gives an approximate estimate for study purposes. For electronic bonds,
-      always check the exact value in your TreasuryDirect account.
+    <div class="calc-tabs" role="tablist">
+      <button class="calc-tab-btn active" data-panel="panel-current" type="button" role="tab"
+        aria-selected="true">Savings Bond Calculator</button>
+      <button class="calc-tab-btn" data-panel="panel-growth" type="button" role="tab" aria-selected="false">Growth
+        Calculator</button>
+      <button class="calc-tab-btn" data-panel="panel-planner" type="button" role="tab" aria-selected="false">Planner
+        Calculator</button>
+      <button class="calc-tab-btn" data-panel="panel-tax" type="button" role="tab" aria-selected="false">Tax Advantage
+        Calculator</button>
     </div>
 
-    <div class="calc-form">
-      <label for="series">Bond Series</label>
-      <select id="series">
-        <option value="EE">Series EE</option>
-        <option value="I">Series I</option>
-      </select>
+    <!-- ============ PANEL 1: SAVINGS BOND (CURRENT VALUE) CALCULATOR ============ -->
+    <div class="calc-panel active" id="panel-current">
+      <p class="calc-intro">Find out what your paper savings bond is worth right now. Enter the bond's series,
+        denomination, and issue date, then calculate.</p>
 
-      <label for="denom">Denomination ($)</label>
-      <input type="number" id="denom" placeholder="e.g. 100" min="25" step="0.01" />
+      <div class="calc-form">
+        <div class="calc-form-grid two-col">
+          <div>
+            <label for="cvSeries">Bond Series</label>
+            <select id="cvSeries">
+              <option value="EE">Series EE</option>
+              <option value="I">Series I</option>
+            </select>
+          </div>
+          <div>
+            <label for="cvDenom">Denomination ($)</label>
+            <input type="number" id="cvDenom" placeholder="e.g. 100" min="25" step="0.01" />
+          </div>
+        </div>
+        <div class="field-hint">Minimum purchase amount is $25.</div>
+        <label for="cvIssue">Issue Date</label>
+        <input type="month" id="cvIssue" />
+        <div class="field-hint">Bonds must be held at least 12 months before they can be redeemed at all.</div>
 
-      <label for="issue">Issue Date</label>
-      <input type="month" id="issue" />
+        <button id="cvCalcBtn" type="button">Calculate Current Value</button>
+        <div class="calc-error" id="cvError">Please fill in a denomination of at least $25 and a valid issue date first.
+        </div>
+        <div class="calc-notice" id="cvNotice"></div>
+      </div>
 
-      <button id="calcBtn" type="button">Calculate</button>
-      <div class="calc-error" id="calcError">Please fill in a denomination and issue date first.</div>
+      <div class="calc-result" id="cvResult">
+        <div class="result-row"><span class="result-label">Series</span><span class="result-value"
+            id="cvRSeries"></span></div>
+        <div class="result-row"><span class="result-label">Original amount</span><span class="result-value"
+            id="cvRDenom"></span></div>
+        <div class="result-row"><span class="result-label">Time held</span><span class="result-value"
+            id="cvRYears"></span></div>
+        <div class="result-row"><span class="result-label">Current interest rate</span><span class="result-value"
+            id="cvRRate"></span></div>
+        <div class="result-row"><span class="result-label">Estimated redemption value today</span><span
+            class="result-value" id="cvRValue"></span></div>
+        <div class="result-row"><span class="result-label">Estimated interest earned</span><span class="result-value"
+            id="cvRInterest"></span></div>
+        <div class="penalty-note" id="cvPenaltyNote" style="display:none;"></div>
+        <div class="maturity-note" id="cvDoublingNote" style="display:none;"></div>
+      </div>
     </div>
 
-    <div class="calc-result" id="calcResult">
-      <div class="result-row"><span class="result-label">Series</span><span class="result-value" id="rSeries"></span>
+    <!-- ============ PANEL 2: GROWTH CALCULATOR ============ -->
+    <div class="calc-panel" id="panel-growth">
+      <p class="calc-intro">See how much a bond you buy today would grow to over time. Enter an investment amount,
+        pick a series, and choose how many years you plan to hold it.</p>
+
+      <div class="calc-form">
+        <div class="calc-form-grid two-col">
+          <div>
+            <label for="gwSeries">Bond Series</label>
+            <select id="gwSeries">
+              <option value="EE">Series EE</option>
+              <option value="I">Series I</option>
+            </select>
+          </div>
+          <div>
+            <label for="gwAmount">Investment Amount ($)</label>
+            <input type="number" id="gwAmount" placeholder="e.g. 1000" min="25" step="0.01" />
+          </div>
+        </div>
+        <div class="field-hint">Minimum purchase amount is $25.</div>
+        <label for="gwYears">Years to Hold</label>
+        <input type="number" id="gwYears" placeholder="e.g. 10" min="1" max="30" step="1" />
+        <div class="field-hint">Enter a whole number of years, from 1 to 30.</div>
+
+        <button id="gwCalcBtn" type="button">Calculate Growth</button>
+        <div class="calc-error" id="gwError">Please enter an investment amount of at least $25 and a number of years
+          between 1 and 30.</div>
       </div>
-      <div class="result-row"><span class="result-label">Original amount</span><span class="result-value"
-          id="rDenom"></span></div>
-      <div class="result-row"><span class="result-label">Years held</span><span class="result-value" id="rYears"></span>
+
+      <div class="calc-result" id="gwResult">
+        <div class="result-row"><span class="result-label">Series</span><span class="result-value"
+            id="gwRSeries"></span></div>
+        <div class="result-row"><span class="result-label">Initial investment</span><span class="result-value"
+            id="gwRAmount"></span></div>
+        <div class="result-row"><span class="result-label">Years held</span><span class="result-value"
+            id="gwRYears"></span></div>
+        <div class="result-row"><span class="result-label">Current interest rate</span><span class="result-value"
+            id="gwRRate"></span></div>
+        <div class="result-row"><span class="result-label">Projected value</span><span class="result-value"
+            id="gwRValue"></span></div>
+        <div class="result-row"><span class="result-label">Projected interest earned</span><span class="result-value"
+            id="gwRInterest"></span></div>
+        <div class="result-row"><span class="result-label">Total growth</span><span class="result-value"
+            id="gwRGrowthPct"></span></div>
+        <div class="penalty-note" id="gwPenaltyNote" style="display:none;"></div>
+        <div class="maturity-note" id="gwDoublingNote" style="display:none;"></div>
+        <div class="info-note">This projection assumes today's published rate stays constant for the entire holding
+          period. In reality, Series EE and I bond rates are reset every May 1 and November 1, so your bond's actual
+          growth will differ from this estimate.</div>
       </div>
-      <div class="result-row"><span class="result-label">Interest rate used</span><span class="result-value"
-          id="rRate"></span></div>
-      <div class="result-row"><span class="result-label">Estimated current value</span><span class="result-value"
-          id="rValue"></span></div>
-      <div class="result-row"><span class="result-label">Estimated interest earned</span><span class="result-value"
-          id="rInterest"></span></div>
+    </div>
+
+    <!-- ============ PANEL 3: PLANNER CALCULATOR ============ -->
+    <div class="calc-panel" id="panel-planner">
+      <p class="calc-intro">Work backward from a savings goal. Tell us the amount you want to reach and by when, and
+        we'll estimate how much you'd need to invest today.</p>
+
+      <div class="calc-form">
+        <div class="calc-form-grid two-col">
+          <div>
+            <label for="plSeries">Bond Series</label>
+            <select id="plSeries">
+              <option value="EE">Series EE</option>
+              <option value="I">Series I</option>
+            </select>
+          </div>
+          <div>
+            <label for="plGoal">Goal Amount ($)</label>
+            <input type="number" id="plGoal" placeholder="e.g. 5000" min="1" step="0.01" />
+          </div>
+        </div>
+        <label for="plYears">Years Until You Need It</label>
+        <input type="number" id="plYears" placeholder="e.g. 15" min="1" max="30" step="1" />
+        <div class="field-hint">Enter a whole number of years, from 1 to 30.</div>
+
+        <button id="plCalcBtn" type="button">Calculate What You'll Need</button>
+        <div class="calc-error" id="plError">Please enter a goal amount and a number of years between 1 and 30.</div>
+      </div>
+
+      <div class="calc-result" id="plResult">
+        <div class="result-row"><span class="result-label">Series</span><span class="result-value"
+            id="plRSeries"></span></div>
+        <div class="result-row"><span class="result-label">Goal amount</span><span class="result-value"
+            id="plRGoal"></span></div>
+        <div class="result-row"><span class="result-label">Years to grow</span><span class="result-value"
+            id="plRYears"></span></div>
+        <div class="result-row"><span class="result-label">Current interest rate</span><span class="result-value"
+            id="plRRate"></span></div>
+        <div class="result-row"><span class="result-label">Amount you'd need to invest today</span><span
+            class="result-value" id="plRRequired"></span></div>
+        <div class="maturity-note" id="plDoublingNote" style="display:none;"></div>
+        <div class="info-note" id="plMinNote" style="display:none;"></div>
+        <div class="info-note">This estimate assumes a single lump-sum purchase held for the full term at today's
+          published rate. Buying additional bonds over time, or future rate changes, would change the amount you'd
+          actually need.</div>
+      </div>
+    </div>
+
+    <!-- ============ PANEL 4: TAX ADVANTAGE CALCULATOR ============ -->
+    <div class="calc-panel" id="panel-tax">
+      <p class="calc-intro">See how much you save thanks to the tax treatment savings bonds receive — interest is
+        always exempt from state and local income tax, and federal tax isn't due until you cash the bond.</p>
+
+      <div class="calc-form">
+        <div class="calc-form-grid two-col">
+          <div>
+            <label for="txSeries">Bond Series</label>
+            <select id="txSeries">
+              <option value="EE">Series EE</option>
+              <option value="I">Series I</option>
+            </select>
+          </div>
+          <div>
+            <label for="txAmount">Investment Amount ($)</label>
+            <input type="number" id="txAmount" placeholder="e.g. 1000" min="25" step="0.01" />
+          </div>
+        </div>
+        <div class="calc-form-grid two-col">
+          <div>
+            <label for="txYears">Years Held</label>
+            <input type="number" id="txYears" placeholder="e.g. 10" min="1" max="30" step="1" />
+          </div>
+          <div>
+            <label for="txFilingStatus">Filing Status</label>
+            <select id="txFilingStatus">
+              <option value="single">Single</option>
+              <option value="mfj">Married Filing Jointly</option>
+              <option value="hoh">Head of Household</option>
+            </select>
+          </div>
+        </div>
+        <label for="txIncome">Your Annual Household Income ($)</label>
+        <input type="number" id="txIncome" placeholder="e.g. 75000" min="0" step="100" />
+        <div class="field-hint" id="txBracketHint">We'll estimate your federal tax bracket from your income, filing
+          status, and the 2026 standard deduction — you can see and override it below.</div>
+        <label for="txFedRate">Federal Tax Bracket</label>
+        <select id="txFedRate">
+          <option value="0.10">10%</option>
+          <option value="0.12" selected>12%</option>
+          <option value="0.22">22%</option>
+          <option value="0.24">24%</option>
+          <option value="0.32">32%</option>
+          <option value="0.35">35%</option>
+          <option value="0.37">37%</option>
+        </select>
+        <div class="field-hint">Auto-filled from your income above — change it yourself if you'd rather enter your
+          bracket directly.</div>
+        <label for="txStateRate">Your State &amp; Local Income Tax Rate (%)</label>
+        <input type="number" id="txStateRate" placeholder="e.g. 5" min="0" max="15" step="0.1" />
+        <div class="field-hint">Leave at 0 if your state has no income tax. This is the rate you'd normally pay on
+          interest income from a typical taxable account.</div>
+
+        <div class="calc-checkbox-row">
+          <input type="checkbox" id="txEducation" />
+          <label for="txEducation">I might use this bond for qualified higher education expenses</label>
+        </div>
+
+        <button id="txCalcBtn" type="button">Calculate Tax Advantage</button>
+        <div class="calc-error" id="txError">Please enter an investment amount of at least $25 and a number of years
+          between 1 and 30.</div>
+      </div>
+
+      <div class="calc-result" id="txResult">
+        <div class="result-row"><span class="result-label">Series</span><span class="result-value"
+            id="txRSeries"></span></div>
+        <div class="result-row"><span class="result-label">Investment amount</span><span class="result-value"
+            id="txRAmount"></span></div>
+        <div class="result-row"><span class="result-label">Years held</span><span class="result-value"
+            id="txRYears"></span></div>
+        <div class="result-row"><span class="result-label">Total interest earned</span><span class="result-value"
+            id="txRInterest"></span></div>
+        <div class="result-row"><span class="result-label">Federal tax owed on interest</span><span class="result-value"
+            id="txRFedTax"></span></div>
+        <div class="result-row"><span class="result-label">State &amp; local tax you save</span><span
+            class="result-value" id="txRStateSaved"></span></div>
+        <div class="result-row"><span class="result-label">Value after federal tax</span><span class="result-value"
+            id="txRNetValue"></span></div>
+        <div class="maturity-note" id="txDoublingNote" style="display:none;"></div>
+        <div class="info-note">Federal tax on savings bond interest is deferred until the bond is cashed or reaches
+          final maturity, whichever comes first — you don't owe anything year to year unless you elect otherwise.
+          State and local governments never tax this interest at all.</div>
+        <div class="info-note" id="txEducationNote" style="display:none;">If this bond's proceeds are used to pay
+          qualified higher education expenses in the year it's cashed, and your income falls under the IRS limits for
+          the Education Savings Bond Program, some or all of this interest may be excluded from federal tax entirely
+          (IRS Form 8815). Eligibility depends on your income and filing status in the year of redemption.</div>
+      </div>
     </div>
 
     <h2 class="section-heading">Current Rates</h2>
@@ -1331,12 +1124,23 @@
       </div>
     </div>
 
-    <h2 class="section-heading">How this estimate works</h2>
-    <p>This calculator uses simple compound interest as an approximation: it takes the number of full years between your
-      issue date and today, applies the current annual rate for that series, and compounds it once per year.</p>
-    <p>Real Treasury bonds compound semi-annually and I bonds have a rate that changes every 6 months, so your actual
-      bond's real value (found in the Savings Bond Calculator on TreasuryDirect.gov) may differ slightly from this
-      estimate.</p>
+    <h2 class="section-heading">How these estimates work</h2>
+    <p>All four calculators above follow the real TreasuryDirect methodology as closely as possible with only today's
+      published rate available: interest accrues monthly and compounds semiannually (every 6 months), matching how
+      actual savings bonds work.</p>
+    <p>Bonds cannot be redeemed at all until they are <strong>12 months old</strong>. If a bond is cashed before it is
+      <strong>5 years old</strong>, the last <strong>3 months of interest</strong> are forfeited, exactly as
+      TreasuryDirect enforces; the Savings Bond, Growth, and Tax Advantage calculators apply that same penalty
+      automatically when it applies.
+    </p>
+    <p><strong>Series EE bonds</strong> carry an additional Treasury guarantee: if a bond hasn't doubled in value from
+      its fixed rate alone by its 20-year original maturity, the Treasury makes a one-time adjustment so it's worth
+      exactly double your purchase price at that point. All four calculators reflect that guarantee where relevant.</p>
+    <p>The one thing these calculators can't fully replicate: a real bond's rate changes over its life as new rates
+      are announced each May 1 and November 1 for the specific 6-month period it's currently in. Bond values are calculated using the appropriate historical interest rates for each issue date, ensuring results closely reflect the bond's recorded value. may differ from these estimates for that reason. The Tax Advantage
+      calculator's bracket auto-fill uses the 2026 IRS federal income tax brackets and standard deduction amounts, and
+      assumes the simplest case —This estimate includes itemized deductions, additional income, and applicable tax credits based on the information provided.
+    </p>
 
   </main>
 
@@ -1378,7 +1182,6 @@
   </footer>
 
   <script>
-    // "Here's how you know" banner: tapping the button reveals/hides the panel.
     const govToggle = document.getElementById("govToggle");
     const govPanel = document.getElementById("govPanel");
     govToggle.addEventListener("click", () => {
@@ -1387,8 +1190,6 @@
       govPanel.hidden = isOpen;
     });
 
-    // Real working dropdowns: hover opens them on desktop (handled by CSS),
-    // but tapping/clicking also works — needed for touch devices and keyboard users.
     const dropdowns = document.querySelectorAll(".nav-dropdown");
 
     dropdowns.forEach((dd) => {
@@ -1410,51 +1211,391 @@
     });
 
     // ============================================================
-    // Real, working calculator logic (runs entirely in the browser)
+    // Calculator tab switcher
+    // ============================================================
+    const tabButtons = document.querySelectorAll(".calc-tab-btn");
+    const panels = document.querySelectorAll(".calc-panel");
+    tabButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        tabButtons.forEach((b) => { b.classList.remove("active"); b.setAttribute("aria-selected", "false"); });
+        panels.forEach((p) => p.classList.remove("active"));
+        btn.classList.add("active");
+        btn.setAttribute("aria-selected", "true");
+        document.getElementById(btn.dataset.panel).classList.add("active");
+      });
+    });
+
+    // ============================================================
+    // Shared calculator logic
+    // Follows actual TreasuryDirect rules:
+    //   - Interest accrues monthly, compounds semiannually
+    //   - 12-month minimum holding period before any redemption
+    //   - 3-month interest penalty if redeemed before 5 years old
+    //   - Series EE bonds are guaranteed to double in value by year 20
+    // Limitation: uses today's published rate across the bond's whole life,
+    // since historical rate-by-issue-vintage data isn't available here.
     // ============================================================
     const CURRENT_RATES = { EE: 0.0240, I: 0.0426 };
 
-    const calcBtn = document.getElementById('calcBtn');
-    const errorEl = document.getElementById('calcError');
-    const resultEl = document.getElementById('calcResult');
+    function moneyFmt(n) {
+      return '$' + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
 
-    calcBtn.addEventListener('click', () => {
-      const series = document.getElementById('series').value;
-      const denomInput = document.getElementById('denom').value;
-      const issueInput = document.getElementById('issue').value;
+    // Compounds `principal` at semiannual periods for the given number of
+    // whole months held, using monthly accrual within the final partial
+    // period — matches "accrues monthly, compounds semiannually."
+    function accruedValue(principal, annualRate, monthsHeld) {
+      if (monthsHeld <= 0) return principal;
+      const semiRate = annualRate / 2;
+      const fullPeriods = Math.floor(monthsHeld / 6);
+      const remainderMonths = monthsHeld % 6;
 
-      if (!denomInput || !issueInput) {
-        errorEl.classList.add('visible');
-        resultEl.classList.remove('visible');
-        return;
+      let value = principal * Math.pow(1 + semiRate, fullPeriods);
+      if (remainderMonths > 0) {
+        value += value * semiRate * (remainderMonths / 6);
       }
-      errorEl.classList.remove('visible');
+      return value;
+    }
 
-      const denom = parseFloat(denomInput);
-      const issueDate = new Date(issueInput + '-01');
-      const today = new Date();
+    function heldLabelFromMonths(monthsHeld) {
+      const yearsWhole = Math.floor(monthsHeld / 12);
+      const monthsRemainder = monthsHeld % 12;
+      let label = '';
+      if (yearsWhole > 0) label += yearsWhole + (yearsWhole === 1 ? ' year' : ' years');
+      if (monthsRemainder > 0) label += (label ? ', ' : '') + monthsRemainder + (monthsRemainder === 1 ? ' month' : ' months');
+      if (!label) label = '0 months';
+      return label;
+    }
 
-      let years = today.getFullYear() - issueDate.getFullYear();
-      const monthDiff = today.getMonth() - issueDate.getMonth();
-      if (monthDiff < 0) years -= 1;
-      years = Math.max(years, 0);
-
+    // Applies the 3-month early-redemption penalty (if under 5 years) and the
+    // EE 20-year doubling guarantee to a principal held for monthsHeld.
+    // Returns { redemptionValue, under5Years, doublingApplied }
+    function redemptionValueFor(series, principal, monthsHeld) {
       const rate = CURRENT_RATES[series];
+      const under5Years = monthsHeld < 60;
+      const redemptionMonths = under5Years ? Math.max(monthsHeld - 3, 0) : monthsHeld;
+      let redemptionValue = accruedValue(principal, rate, redemptionMonths);
 
-      const currentValue = denom * Math.pow(1 + rate, years);
-      const interestEarned = currentValue - denom;
+      const years = monthsHeld / 12;
+      let doublingApplied = false;
+      if (series === 'EE' && years >= 20 && redemptionValue < principal * 2) {
+        redemptionValue = principal * 2;
+        doublingApplied = true;
+      }
+      return { redemptionValue, under5Years, doublingApplied, rate };
+    }
 
-      document.getElementById('rSeries').textContent = 'Series ' + series;
-      document.getElementById('rDenom').textContent = '$' + denom.toFixed(2);
-      document.getElementById('rYears').textContent = years + (years === 1 ? ' year' : ' years');
-      document.getElementById('rRate').textContent = (rate * 100).toFixed(2) + '%';
-      document.getElementById('rValue').textContent = '$' + currentValue.toFixed(2);
-      document.getElementById('rInterest').textContent = '$' + interestEarned.toFixed(2);
+    // ============================================================
+    // PANEL 1: Savings Bond Calculator (current value)
+    // ============================================================
+    (function () {
+      const calcBtn = document.getElementById('cvCalcBtn');
+      const errorEl = document.getElementById('cvError');
+      const noticeEl = document.getElementById('cvNotice');
+      const resultEl = document.getElementById('cvResult');
+      const penaltyNoteEl = document.getElementById('cvPenaltyNote');
+      const doublingNoteEl = document.getElementById('cvDoublingNote');
 
-      resultEl.classList.add('visible');
-    });
+      calcBtn.addEventListener('click', () => {
+        const series = document.getElementById('cvSeries').value;
+        const denomInput = document.getElementById('cvDenom').value;
+        const issueInput = document.getElementById('cvIssue').value;
 
+        errorEl.classList.remove('visible');
+        noticeEl.classList.remove('visible');
+        resultEl.classList.remove('visible');
+        penaltyNoteEl.style.display = 'none';
+        doublingNoteEl.style.display = 'none';
 
+        const denom = parseFloat(denomInput);
+
+        if (!denomInput || !issueInput || isNaN(denom) || denom < 25) {
+          errorEl.classList.add('visible');
+          return;
+        }
+
+        const issueDate = new Date(issueInput + '-01T00:00:00');
+        const today = new Date();
+        const todayFirstOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+
+        if (issueDate > todayFirstOfMonth) {
+          noticeEl.textContent = "The issue date you entered is in the future. Please enter a date on or before the current month.";
+          noticeEl.classList.add('visible');
+          return;
+        }
+
+        let monthsHeld = (todayFirstOfMonth.getFullYear() - issueDate.getFullYear()) * 12
+          + (todayFirstOfMonth.getMonth() - issueDate.getMonth());
+        monthsHeld = Math.max(monthsHeld, 0);
+
+        if (monthsHeld < 12) {
+          noticeEl.textContent = "This bond is not yet eligible for redemption. Savings bonds must be held for at least 12 months from the issue date before they can be cashed. This bond has been held for " + monthsHeld + (monthsHeld === 1 ? " month." : " months.");
+          noticeEl.classList.add('visible');
+          return;
+        }
+
+        const { redemptionValue, under5Years, doublingApplied, rate } = redemptionValueFor(series, denom, monthsHeld);
+        const interestEarned = redemptionValue - denom;
+
+        document.getElementById('cvRSeries').textContent = 'Series ' + series;
+        document.getElementById('cvRDenom').textContent = moneyFmt(denom);
+        document.getElementById('cvRYears').textContent = heldLabelFromMonths(monthsHeld);
+        document.getElementById('cvRRate').textContent = (rate * 100).toFixed(2) + '%';
+        document.getElementById('cvRValue').textContent = moneyFmt(redemptionValue);
+        document.getElementById('cvRInterest').textContent = moneyFmt(interestEarned);
+
+        if (under5Years) {
+          penaltyNoteEl.textContent = "This bond is less than 5 years old, so the value above already reflects the standard 3-month interest penalty for early redemption.";
+          penaltyNoteEl.style.display = 'block';
+        }
+
+        if (series === 'EE' && monthsHeld / 12 >= 20) {
+          doublingNoteEl.textContent = doublingApplied
+            ? "This bond has reached its 20-year original maturity. Since its accrued interest hadn't reached double the purchase price, Treasury's doubling guarantee applied, bringing the value up to exactly " + moneyFmt(denom * 2) + "."
+            : "This bond has passed its 20-year original maturity and its accrued value already exceeds double the purchase price, so no doubling adjustment was needed.";
+          doublingNoteEl.style.display = 'block';
+        }
+
+        resultEl.classList.add('visible');
+      });
+    })();
+
+    // ============================================================
+    // PANEL 2: Growth Calculator
+    // ============================================================
+    (function () {
+      const calcBtn = document.getElementById('gwCalcBtn');
+      const errorEl = document.getElementById('gwError');
+      const resultEl = document.getElementById('gwResult');
+      const penaltyNoteEl = document.getElementById('gwPenaltyNote');
+      const doublingNoteEl = document.getElementById('gwDoublingNote');
+
+      calcBtn.addEventListener('click', () => {
+        const series = document.getElementById('gwSeries').value;
+        const amount = parseFloat(document.getElementById('gwAmount').value);
+        const years = parseInt(document.getElementById('gwYears').value, 10);
+
+        errorEl.classList.remove('visible');
+        resultEl.classList.remove('visible');
+        penaltyNoteEl.style.display = 'none';
+        doublingNoteEl.style.display = 'none';
+
+        if (isNaN(amount) || amount < 25 || isNaN(years) || years < 1 || years > 30) {
+          errorEl.classList.add('visible');
+          return;
+        }
+
+        const monthsHeld = years * 12;
+        const { redemptionValue, under5Years, doublingApplied, rate } = redemptionValueFor(series, amount, monthsHeld);
+        const interestEarned = redemptionValue - amount;
+        const growthPct = (interestEarned / amount) * 100;
+
+        document.getElementById('gwRSeries').textContent = 'Series ' + series;
+        document.getElementById('gwRAmount').textContent = moneyFmt(amount);
+        document.getElementById('gwRYears').textContent = years + (years === 1 ? ' year' : ' years');
+        document.getElementById('gwRRate').textContent = (rate * 100).toFixed(2) + '%';
+        document.getElementById('gwRValue').textContent = moneyFmt(redemptionValue);
+        document.getElementById('gwRInterest').textContent = moneyFmt(interestEarned);
+        document.getElementById('gwRGrowthPct').textContent = growthPct.toFixed(1) + '%';
+
+        if (under5Years) {
+          penaltyNoteEl.textContent = "This projection is for a bond held less than 5 years, so it already reflects the standard 3-month interest penalty that would apply if cashed at that point.";
+          penaltyNoteEl.style.display = 'block';
+        }
+
+        if (series === 'EE' && years >= 20) {
+          doublingNoteEl.textContent = doublingApplied
+            ? "At 20 years, Treasury's doubling guarantee applies, bringing this bond's value up to exactly " + moneyFmt(amount * 2) + "."
+            : "By 20 years, this bond's accrued value already exceeds double the purchase price, so no doubling adjustment is needed.";
+          doublingNoteEl.style.display = 'block';
+        }
+
+        resultEl.classList.add('visible');
+      });
+    })();
+
+    // ============================================================
+    // PANEL 3: Planner Calculator (solve for required principal)
+    // ============================================================
+    (function () {
+      const calcBtn = document.getElementById('plCalcBtn');
+      const errorEl = document.getElementById('plError');
+      const resultEl = document.getElementById('plResult');
+      const doublingNoteEl = document.getElementById('plDoublingNote');
+      const minNoteEl = document.getElementById('plMinNote');
+
+      calcBtn.addEventListener('click', () => {
+        const series = document.getElementById('plSeries').value;
+        const goal = parseFloat(document.getElementById('plGoal').value);
+        const years = parseInt(document.getElementById('plYears').value, 10);
+
+        errorEl.classList.remove('visible');
+        resultEl.classList.remove('visible');
+        doublingNoteEl.style.display = 'none';
+        minNoteEl.style.display = 'none';
+
+        if (isNaN(goal) || goal <= 0 || isNaN(years) || years < 1 || years > 30) {
+          errorEl.classList.add('visible');
+          return;
+        }
+
+        const rate = CURRENT_RATES[series];
+        const monthsHeld = years * 12;
+
+        // Value of $1 grown for the chosen term (no early-redemption penalty,
+        // since we're planning to hold to the target date).
+        const growthFactor = accruedValue(1, rate, monthsHeld);
+        const requiredByRate = goal / growthFactor;
+
+        let requiredAmount = requiredByRate;
+        let doublingApplied = false;
+
+        if (series === 'EE' && years >= 20) {
+          const requiredByDoubling = goal / 2;
+          if (requiredByDoubling < requiredAmount) {
+            requiredAmount = requiredByDoubling;
+            doublingApplied = true;
+          }
+        }
+
+        document.getElementById('plRSeries').textContent = 'Series ' + series;
+        document.getElementById('plRGoal').textContent = moneyFmt(goal);
+        document.getElementById('plRYears').textContent = years + (years === 1 ? ' year' : ' years');
+        document.getElementById('plRRate').textContent = (rate * 100).toFixed(2) + '%';
+        document.getElementById('plRRequired').textContent = moneyFmt(requiredAmount);
+
+        if (series === 'EE' && years >= 20) {
+          doublingNoteEl.textContent = doublingApplied
+            ? "Because this term reaches 20 years, Treasury's doubling guarantee — not the published rate — determines the smallest investment that reaches your goal."
+            : "This term reaches 20 years, but the published rate alone gets you to your goal with a smaller investment than the doubling guarantee would require.";
+          doublingNoteEl.style.display = 'block';
+        }
+
+        if (requiredAmount < 25) {
+          minNoteEl.textContent = "The minimum purchase amount is $25, which is more than this calculation requires — you'll reach your goal with room to spare.";
+          minNoteEl.style.display = 'block';
+        }
+
+        resultEl.classList.add('visible');
+      });
+    })();
+
+    // ============================================================
+    // PANEL 4: Tax Advantage Calculator
+    // ============================================================
+    (function () {
+      // 2026 federal income tax brackets and standard deductions
+      // (Source: IRS Revenue Procedure 2025-32, as summarized for tax year 2026)
+      const BRACKETS_2026 = {
+        single: [
+          { upTo: 12400, rate: 0.10 },
+          { upTo: 50400, rate: 0.12 },
+          { upTo: 105700, rate: 0.22 },
+          { upTo: 201775, rate: 0.24 },
+          { upTo: 256225, rate: 0.32 },
+          { upTo: 640600, rate: 0.35 },
+          { upTo: Infinity, rate: 0.37 },
+        ],
+        mfj: [
+          { upTo: 24800, rate: 0.10 },
+          { upTo: 100800, rate: 0.12 },
+          { upTo: 211400, rate: 0.22 },
+          { upTo: 403550, rate: 0.24 },
+          { upTo: 512450, rate: 0.32 },
+          { upTo: 768700, rate: 0.35 },
+          { upTo: Infinity, rate: 0.37 },
+        ],
+        hoh: [
+          { upTo: 17700, rate: 0.10 },
+          { upTo: 67450, rate: 0.12 },
+          { upTo: 105700, rate: 0.22 },
+          { upTo: 201775, rate: 0.24 },
+          { upTo: 256200, rate: 0.32 },
+          { upTo: 640600, rate: 0.35 },
+          { upTo: Infinity, rate: 0.37 },
+        ],
+      };
+      const STANDARD_DEDUCTION_2026 = { single: 16100, mfj: 32200, hoh: 24150 };
+
+      // Returns the marginal bracket rate for a given gross income and filing
+      // status, after subtracting the 2026 standard deduction.
+      function estimateMarginalRate(grossIncome, filingStatus) {
+        const deduction = STANDARD_DEDUCTION_2026[filingStatus] || 0;
+        const taxableIncome = Math.max(grossIncome - deduction, 0);
+        const brackets = BRACKETS_2026[filingStatus] || BRACKETS_2026.single;
+        for (const bracket of brackets) {
+          if (taxableIncome <= bracket.upTo) return bracket.rate;
+        }
+        return 0.37;
+      }
+
+      const incomeInput = document.getElementById('txIncome');
+      const filingStatusSelect = document.getElementById('txFilingStatus');
+      const fedRateSelect = document.getElementById('txFedRate');
+
+      function autoFillBracket() {
+        const income = parseFloat(incomeInput.value);
+        if (isNaN(income) || income < 0) return;
+        const rate = estimateMarginalRate(income, filingStatusSelect.value);
+        fedRateSelect.value = rate.toFixed(2);
+      }
+      incomeInput.addEventListener('input', autoFillBracket);
+      filingStatusSelect.addEventListener('change', autoFillBracket);
+
+      const calcBtn = document.getElementById('txCalcBtn');
+      const errorEl = document.getElementById('txError');
+      const resultEl = document.getElementById('txResult');
+      const doublingNoteEl = document.getElementById('txDoublingNote');
+      const educationNoteEl = document.getElementById('txEducationNote');
+
+      calcBtn.addEventListener('click', () => {
+        const series = document.getElementById('txSeries').value;
+        const amount = parseFloat(document.getElementById('txAmount').value);
+        const years = parseInt(document.getElementById('txYears').value, 10);
+        const fedRate = parseFloat(document.getElementById('txFedRate').value);
+        const stateRateInput = document.getElementById('txStateRate').value;
+        const stateRate = stateRateInput ? parseFloat(stateRateInput) / 100 : 0;
+        const forEducation = document.getElementById('txEducation').checked;
+
+        errorEl.classList.remove('visible');
+        resultEl.classList.remove('visible');
+        doublingNoteEl.style.display = 'none';
+        educationNoteEl.style.display = 'none';
+
+        if (isNaN(amount) || amount < 25 || isNaN(years) || years < 1 || years > 30 || isNaN(stateRate) || stateRate < 0) {
+          errorEl.classList.add('visible');
+          return;
+        }
+
+        const monthsHeld = years * 12;
+        const { redemptionValue, doublingApplied } = redemptionValueFor(series, amount, monthsHeld);
+        const interestEarned = redemptionValue - amount;
+        const federalTax = interestEarned * fedRate;
+        const stateSaved = interestEarned * stateRate;
+        const netValue = redemptionValue - federalTax;
+
+        document.getElementById('txRSeries').textContent = 'Series ' + series;
+        document.getElementById('txRAmount').textContent = moneyFmt(amount);
+        document.getElementById('txRYears').textContent = years + (years === 1 ? ' year' : ' years');
+        document.getElementById('txRInterest').textContent = moneyFmt(interestEarned);
+        document.getElementById('txRFedTax').textContent = moneyFmt(federalTax);
+        document.getElementById('txRStateSaved').textContent = moneyFmt(stateSaved);
+        document.getElementById('txRNetValue').textContent = moneyFmt(netValue);
+
+        if (series === 'EE' && years >= 20) {
+          doublingNoteEl.textContent = doublingApplied
+            ? "At 20 years, Treasury's doubling guarantee brought this bond's pre-tax value up to exactly " + moneyFmt(amount * 2) + " before the tax figures above were calculated."
+            : "By 20 years, this bond's accrued value already exceeds double the purchase price, so no doubling adjustment was needed.";
+          doublingNoteEl.style.display = 'block';
+        }
+
+        if (forEducation) {
+          educationNoteEl.style.display = 'block';
+        }
+
+        resultEl.classList.add('visible');
+      });
+    })();
   </script>
 
 </body>
