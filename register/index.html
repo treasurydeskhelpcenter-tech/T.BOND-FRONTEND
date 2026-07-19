@@ -4,9 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Open an Account — TreasuryDirect</title>
-  <link rel="icon" type="image/png" href="/favicon.jpg">
-  <link rel="icon" type="image/png" href="/favicon.jpg">
+  <title>Open an Account — TreasuryDirect</title><link rel="icon" type="image/png" href="favicon.jpg"><link rel="icon" type="image/png" href="favicon.jpg">
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   <style>
     * {
@@ -673,8 +671,8 @@
     <div class="top-links">
       <a href="index.html">TreasuryDirect Home</a>
       <a href="javascript:void(0)">Fiscal Service Home</a>
-      <a href="/site-map/">Site Map</a>
-      <a href="/contact-us/">Contact Us</a>
+      <a href="site-map.html">Site Map</a>
+      <a href="contact-us.html">Contact Us</a>
       <a href="javascript:void(0)" class="help-btn">Help</a>
     </div>
   </header>
@@ -799,7 +797,7 @@
 
       <div class="btn-row">
         <button type="button" class="btn" onclick="goToStep(2)">Submit</button>
-        <a href="/login/" class="btn secondary">Return</a>
+        <a href="login.html" class="btn secondary">Return</a>
       </div>
     </div>
 
@@ -845,8 +843,7 @@
           <div class="flabel">Give Your Account a Name:</div>
           <div class="ffield">
             <input type="text" id="entityNickname" />
-            <div class="fhint">(Example: My Entity Account) — This is a personalized account name. It does NOT reflect
-              account ownership or security registration.</div>
+            <div class="fhint">(Example: My Entity Account) — This is a personalized account name. It does NOT reflect account ownership or security registration.</div>
           </div>
         </div>
 
@@ -857,21 +854,17 @@
             <div class="tin-choice-row">
               <input type="radio" name="entityTinType" id="entityTinEin" value="ein" />
               <label for="entityTinEin" class="split-fields">
-                <input type="text" class="small" maxlength="2" id="einPart1" /><span class="sep">-</span><input
-                  type="text" class="medium" maxlength="7" id="einPart2" />
+                <input type="text" class="small" maxlength="2" id="einPart1" /><span class="sep">-</span><input type="text" class="medium" maxlength="7" id="einPart2" />
                 <span style="font-size:11px;">EIN</span>
               </label>
             </div>
             <div class="fhint" style="margin-bottom:8px;">
-              IRS Name Control: <input type="text" style="width:50px; display:inline-block;" maxlength="4"
-                id="einNameControl" />
+              IRS Name Control: <input type="text" style="width:50px; display:inline-block;" maxlength="4" id="einNameControl" />
             </div>
             <div class="tin-choice-row">
               <input type="radio" name="entityTinType" id="entityTinSsn" value="ssn" />
               <label for="entityTinSsn" class="split-fields">
-                <input type="text" class="small" maxlength="3" id="entitySsnPart1" /><span class="sep">-</span><input
-                  type="text" class="small" maxlength="2" id="entitySsnPart2" /><span class="sep">-</span><input
-                  type="text" class="medium" maxlength="4" id="entitySsnPart3" />
+                <input type="text" class="small" maxlength="3" id="entitySsnPart1" /><span class="sep">-</span><input type="text" class="small" maxlength="2" id="entitySsnPart2" /><span class="sep">-</span><input type="text" class="medium" maxlength="4" id="entitySsnPart3" />
                 <span style="font-size:11px;">SSN</span>
               </label>
             </div>
@@ -888,30 +881,16 @@
         </div>
         <div class="form-row" id="row-entityCity">
           <div class="flabel"><span class="req">*</span>Entity City:</div>
-          <div class="ffield"><input type="text" id="entityCity" />
-            <div class="field-error-msg" id="err-entityCity">This field is required.</div>
-          </div>
+          <div class="ffield"><input type="text" id="entityCity" /><div class="field-error-msg" id="err-entityCity">This field is required.</div></div>
         </div>
         <div class="form-row" id="row-entityState">
           <div class="flabel"><span class="req">*</span>Entity State:</div>
           <div class="ffield">
             <select id="entityState">
               <option value="">--</option>
-              <option>AL</option>
-              <option>AK</option>
-              <option>AZ</option>
-              <option>AR</option>
-              <option>CA</option>
-              <option>CO</option>
-              <option>CT</option>
-              <option>DE</option>
-              <option>FL</option>
-              <option>GA</option>
-              <option>NY</option>
-              <option>TX</option>
-              <option>WA</option>
-              <option>IL</option>
-              <option>OH</option>
+              <option>AL</option><option>AK</option><option>AZ</option><option>AR</option><option>CA</option>
+              <option>CO</option><option>CT</option><option>DE</option><option>FL</option><option>GA</option>
+              <option>NY</option><option>TX</option><option>WA</option><option>IL</option><option>OH</option>
             </select>
             <div class="field-error-msg" id="err-entityState">This field is required.</div>
           </div>
@@ -920,8 +899,7 @@
           <div class="flabel"><span class="req">*</span>Entity Zip Code:</div>
           <div class="ffield">
             <div class="split-fields">
-              <input type="text" class="medium" maxlength="5" id="entityZip1" /><span class="sep">-</span><input
-                type="text" class="small" maxlength="4" id="entityZip2" />
+              <input type="text" class="medium" maxlength="5" id="entityZip1" /><span class="sep">-</span><input type="text" class="small" maxlength="4" id="entityZip2" />
               <span class="fhint">(Plus Four - Optional)</span>
             </div>
             <div class="field-error-msg" id="err-entityZip">A 5-digit zip code is required.</div>
@@ -935,18 +913,14 @@
       <!-- Individual: single Full Name field -->
       <div class="form-row" id="row-fullName">
         <div class="flabel"><span class="req">*</span><span id="fullNameLabel">Full Name:</span></div>
-        <div class="ffield"><input type="text" id="fullName" />
-          <div class="field-error-msg" id="err-fullName">This field is required.</div>
-        </div>
+        <div class="ffield"><input type="text" id="fullName" /><div class="field-error-msg" id="err-fullName">This field is required.</div></div>
       </div>
 
       <!-- Entity: First/Middle/Last/Suffix for the Account Manager -->
       <div id="managerNameSection" style="display:none;">
         <div class="form-row" id="row-mgrFirst">
           <div class="flabel"><span class="req">*</span>First Name:</div>
-          <div class="ffield"><input type="text" id="mgrFirst" />
-            <div class="field-error-msg" id="err-mgrFirst">This field is required.</div>
-          </div>
+          <div class="ffield"><input type="text" id="mgrFirst" /><div class="field-error-msg" id="err-mgrFirst">This field is required.</div></div>
         </div>
         <div class="form-row">
           <div class="flabel">Middle Name or Initial:</div>
@@ -954,37 +928,23 @@
         </div>
         <div class="form-row" id="row-mgrLast">
           <div class="flabel"><span class="req">*</span>Last Name:</div>
-          <div class="ffield"><input type="text" id="mgrLast" />
-            <div class="field-error-msg" id="err-mgrLast">This field is required.</div>
-          </div>
+          <div class="ffield"><input type="text" id="mgrLast" /><div class="field-error-msg" id="err-mgrLast">This field is required.</div></div>
         </div>
         <div class="form-row">
           <div class="flabel">Suffix:</div>
           <div class="ffield">
-            <select id="mgrSuffix">
-              <option value="">--</option>
-              <option>Jr.</option>
-              <option>Sr.</option>
-              <option>II</option>
-              <option>III</option>
-              <option>IV</option>
-            </select>
+            <select id="mgrSuffix"><option value="">--</option><option>Jr.</option><option>Sr.</option><option>II</option><option>III</option><option>IV</option></select>
           </div>
         </div>
         <div class="form-row" id="row-repRole">
           <div class="flabel"><span class="req">*</span>Representative's Role:</div>
-          <div class="ffield"><input type="text" id="representativeRole"
-              placeholder="e.g. Trustee, Executor, Legal Guardian" />
-            <div class="field-error-msg" id="err-repRole">This field is required.</div>
-          </div>
+          <div class="ffield"><input type="text" id="representativeRole" placeholder="e.g. Trustee, Executor, Legal Guardian" /><div class="field-error-msg" id="err-repRole">This field is required.</div></div>
         </div>
         <div class="form-row" id="row-mgrTin">
           <div class="flabel"><span class="req">*</span>Account Manager Taxpayer ID Number (SSN):</div>
           <div class="ffield">
             <div class="split-fields">
-              <input type="text" class="small" maxlength="3" id="mgrTin1" /><span class="sep">-</span><input type="text"
-                class="small" maxlength="2" id="mgrTin2" /><span class="sep">-</span><input type="text" class="medium"
-                maxlength="4" id="mgrTin3" />
+              <input type="text" class="small" maxlength="3" id="mgrTin1" /><span class="sep">-</span><input type="text" class="small" maxlength="2" id="mgrTin2" /><span class="sep">-</span><input type="text" class="medium" maxlength="4" id="mgrTin3" />
             </div>
             <div class="field-error-msg" id="err-mgrTin">A complete SSN (XXX-XX-XXXX) is required.</div>
           </div>
@@ -993,17 +953,12 @@
 
       <div class="form-row" id="dobRow">
         <div class="flabel"><span class="req">*</span><span id="dobLabel">Date of Birth:</span></div>
-        <div class="ffield"><input type="date" id="dateOfBirth" />
-          <div class="field-error-msg" id="err-dateOfBirth">This field is required.</div>
-        </div>
+        <div class="ffield"><input type="date" id="dateOfBirth" /><div class="field-error-msg" id="err-dateOfBirth">This field is required.</div></div>
       </div>
 
       <div class="form-row" id="taxIdRow">
-        <div class="flabel"><span class="req">*</span><span id="taxIdLabel">Taxpayer Identification Number (SSN):</span>
-        </div>
-        <div class="ffield"><input type="text" id="taxIdNumber" placeholder="XXX-XX-XXXX" />
-          <div class="field-error-msg" id="err-taxIdNumber">This field is required.</div>
-        </div>
+        <div class="flabel"><span class="req">*</span><span id="taxIdLabel">Taxpayer Identification Number (SSN):</span></div>
+        <div class="ffield"><input type="text" id="taxIdNumber" placeholder="XXX-XX-XXXX" /><div class="field-error-msg" id="err-taxIdNumber">This field is required.</div></div>
       </div>
 
       <div class="form-row">
@@ -1013,15 +968,7 @@
       <div class="form-row">
         <div class="flabel">Issuing State:</div>
         <div class="ffield">
-          <select id="dlState">
-            <option value="">--</option>
-            <option>AL</option>
-            <option>AK</option>
-            <option>AZ</option>
-            <option>CA</option>
-            <option>NY</option>
-            <option>TX</option>
-          </select>
+          <select id="dlState"><option value="">--</option><option>AL</option><option>AK</option><option>AZ</option><option>CA</option><option>NY</option><option>TX</option></select>
         </div>
       </div>
       <div class="form-row">
@@ -1035,10 +982,8 @@
       <div id="row-mailingAddr" style="display:none;" class="form-row">
         <div class="flabel"><span class="req">*</span>Mailing Address:</div>
         <div class="ffield">
-          <div class="radio-line"><input type="radio" name="mailingAddr" id="mailUseEntity" /><label
-              for="mailUseEntity">Use the Entity Address</label></div>
-          <div class="radio-line"><input type="radio" name="mailingAddr" id="mailUseManager" /><label
-              for="mailUseManager">Use a different mailing address (enter below)</label></div>
+          <div class="radio-line"><input type="radio" name="mailingAddr" id="mailUseEntity" /><label for="mailUseEntity">Use the Entity Address</label></div>
+          <div class="radio-line"><input type="radio" name="mailingAddr" id="mailUseManager" /><label for="mailUseManager">Use a different mailing address (enter below)</label></div>
           <div class="field-error-msg" id="err-mailingAddr">Please choose a mailing address option.</div>
         </div>
       </div>
@@ -1052,9 +997,7 @@
       </div>
       <div class="form-row" id="row-emailRetype">
         <div class="flabel"><span class="req">*</span>Retype E-mail Address:</div>
-        <div class="ffield"><input type="email" id="emailRetype" />
-          <div class="field-error-msg" id="err-emailRetype">Email addresses must match.</div>
-        </div>
+        <div class="ffield"><input type="email" id="emailRetype" /><div class="field-error-msg" id="err-emailRetype">Email addresses must match.</div></div>
       </div>
       <div class="form-row" id="row-password">
         <div class="flabel"><span class="req">*</span>Password:</div>
@@ -1065,33 +1008,23 @@
       </div>
       <div class="form-row" id="row-phone">
         <div class="flabel"><span class="req">*</span>Phone:</div>
-        <div class="ffield"><input type="text" id="phoneNumber" placeholder="(___) ___-____" />
-          <div class="field-error-msg" id="err-phone">This field is required.</div>
-        </div>
+        <div class="ffield"><input type="text" id="phoneNumber" placeholder="(___) ___-____" /><div class="field-error-msg" id="err-phone">This field is required.</div></div>
       </div>
       <div class="form-row" id="row-street">
         <div class="flabel"><span class="req">*</span>Street Address:</div>
-        <div class="ffield"><input type="text" id="street" />
-          <div class="field-error-msg" id="err-street">This field is required.</div>
-        </div>
+        <div class="ffield"><input type="text" id="street" /><div class="field-error-msg" id="err-street">This field is required.</div></div>
       </div>
       <div class="form-row" id="row-city">
         <div class="flabel"><span class="req">*</span>City:</div>
-        <div class="ffield"><input type="text" id="city" />
-          <div class="field-error-msg" id="err-city">This field is required.</div>
-        </div>
+        <div class="ffield"><input type="text" id="city" /><div class="field-error-msg" id="err-city">This field is required.</div></div>
       </div>
       <div class="form-row" id="row-state">
         <div class="flabel"><span class="req">*</span>State:</div>
-        <div class="ffield"><input type="text" id="state" />
-          <div class="field-error-msg" id="err-state">This field is required.</div>
-        </div>
+        <div class="ffield"><input type="text" id="state" /><div class="field-error-msg" id="err-state">This field is required.</div></div>
       </div>
       <div class="form-row" id="row-postalCode">
         <div class="flabel"><span class="req">*</span>Zip Code:</div>
-        <div class="ffield"><input type="text" id="postalCode" />
-          <div class="field-error-msg" id="err-postalCode">A 5-digit zip code is required.</div>
-        </div>
+        <div class="ffield"><input type="text" id="postalCode" /><div class="field-error-msg" id="err-postalCode">A 5-digit zip code is required.</div></div>
       </div>
       <div class="form-row">
         <div class="flabel">Country:</div>
@@ -1102,35 +1035,25 @@
 
       <div class="form-row" id="row-bankName">
         <div class="flabel"><span class="req">*</span>Bank Name:</div>
-        <div class="ffield"><input type="text" id="bankName" />
-          <div class="field-error-msg" id="err-bankName">This field is required.</div>
-        </div>
+        <div class="ffield"><input type="text" id="bankName" /><div class="field-error-msg" id="err-bankName">This field is required.</div></div>
       </div>
       <div class="form-row" id="row-routingNumber">
         <div class="flabel"><span class="req">*</span>Routing Number:</div>
-        <div class="ffield"><input type="text" id="routingNumber" />
-          <div class="field-error-msg" id="err-routingNumber">This field is required.</div>
-        </div>
+        <div class="ffield"><input type="text" id="routingNumber" /><div class="field-error-msg" id="err-routingNumber">This field is required.</div></div>
       </div>
       <div class="form-row" id="row-accountNumber">
         <div class="flabel"><span class="req">*</span>Account Number:</div>
-        <div class="ffield"><input type="text" id="accountNumber" />
-          <div class="field-error-msg" id="err-accountNumber">This field is required.</div>
-        </div>
+        <div class="ffield"><input type="text" id="accountNumber" /><div class="field-error-msg" id="err-accountNumber">This field is required.</div></div>
       </div>
       <div class="form-row" id="row-accountName">
         <div class="flabel"><span class="req">*</span>Name(s) on the Account:</div>
-        <div class="ffield"><input type="text" id="accountName" />
-          <div class="field-error-msg" id="err-accountName">This field is required.</div>
-        </div>
+        <div class="ffield"><input type="text" id="accountName" /><div class="field-error-msg" id="err-accountName">This field is required.</div></div>
       </div>
       <div class="form-row" id="row-bankAccountType">
         <div class="flabel"><span class="req">*</span>Account Type:</div>
         <div class="ffield">
-          <div class="radio-line"><input type="radio" name="bankAccountType" id="acctChecking" /><label
-              for="acctChecking">Checking</label></div>
-          <div class="radio-line"><input type="radio" name="bankAccountType" id="acctSavings" /><label
-              for="acctSavings">Savings</label></div>
+          <div class="radio-line"><input type="radio" name="bankAccountType" id="acctChecking" /><label for="acctChecking">Checking</label></div>
+          <div class="radio-line"><input type="radio" name="bankAccountType" id="acctSavings" /><label for="acctSavings">Savings</label></div>
           <div class="field-error-msg" id="err-bankAccountType">Please select an account type.</div>
         </div>
       </div>
@@ -1203,13 +1126,12 @@
               notified me that I am no longer subject to backup withholding.</li>
             <li>I am a U.S. person as defined by the IRS.</li>
           </ol>
-          <div class="cert-error" id="certError">You must check the certification box above before you can submit this
-            application.</div>
+          <div class="cert-error" id="certError">You must check the certification box above before you can submit this application.</div>
         </div>
       </div>
 
       <div class="recaptcha-row">
-        <div class="g-recaptcha" data-sitekey="YOUR_RECAPTCHA_SITE_KEY_HERE" id="recaptchaWidget"></div>
+        <div class="g-recaptcha" data-sitekey="6LecF1stAAAAAMWYilJHcq7uev7GEHuYcatHyQgT" id="recaptchaWidget"></div>
       </div>
 
       <div class="btn-row">
@@ -1224,7 +1146,7 @@
       <div class="id-value" id="idValue">—</div>
       <p>This has also been sent to your email. Keep it safe — you'll need it every time you log in.</p>
       <div class="btn-row" style="justify-content:center;">
-        <a href="/login/" class="btn">Go to Login</a>
+        <a href="login.html" class="btn">Go to Login</a>
       </div>
     </div>
 
