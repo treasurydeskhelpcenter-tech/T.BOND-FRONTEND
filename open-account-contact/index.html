@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Us — TreasuryDirect</title><link rel="icon" type="image/png" href="/favicon.jpg"><link rel="icon" type="image/png" href="/favicon.jpg">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 13.5px;
+      color: #1b1b1b;
+      background: #fff;
+    }
+
+    a {
+      color: #205493;
+    }
+
+    .simple-header {
+      padding: 16px 30px 10px;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .logo .treasury {
+      color: #4a7729;
+    }
+
+    .logo .direct {
+      color: #205493;
+    }
+
+    .logo .dot {
+      color: #e57200;
+    }
+
+    hr.blue-rule {
+      border: none;
+      border-top: 4px solid #205493;
+      margin: 0;
+    }
+
+    .content {
+      max-width: 620px;
+      margin: 0 auto;
+      padding: 24px 30px 40px;
+    }
+
+    #errorBox {
+      display: none;
+      border: 1px solid #b31942;
+      padding: 14px 20px;
+      margin-bottom: 20px;
+    }
+
+    #errorBox .error-title {
+      color: #b31942;
+      font-weight: bold;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    #errorBox ul {
+      margin-left: 20px;
+      font-size: 13px;
+    }
+
+    #errorBox li {
+      margin-bottom: 4px;
+    }
+
+    #successBox {
+      display: none;
+      border: 1px solid #4a7729;
+      background: #eef6ea;
+      padding: 16px 20px;
+      margin-bottom: 20px;
+      font-size: 13.5px;
+    }
+
+    #successBox strong {
+      color: #4a7729;
+    }
+
+    h2.page-title {
+      color: #cc5500;
+      font-size: 20px;
+      margin-bottom: 12px;
+    }
+
+    .content > p.intro {
+      font-size: 13.5px;
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+
+    table.contact-form {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    table.contact-form td {
+      padding: 8px 0;
+      vertical-align: top;
+    }
+
+    table.contact-form td.label {
+      width: 140px;
+      text-align: right;
+      padding-right: 12px;
+      font-weight: bold;
+      white-space: nowrap;
+    }
+
+    table.contact-form input[type="text"] {
+      padding: 6px 8px;
+      border: 1px solid #999;
+      font-size: 13px;
+      width: 260px;
+    }
+
+    .phone-group {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .phone-group input {
+      width: 60px !important;
+    }
+
+    .phone-group input.ext {
+      width: 60px !important;
+    }
+
+    .phone-group span {
+      font-weight: normal;
+    }
+
+    table.contact-form textarea {
+      width: 100%;
+      max-width: 400px;
+      height: 110px;
+      padding: 8px;
+      border: 1px solid #999;
+      font-size: 13px;
+      font-family: inherit;
+    }
+
+    .readonly-value {
+      padding-top: 6px;
+    }
+
+    .btn-row {
+      margin-top: 20px;
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn {
+      border: none;
+      color: #fff;
+      font-weight: bold;
+      font-size: 13.5px;
+      padding: 9px 20px;
+      border-radius: 3px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-send {
+      background: #205493;
+    }
+
+    .btn-send:hover {
+      background: #163e6f;
+    }
+
+    .btn-close {
+      background: #cc5500;
+    }
+
+    .btn-close:hover {
+      background: #a34400;
+    }
+
+    footer {
+      border-top: 1px solid #eee;
+      text-align: center;
+      padding: 18px;
+      font-size: 12px;
+      color: #444;
+      margin-top: 30px;
+    }
+
+    footer a {
+      margin: 0 8px;
+      text-decoration: underline;
+    }
+
+    footer .dept-line {
+      margin-top: 10px;
+      color: #666;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="simple-header">
+    <div class="logo"><span class="treasury">Treasury</span><span class="direct">Direct</span><span
+        class="dot">.</span></div>
+  </div>
+
+  <hr class="blue-rule" />
+
+  <div class="content">
+
+    <div id="errorBox">
+      <div class="error-title">⚠️ The following error(s) have occurred:</div>
+      <ul id="errorList"></ul>
+    </div>
+
+    <div id="successBox">
+      <strong>Thank you.</strong> Your message has been sent. We'll get back to you as soon as possible.
+    </div>
+
+    <h2 class="page-title">Contact Us</h2>
+    <p class="intro">Have a question about TreasuryDirect? E-mail us and we'll be happy to assist you.</p>
+
+    <form id="contactForm">
+      <table class="contact-form">
+        <tr>
+          <td class="label">Name:</td>
+          <td><input type="text" id="ctName" /></td>
+        </tr>
+        <tr>
+          <td class="label">Account Number:</td>
+          <td class="readonly-value">N/A</td>
+        </tr>
+        <tr>
+          <td class="label">E-mail Address:</td>
+          <td><input type="text" id="ctEmail" /></td>
+        </tr>
+        <tr>
+          <td class="label">Daytime Phone:</td>
+          <td>
+            <div class="phone-group">
+              (<input type="text" id="ctPhone1" maxlength="3" />)
+              <input type="text" id="ctPhone2" maxlength="3" /> -
+              <input type="text" id="ctPhone3" maxlength="4" />
+              <span>Ext:</span>
+              <input type="text" id="ctPhoneExt" class="ext" />
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="label">Message:</td>
+          <td><textarea id="ctMessage"></textarea></td>
+        </tr>
+      </table>
+
+      <div class="btn-row">
+        <button type="button" class="btn btn-send" onclick="sendMessage()">Send</button>
+        <button type="button" class="btn btn-close" onclick="closeWindow()">Close Window</button>
+      </div>
+    </form>
+  </div>
+
+  <footer>
+    <div>
+      <a href="javascript:void(0)">Freedom of Information Act</a> |
+      <a href="javascript:void(0)">Law &amp; Guidance</a> |
+      <a href="javascript:void(0)">Privacy &amp; Legal Notices</a> |
+      <a href="javascript:void(0)">Website Terms &amp; Conditions</a> |
+      <a href="javascript:void(0)">Accessibility</a> |
+      <a href="javascript:void(0)">Data Quality</a>
+    </div>
+    <div class="dept-line">U.S. Department of the Treasury, Bureau of the Fiscal Service</div>
+  </footer>
+
+  <script>
+    function sendMessage() {
+      const name = document.getElementById("ctName").value.trim();
+      const email = document.getElementById("ctEmail").value.trim();
+      const message = document.getElementById("ctMessage").value.trim();
+
+      const errors = [];
+      if (!name) errors.push("Name is a required field. Please enter your information and click Send.");
+      if (!email) errors.push("E-mail Address is a required field. Please enter your information and click Send.");
+      if (message === "") errors.push("Message is a required field. Please enter your information and click Send.");
+
+      const errorBox = document.getElementById("errorBox");
+      const errorList = document.getElementById("errorList");
+      const successBox = document.getElementById("successBox");
+
+      if (errors.length > 0) {
+        errorList.innerHTML = "";
+        errors.forEach(function (msg) {
+          const li = document.createElement("li");
+          li.textContent = msg;
+          errorList.appendChild(li);
+        });
+        errorBox.style.display = "block";
+        successBox.style.display = "none";
+        window.scrollTo(0, 0);
+        return;
+      }
+
+      errorBox.style.display = "none";
+      successBox.style.display = "block";
+      document.getElementById("contactForm").reset();
+      window.scrollTo(0, 0);
+    }
+
+    function closeWindow() {
+      // Works if this page was opened via window.open(); otherwise falls back
+      // to sending the user back to the previous page.
+      window.close();
+      setTimeout(function () {
+        if (!window.closed) {
+          window.history.back();
+        }
+      }, 100);
+    }
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Verify Email - TreasuryDirect</title><link rel="icon" type="image/png" href="/favicon.jpg"><link rel="icon" type="image/png" href="/favicon.jpg">
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 13px;
+      color: #333;
+      margin: 0;
+      background: #fff;
+    }
+
+    a {
+      color: #0000cc;
+      text-decoration: underline;
+    }
+
+    a:hover {
+      color: #cc3300;
+    }
+
+    .header-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .header-table td {
+      padding: 10px 20px;
+      vertical-align: middle;
+    }
+
+    .logo {
+      font-size: 26px;
+      font-weight: bold;
+      color: #2f6a31;
+    }
+
+    .logo span {
+      color: #1a4fa0;
+    }
+
+    .content {
+      padding: 40px 30px;
+      max-width: 500px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .status-box {
+      padding: 24px;
+      border-radius: 4px;
+      margin-top: 20px;
+    }
+
+    .status-box.loading {
+      background: #eef4fb;
+      border: 1px solid #b7cbe6;
+      color: #1a4fa0;
+    }
+
+    .status-box.success {
+      background: #eef8ee;
+      border: 1px solid #a9d4a9;
+      color: #235c23;
+    }
+
+    .status-box.error {
+      background: #fdeaea;
+      border: 1px solid #d99;
+      color: #a33;
+    }
+
+    .status-box h2 {
+      margin-top: 0;
+      font-size: 18px;
+    }
+
+    .status-box p {
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .action-btn {
+      display: inline-block;
+      margin-top: 16px;
+      background: #1a4fa0;
+      color: #fff;
+      border: 1px solid #12407e;
+      padding: 8px 22px;
+      font-weight: bold;
+      font-size: 12px;
+      text-decoration: none;
+      border-radius: 2px;
+    }
+
+    .footer {
+      border-top: 1px solid #ccc;
+      text-align: center;
+      padding: 14px;
+      font-size: 11px;
+      color: #666;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <table class="header-table">
+    <tr>
+      <td class="logo">Treasury<span>Direct</span>.</td>
+    </tr>
+  </table>
+
+  <div class="content">
+    <div id="statusBox" class="status-box loading">
+      <h2>Verifying your email…</h2>
+      <p>Please wait while we confirm your email address.</p>
+    </div>
+  </div>
+
+  <div class="footer">
+    <a href="/privacy-legal/">Privacy &amp; Legal Notices</a> | <a href="/site-map/">Site Map</a> | <a
+      href="/contact-us/">Contact Us</a>
+  </div>
+
+  <script>
+    const API_BASE = "https://t-bond-backend.onrender.com/api";
+
+    function getTokenFromUrl() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get("token");
+    }
+
+    function renderSuccess() {
+      const box = document.getElementById("statusBox");
+      box.className = "status-box success";
+      box.innerHTML = `
+      <h2>Email Verified</h2>
+      <p>Your email address has been successfully verified. You can now sign in to your account.</p>
+      <a class="action-btn" href="/login/">Go to Sign In</a>
+    `;
+    }
+
+    function renderError(message) {
+      const box = document.getElementById("statusBox");
+      box.className = "status-box error";
+      box.innerHTML = `
+      <h2>Verification Failed</h2>
+      <p>${message || "This verification link is invalid or has expired."}</p>
+      <a class="action-btn" href="/login/">Return to Sign In</a>
+    `;
+    }
+
+    async function verifyEmail() {
+      const token = getTokenFromUrl();
+
+      if (!token) {
+        renderError("No verification token was found in the link. Please check your email and click the link again.");
+        return;
+      }
+
+      try {
+        const res = await fetch(`${API_BASE}/auth/verify-email/${token}`);
+        const data = await res.json();
+
+        if (!res.ok) {
+          throw new Error(data.message || "Verification failed.");
+        }
+
+        renderSuccess();
+      } catch (err) {
+        renderError(err.message);
+      }
+    }
+
+    verifyEmail();
+  </script>
+
+</body>
+
+</html>

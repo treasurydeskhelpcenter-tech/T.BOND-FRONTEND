@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Redeem Securities - TreasuryDirect</title><link rel="icon" type="image/png" href="/favicon.jpg"><link rel="icon" type="image/png" href="/favicon.jpg">
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 13px;
+      color: #333;
+      margin: 0;
+      background: #fff;
+    }
+
+    a {
+      color: #0000cc;
+      text-decoration: underline;
+    }
+
+    a:hover {
+      color: #cc3300;
+    }
+
+    .header-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .header-table td {
+      padding: 10px 20px;
+      vertical-align: middle;
+    }
+
+    .logo {
+      font-size: 26px;
+      font-weight: bold;
+      color: #2f6a31;
+    }
+
+    .logo span {
+      color: #1a4fa0;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 4px 14px;
+      font-size: 12px;
+      font-weight: bold;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 3px;
+      border: 1px solid rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-help {
+      background: #4caf50;
+    }
+
+    .btn-logoff {
+      background: #e07a1f;
+      cursor: pointer;
+    }
+
+    .navbar {
+      width: 100%;
+      border-collapse: collapse;
+      background: #1a4fa0;
+    }
+
+    .navbar td {
+      padding: 8px 16px;
+      color: #fff;
+      font-weight: bold;
+      font-size: 12px;
+      text-align: center;
+      border-right: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .navbar td.active {
+      background: #e07a1f;
+    }
+
+    .navbar a {
+      color: #fff;
+      text-decoration: none;
+      display: block;
+    }
+
+    .content {
+      padding: 20px 30px;
+      max-width: 900px;
+    }
+
+    .breadcrumb {
+      color: #cc5500;
+      font-weight: bold;
+      font-size: 16px;
+      margin-bottom: 4px;
+    }
+
+    .subtext {
+      font-size: 12px;
+      color: #444;
+      margin-bottom: 16px;
+    }
+
+    .acct-line {
+      text-align: right;
+      font-size: 12px;
+      color: #333;
+      margin-top: -30px;
+      margin-bottom: 10px;
+    }
+
+    table.data {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 12px 0 20px;
+    }
+
+    table.data th {
+      background: #1a4fa0;
+      color: #fff;
+      text-align: left;
+      padding: 6px 10px;
+      font-size: 12px;
+    }
+
+    table.data td {
+      border: 1px solid #ccc;
+      padding: 8px 10px;
+      font-size: 13px;
+    }
+
+    table.data tr.row-option {
+      cursor: pointer;
+    }
+
+    table.data tr.row-option:hover td {
+      background: #eef4fb;
+    }
+
+    table.data tr.row-option.selected td {
+      background: #dceafd;
+    }
+
+    table.data td.num {
+      text-align: right;
+    }
+
+    table.data tfoot td {
+      font-weight: bold;
+      background: #f5f5f5;
+    }
+
+    .action-btn {
+      background: #1a4fa0;
+      color: #fff;
+      border: 1px solid #12407e;
+      padding: 6px 18px;
+      font-weight: bold;
+      font-size: 12px;
+      cursor: pointer;
+      border-radius: 2px;
+    }
+
+    .action-btn:disabled {
+      background: #9aa8bb;
+      border-color: #8593a6;
+      cursor: not-allowed;
+    }
+
+    .action-btn.cancel {
+      background: #e07a1f;
+      border-color: #b3610f;
+    }
+
+    .action-btn.link-btn {
+      background: none;
+      border: none;
+      color: #0000cc;
+      text-decoration: underline;
+      cursor: pointer;
+      font-size: 12px;
+      padding: 0;
+    }
+
+    .error-banner {
+      background: #fdeaea;
+      border: 1px solid #d99;
+      color: #a33;
+      padding: 10px 14px;
+      margin-bottom: 16px;
+      font-size: 12px;
+      display: none;
+    }
+
+    .error-banner.show {
+      display: block;
+    }
+
+    .error-title {
+      font-weight: bold;
+      margin-bottom: 4px;
+    }
+
+    .success-box {
+      background: #eef8ee;
+      border: 1px solid #a9d4a9;
+      color: #235c23;
+      padding: 16px 18px;
+      margin-bottom: 16px;
+      font-size: 13px;
+      display: none;
+    }
+
+    .success-box.show {
+      display: block;
+    }
+
+    .empty-msg {
+      padding: 20px;
+      text-align: center;
+      color: #666;
+      font-style: italic;
+    }
+
+    .loading-msg {
+      padding: 20px;
+      text-align: center;
+      color: #666;
+    }
+
+    .select-tools {
+      margin: 8px 0 14px;
+      font-size: 12px;
+    }
+
+    .footer {
+      border-top: 1px solid #ccc;
+      text-align: center;
+      padding: 14px;
+      font-size: 11px;
+      color: #666;
+      margin-top: 30px;
+    }
+
+    .footer a {
+      margin: 0 6px;
+    }
+
+    #step1,
+    #step2,
+    #step3 {
+      display: none;
+    }
+
+    #step1.active,
+    #step2.active,
+    #step3.active {
+      display: block;
+    }
+  </style>
+</head>
+
+<body>
+
+  <table class="header-table">
+    <tr>
+      <td class="logo">Treasury<span>Direct</span>.</td>
+      <td style="text-align:right;">
+        <a class="btn btn-help" href="/help/">Help</a>
+        <a class="btn btn-logoff" id="logoffBtn">Logoff</a>
+      </td>
+    </tr>
+  </table>
+
+  <table class="navbar">
+    <tr>
+      <td><a href="/dashboard/">My Account</a></td>
+      <td><a href="/purchase-bond/">BuyDirect</a></td>
+      <td><a href="/current-holdings/">Current Holdings</a></td>
+      <td class="active"><a href="javascript:void(0)" style="color:#fff;">ManageDirect</a></td>
+      <td><a href="/account-info/">Account Info</a></td>
+      <td><a href="/history/">History</a></td>
+    </tr>
+  </table>
+
+  <div class="content">
+    <div class="breadcrumb">ManageDirect &raquo; Redemption</div>
+    <div class="acct-line" id="acctLine"></div>
+    <div class="subtext">Select one or more securities below to redeem. You may select up to 50 at a time.</div>
+
+    <div class="error-banner" id="errorBanner">
+      <div class="error-title">The following error occurred:</div>
+      <div id="errorText"></div>
+    </div>
+
+    <div class="success-box" id="successBox">
+      <strong>Redemption request(s) submitted.</strong>
+      <div id="successText" style="margin-top:6px;"></div>
+    </div>
+
+    <!-- STEP 1: choose holdings -->
+    <div id="step1" class="active">
+      <div class="loading-msg" id="loadingMsg">Loading your holdings…</div>
+      <table class="data" id="holdingsTable" style="display:none;">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Security</th>
+            <th>Interest Rate</th>
+            <th>Maturity Date</th>
+            <th style="text-align:right;">Current Value</th>
+          </tr>
+        </thead>
+        <tbody id="holdingsBody"></tbody>
+        <tfoot>
+          <tr>
+            <td colspan="4" style="text-align:right;">Total Selected:</td>
+            <td class="num" id="selectedTotal">$0.00</td>
+          </tr>
+        </tfoot>
+      </table>
+      <div class="select-tools" id="selectTools" style="display:none;">
+        <button class="action-btn link-btn" id="selectAllBtn">Select All</button> &nbsp;|&nbsp;
+        <button class="action-btn link-btn" id="selectNoneBtn">Select None</button>
+      </div>
+      <div class="empty-msg" id="emptyMsg" style="display:none;">You have no active securities eligible for redemption.
+      </div>
+
+      <p>
+        <button class="action-btn" id="continueBtn" disabled>Continue</button>
+        <button class="action-btn cancel" onclick="window.location.href='/dashboard/'">Cancel</button>
+      </p>
+    </div>
+
+    <!-- STEP 2: review + confirm -->
+    <div id="step2">
+      <div class="subtext">Please review the securities selected for redemption below.</div>
+      <table class="data" id="reviewTable">
+        <thead>
+          <tr>
+            <th>Security</th>
+            <th>Maturity Date</th>
+            <th style="text-align:right;">Redemption Value</th>
+          </tr>
+        </thead>
+        <tbody id="reviewBody"></tbody>
+        <tfoot>
+          <tr>
+            <td colspan="2" style="text-align:right;">Total Redemption Amount:</td>
+            <td class="num" id="reviewTotal">$0.00</td>
+          </tr>
+        </tfoot>
+      </table>
+      <p style="font-size:12px; color:#444;">
+        By clicking Submit, you certify that you are authorized to redeem these securities and that the
+        proceeds will be credited to your account balance once each request is approved.
+      </p>
+      <p>
+        <button class="action-btn" id="submitRedeemBtn">Submit</button>
+        <button class="action-btn cancel" id="backBtn">Back</button>
+      </p>
+    </div>
+
+    <!-- STEP 3: done -->
+    <div id="step3">
+      <p><a href="/dashboard/">Return to My Account</a></p>
+    </div>
+  </div>
+
+  <div class="footer">
+    <a href="/privacy-legal/">Privacy &amp; Legal Notices</a> | <a href="/site-map/">Site Map</a> | <a
+      href="/contact-us/">Contact Us</a>
+  </div>
+
+  <script>
+    const API_BASE = "https://t-bond-backend.onrender.com/api";
+    const token = localStorage.getItem("td_token");
+    const userRaw = localStorage.getItem("td_user");
+
+    if (!token) {
+      window.location.href = "login.html";
+    }
+
+    let currentUser = null;
+    try { currentUser = userRaw ? JSON.parse(userRaw) : null; } catch (e) { currentUser = null; }
+
+    document.getElementById("acctLine").textContent = currentUser?.loginId
+      ? `${currentUser.name || ""}: ${currentUser.loginId}`
+      : "";
+
+    document.getElementById("logoffBtn").addEventListener("click", () => {
+      localStorage.removeItem("td_token");
+      localStorage.removeItem("td_user");
+      window.location.href = "login.html";
+    });
+
+    function showStep(step) {
+      ["step1", "step2", "step3"].forEach((id) => {
+        document.getElementById(id).classList.toggle("active", id === step);
+      });
+    }
+
+    function showError(msg) {
+      const banner = document.getElementById("errorBanner");
+      document.getElementById("errorText").textContent = msg;
+      banner.classList.add("show");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function clearError() {
+      document.getElementById("errorBanner").classList.remove("show");
+    }
+
+    function formatMoney(n) {
+      return Number(n || 0).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    function formatDate(d) {
+      if (!d) return "-";
+      return new Date(d).toLocaleDateString("en-US", { year: "numeric", month: "2-digit", day: "2-digit" });
+    }
+
+    let holdings = [];
+    let selectedIds = new Set();
+
+    async function loadHoldings() {
+      try {
+        const res = await fetch(`${API_BASE}/dashboard`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        const data = await res.json();
+
+        if (!res.ok) {
+          throw new Error(data.message || "Unable to load your holdings.");
+        }
+
+        holdings = (data.holdings || []).filter((h) => h.status === "active");
+        document.getElementById("loadingMsg").style.display = "none";
+
+        if (holdings.length === 0) {
+          document.getElementById("emptyMsg").style.display = "block";
+          return;
+        }
+
+        const tbody = document.getElementById("holdingsBody");
+        tbody.innerHTML = "";
+
+        holdings.forEach((h) => {
+          const tr = document.createElement("tr");
+          tr.className = "row-option";
+          tr.dataset.id = h._id;
+          tr.innerHTML = `
+          <td><input type="checkbox" data-id="${h._id}"></td>
+          <td>${h.bond?.name || "Security"} (${h.bond?.type || ""})</td>
+          <td>${h.bond?.interestRate != null ? h.bond.interestRate + "%" : "-"}</td>
+          <td>${formatDate(h.maturityDate)}</td>
+          <td class="num">$${formatMoney(h.currentValue)}</td>
+        `;
+          tr.addEventListener("click", (e) => {
+            if (e.target.tagName !== "INPUT") {
+              const cb = tr.querySelector("input[type=checkbox]");
+              cb.checked = !cb.checked;
+            }
+            toggleSelection(h._id, tr.querySelector("input[type=checkbox]").checked, tr);
+          });
+          tr.querySelector("input[type=checkbox]").addEventListener("click", (e) => {
+            e.stopPropagation();
+            toggleSelection(h._id, e.target.checked, tr);
+          });
+          tbody.appendChild(tr);
+        });
+
+        document.getElementById("holdingsTable").style.display = "table";
+        document.getElementById("selectTools").style.display = "block";
+      } catch (err) {
+        document.getElementById("loadingMsg").style.display = "none";
+        showError(err.message || "Something went wrong loading your holdings.");
+      }
+    }
+
+    function toggleSelection(id, checked, tr) {
+      if (checked) {
+        selectedIds.add(id);
+        tr.classList.add("selected");
+      } else {
+        selectedIds.delete(id);
+        tr.classList.remove("selected");
+      }
+      updateTotals();
+    }
+
+    function updateTotals() {
+      const selectedHoldings = holdings.filter((h) => selectedIds.has(h._id));
+      const total = selectedHoldings.reduce((sum, h) => sum + h.currentValue, 0);
+      document.getElementById("selectedTotal").textContent = `$${formatMoney(total)}`;
+      document.getElementById("continueBtn").disabled = selectedIds.size === 0;
+    }
+
+    document.getElementById("selectAllBtn").addEventListener("click", () => {
+      document.querySelectorAll("#holdingsBody input[type=checkbox]").forEach((cb) => {
+        cb.checked = true;
+        toggleSelection(cb.dataset.id, true, cb.closest("tr"));
+      });
+    });
+
+    document.getElementById("selectNoneBtn").addEventListener("click", () => {
+      document.querySelectorAll("#holdingsBody input[type=checkbox]").forEach((cb) => {
+        cb.checked = false;
+        toggleSelection(cb.dataset.id, false, cb.closest("tr"));
+      });
+    });
+
+    document.getElementById("continueBtn").addEventListener("click", () => {
+      if (selectedIds.size === 0) return;
+      clearError();
+      renderReview();
+      showStep("step2");
+    });
+
+    document.getElementById("backBtn").addEventListener("click", () => {
+      clearError();
+      showStep("step1");
+    });
+
+    function renderReview() {
+      const selectedHoldings = holdings.filter((h) => selectedIds.has(h._id));
+      const tbody = document.getElementById("reviewBody");
+      tbody.innerHTML = "";
+
+      let total = 0;
+      selectedHoldings.forEach((h) => {
+        total += h.currentValue;
+        tbody.innerHTML += `
+        <tr>
+          <td>${h.bond?.name || "Security"} (${h.bond?.type || ""})</td>
+          <td>${formatDate(h.maturityDate)}</td>
+          <td class="num">$${formatMoney(h.currentValue)}</td>
+        </tr>
+      `;
+      });
+
+      document.getElementById("reviewTotal").textContent = `$${formatMoney(total)}`;
+    }
+
+    document.getElementById("submitRedeemBtn").addEventListener("click", async () => {
+      if (selectedIds.size === 0) return;
+      clearError();
+
+      const btn = document.getElementById("submitRedeemBtn");
+      btn.disabled = true;
+      btn.textContent = "Submitting…";
+
+      try {
+        const res = await fetch(`${API_BASE}/bonds/redeem-multiple`, {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ holdingIds: Array.from(selectedIds) }),
+        });
+        const data = await res.json();
+
+        if (!res.ok) {
+          throw new Error(data.message || "Unable to submit redemption request.");
+        }
+
+        document.getElementById("successText").textContent = data.message;
+        document.getElementById("successBox").classList.add("show");
+        showStep("step3");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } catch (err) {
+        showStep("step2");
+        showError(err.message || "Something went wrong submitting your redemption.");
+        btn.disabled = false;
+        btn.textContent = "Submit";
+      }
+    });
+
+    loadHoldings();
+  </script>
+
+</body>
+
+</html>

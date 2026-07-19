@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Redemption (Buyback) Operations Regulations — TreasuryDirect</title><link rel="icon" type="image/png" href="/favicon.jpg"><link rel="icon" type="image/png" href="/favicon.jpg">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #fff;
+            color: #1b1b1b;
+            font-size: 14px;
+        }
+
+        a {
+            color: #205493;
+        }
+
+        /* Government banner */
+        .gov-banner {
+            background: #162e51;
+            color: #fff;
+            font-size: 12px;
+        }
+
+        .gov-banner a {
+            color: #fff;
+            text-decoration: underline;
+            margin-left: 6px;
+        }
+
+        .gov-banner-top {
+            padding: 8px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .gov-toggle {
+            background: none;
+            border: none;
+            color: #fff;
+            font: inherit;
+            font-size: 12px;
+            text-decoration: underline;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 4px 0;
+        }
+
+        .gov-arrow {
+            font-size: 9px;
+            transition: transform 0.15s ease;
+            display: inline-block;
+        }
+
+        .gov-toggle[aria-expanded="true"] .gov-arrow {
+            transform: rotate(180deg);
+        }
+
+        .gov-panel {
+            border-top: 1px solid rgba(255, 255, 255, 0.25);
+            padding: 24px 20px 30px;
+        }
+
+        .gov-dept-line {
+            margin-bottom: 20px;
+        }
+
+        .gov-dept-line a {
+            margin-left: 0;
+            font-size: 14px;
+        }
+
+        .gov-panel-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 26px;
+            max-width: 900px;
+        }
+
+        @media (min-width: 700px) {
+            .gov-panel-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .gov-item {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+        }
+
+        .gov-icon {
+            flex-shrink: 0;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            border: 2px solid;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+        }
+
+        .gov-icon-blue {
+            border-color: #4f9cd9;
+        }
+
+        .gov-icon-green {
+            border-color: #6cc24a;
+        }
+
+        .gov-item h4 {
+            font-size: 15px;
+            margin-bottom: 6px;
+        }
+
+        .gov-item p {
+            font-size: 13px;
+            line-height: 1.6;
+            color: #d6e0ec;
+            margin: 0;
+        }
+
+        .gov-item p strong {
+            color: #fff;
+        }
+
+        /* Top row: flag text + the toggle button that opens/closes the panel */
+        .gov-banner-top {
+            padding: 8px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .gov-toggle {
+            background: none;
+            border: none;
+            color: #fff;
+            font: inherit;
+            font-size: 12px;
+            text-decoration: underline;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 4px 0;
+        }
+
+        .gov-arrow {
+            font-size: 9px;
+            transition: transform 0.15s ease;
+            display: inline-block;
+        }
+
+        .gov-toggle[aria-expanded="true"] .gov-arrow {
+            transform: rotate(180deg);
+        }
+
+        /* Collapsible content panel — hidden by default via the [hidden] attribute */
+        .gov-panel {
+            border-top: 1px solid rgba(255, 255, 255, 0.25);
+            padding: 24px 20px 30px;
+        }
+
+        .gov-dept-line {
+            margin-bottom: 20px;
+        }
+
+        .gov-dept-line a {
+            margin-left: 0;
+            font-size: 14px;
+        }
+
+        .gov-panel-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 26px;
+            max-width: 900px;
+        }
+
+        @media (min-width: 700px) {
+            .gov-panel-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .gov-item {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+        }
+
+        .gov-icon {
+            flex-shrink: 0;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            border: 2px solid;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+        }
+
+        .gov-icon-blue {
+            border-color: #4f9cd9;
+        }
+
+        .gov-icon-green {
+            border-color: #6cc24a;
+        }
+
+        .gov-item h4 {
+            font-size: 15px;
+            margin-bottom: 6px;
+        }
+
+        .gov-item p {
+            font-size: 13px;
+            line-height: 1.6;
+            color: #d6e0ec;
+            margin: 0;
+        }
+
+        .gov-item p strong {
+            color: #fff;
+        }
+
+        /* Header */
+        header.site-header {
+            padding: 14px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: bold;
+        }
+
+        .logo .treasury {
+            color: #4a7729;
+        }
+
+        .logo .direct {
+            color: #205493;
+        }
+
+        .logo .dot {
+            color: #e57200;
+        }
+
+        .header-links {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .header-links a {
+            color: #333;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .header-links a:hover {
+            text-decoration: underline;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .login-btn {
+            background: #e57200;
+            color: #fff;
+            padding: 9px 22px;
+            border-radius: 3px;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .login-btn:hover {
+            background: #b85a00;
+        }
+
+        .search-box {
+            display: flex;
+        }
+
+        .search-box input {
+            padding: 8px 10px;
+            border: 1px solid #ccc;
+            border-right: none;
+            font-size: 13px;
+            width: 150px;
+        }
+
+        .search-box button {
+            background: #205493;
+            border: none;
+            color: #fff;
+            padding: 0 14px;
+            cursor: pointer;
+        }
+
+        /* Secondary nav */
+        .nav-secondary {
+            background: #f4f6f8;
+            border-bottom: 1px solid #ddd;
+            padding: 0 30px;
+            display: flex;
+            gap: 4px;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 50;
+        }
+
+        .nav-secondary>a.plain {
+            color: #1b1b1b;
+            text-decoration: none;
+            font-size: 14px;
+            padding: 12px 14px;
+            display: inline-block;
+            font-weight: 600;
+        }
+
+        .nav-secondary>a.plain:hover {
+            color: #205493;
+        }
+
+        .nav-dropdown {
+            position: relative;
+        }
+
+        .nav-dropdown>.dd-trigger {
+            background: none;
+            border: none;
+            font: inherit;
+            cursor: pointer;
+            color: #1b1b1b;
+            font-size: 14px;
+            padding: 12px 14px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .nav-dropdown>.dd-trigger:hover,
+        .nav-dropdown.open>.dd-trigger {
+            color: #205493;
+            background: #e9eef4;
+        }
+
+        .dd-arrow {
+            font-size: 10px;
+            transition: transform 0.15s ease;
+        }
+
+        .nav-dropdown.open .dd-arrow {
+            transform: rotate(180deg);
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: #fff;
+            border: 1px solid #ccc;
+            border-top: 3px solid #205493;
+            min-width: 260px;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+            padding: 8px 0;
+        }
+
+        .nav-dropdown.open .dropdown-menu {
+            display: block;
+        }
+
+        @media (min-width: 900px) {
+            .nav-dropdown:hover .dropdown-menu {
+                display: block;
+            }
+
+            .nav-dropdown:hover>.dd-trigger {
+                color: #205493;
+                background: #e9eef4;
+            }
+
+            .nav-dropdown:hover .dd-arrow {
+                transform: rotate(180deg);
+            }
+        }
+
+        .dropdown-menu a {
+            display: block;
+            padding: 10px 18px;
+            font-size: 13.5px;
+            color: #1b1b1b;
+            text-decoration: none;
+        }
+
+        .dropdown-menu a:hover {
+            background: #eef4fb;
+            color: #205493;
+        }
+
+        .dropdown-menu .dd-divider {
+            border-top: 1px solid #eee;
+            margin: 6px 0;
+        }
+
+        /* Hero */
+        .hero {
+            position: relative;
+            background-image: url('https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=1600&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            color: #fff;
+            padding: 60px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .hero-text,
+        .login-card {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-text {
+            max-width: 480px;
+            background: rgba(10, 20, 40, 0.55);
+            padding: 30px;
+        }
+
+        .hero-text h1 {
+            font-size: 30px;
+            font-weight: normal;
+            margin-bottom: 16px;
+        }
+
+        .hero-text p {
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 22px;
+            color: #dbe7f5;
+        }
+
+        .hero-text .btn-outline {
+            display: inline-block;
+            background: transparent;
+            border: 2px solid #fff;
+            color: #fff;
+            padding: 10px 22px;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .hero-text .btn-outline:hover {
+            background: #fff;
+            color: #1c3a63;
+        }
+
+        .login-card {
+            background: #fff;
+            color: #1b1b1b;
+            padding: 30px;
+            width: 320px;
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
+        }
+
+        .login-card h2 {
+            font-size: 26px;
+            font-weight: normal;
+            color: #444;
+            margin-bottom: 6px;
+        }
+
+        .login-card .logo2 {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .login-card .logo2 .treasury {
+            color: #4a7729;
+        }
+
+        .login-card .logo2 .direct {
+            color: #205493;
+        }
+
+        .login-card .btn-solid {
+            display: block;
+            background: #205493;
+            color: #fff;
+            text-align: center;
+            padding: 12px;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 3px;
+            margin-bottom: 16px;
+            font-size: 15px;
+        }
+
+        .login-card .btn-solid:hover {
+            background: #163e6f;
+        }
+
+        .login-card a.link-line {
+            display: block;
+            font-size: 13px;
+            margin-bottom: 8px;
+            color: #205493;
+            text-decoration: underline;
+        }
+
+        .login-card hr {
+            margin: 16px 0;
+            border: none;
+            border-top: 1px solid #ddd;
+        }
+
+        .login-card .partner-logos {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .login-card .fedinvest {
+            color: #205493;
+        }
+
+        .login-card .slgsafe {
+            color: #4a7729;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 30px;
+        }
+
+        .section-title {
+            font-size: 28px;
+            font-weight: normal;
+            color: #205493;
+            margin-bottom: 20px;
+        }
+
+        .quicklink-row {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 14px;
+            margin-bottom: 44px;
+        }
+
+        @media (max-width: 900px) {
+            .quicklink-row {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .quicklink-box {
+            border: 1px solid #205493;
+            padding: 22px 16px;
+            color: #205493;
+            font-weight: bold;
+            font-size: 15px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            min-height: 80px;
+        }
+
+        .quicklink-box:hover {
+            background: #eef4fb;
+        }
+
+        .rates-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 700px) {
+            .rates-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .rate-box {
+            border: 1px solid #205493;
+            padding: 24px;
+        }
+
+        .rate-box a.rate-title {
+            font-size: 19px;
+            font-weight: bold;
+            text-decoration: underline;
+        }
+
+        .rate-box .rate-value {
+            font-size: 34px;
+            color: #1b1b1b;
+            margin: 10px 0;
+        }
+
+        .rate-box .rate-note {
+            font-size: 13px;
+            color: #555;
+        }
+
+        .btn-solid-blue {
+            display: inline-block;
+            background: #205493;
+            color: #fff;
+            padding: 12px 24px;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 3px;
+            margin: 18px 8px 30px 0;
+            font-size: 14px;
+        }
+
+        .btn-solid-blue:hover {
+            background: #163e6f;
+        }
+
+        .info-box {
+            background: #eaf3fb;
+            border: 1px solid #205493;
+            padding: 24px;
+            margin-bottom: 30px;
+        }
+
+        .info-box h3 {
+            font-size: 20px;
+            color: #162e51;
+            margin-bottom: 12px;
+        }
+
+        .info-box p,
+        .info-box li {
+            font-size: 13.5px;
+            color: #333;
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
+        .info-box ul {
+            margin-left: 18px;
+        }
+
+        .announce-box {
+            background: #eaf3fb;
+            border: 1px solid #205493;
+            padding: 24px;
+            margin-bottom: 44px;
+        }
+
+        .announce-box h3 {
+            font-size: 19px;
+            color: #162e51;
+            margin-bottom: 14px;
+        }
+
+        .announce-box ul {
+            list-style: none;
+        }
+
+        .announce-box li {
+            font-size: 13.5px;
+            margin-bottom: 10px;
+            padding-left: 18px;
+            position: relative;
+        }
+
+        .announce-box li::before {
+            content: "›";
+            color: #b31942;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        .news-month {
+            margin-bottom: 22px;
+        }
+
+        .news-month h4 {
+            font-size: 16px;
+            color: #1b1b1b;
+            margin-bottom: 8px;
+        }
+
+        .news-month ul {
+            list-style: disc;
+            margin-left: 20px;
+        }
+
+        .news-month li {
+            font-size: 13.5px;
+            margin-bottom: 6px;
+        }
+
+        .news-month a {
+            text-decoration: underline;
+        }
+
+        .guides-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin: 30px 0 46px;
+        }
+
+        @media (max-width: 800px) {
+            .guides-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .guide-col h4 {
+            font-size: 17px;
+            margin-bottom: 14px;
+            color: #1b1b1b;
+        }
+
+        .guide-col a {
+            display: block;
+            font-size: 13.5px;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+            text-decoration: none;
+            color: #205493;
+        }
+
+        .guide-col a:hover {
+            text-decoration: underline;
+        }
+
+        .gift-banner {
+            background: #eaf3fb;
+            padding: 30px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .gift-banner .coin {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: #d8b26a;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+        }
+
+        .gift-banner a {
+            font-size: 22px;
+            color: #205493;
+            text-decoration: none;
+        }
+
+        .gift-banner a:hover {
+            text-decoration: underline;
+        }
+
+        .help-section {
+            margin-bottom: 30px;
+        }
+
+        .help-section h3 {
+            font-size: 24px;
+            color: #205493;
+            font-weight: normal;
+            margin-bottom: 16px;
+        }
+
+        .help-section .contact-line {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 15px;
+        }
+
+        .help-section .contact-line a {
+            text-decoration: underline;
+            font-weight: bold;
+        }
+
+        hr.red-rule {
+            border: none;
+            border-top: 3px solid #b31942;
+            margin: 0;
+        }
+
+        footer {
+            background: #f4f6f8;
+            padding: 40px 30px;
+        }
+
+        .footer-logo {
+            text-align: center;
+            font-size: 26px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .footer-logo .treasury {
+            color: #4a7729;
+        }
+
+        .footer-logo .direct {
+            color: #205493;
+        }
+
+        .footer-search {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+
+        .footer-search input {
+            padding: 10px 14px;
+            border: 1px solid #ccc;
+            width: 320px;
+            font-size: 13px;
+        }
+
+        .footer-search button {
+            background: #4a7729;
+            border: none;
+            color: #fff;
+            padding: 0 18px;
+            cursor: pointer;
+        }
+
+        .footer-columns {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 700px) {
+            .footer-columns {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .footer-columns h4 {
+            font-size: 20px;
+            font-weight: normal;
+            color: #444;
+            margin-bottom: 16px;
+        }
+
+        .footer-columns a {
+            display: block;
+            font-size: 13.5px;
+            margin-bottom: 12px;
+            text-decoration: underline;
+            color: #1b1b1b;
+        }
+
+        .breadcrumb {
+            font-size: 13px;
+            margin-bottom: 10px;
+            color: #555;
+        }
+
+        .breadcrumb a {
+            text-decoration: underline;
+        }
+
+        .page-title {
+            font-size: 30px;
+            font-weight: normal;
+            color: #162e51;
+            margin-bottom: 18px;
+        }
+
+        .page-intro p {
+            font-size: 14.5px;
+            line-height: 1.7;
+            margin-bottom: 14px;
+            max-width: 780px;
+        }
+
+        .page-intro strong {
+            color: #162e51;
+        }
+
+        .page-intro ul {
+            margin: 8px 0 14px 20px;
+        }
+
+        .page-intro li {
+            font-size: 14.5px;
+            line-height: 1.7;
+            margin-bottom: 6px;
+        }
+
+        .subhead {
+            font-size: 20px;
+            color: #205493;
+            margin: 30px 0 12px;
+        }
+
+        .btn-row-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin: 20px 0 34px;
+            max-width: 780px;
+        }
+
+        @media (max-width: 700px) {
+            .btn-row-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .btn-outline-box {
+            border: 2px solid #205493;
+            color: #205493;
+            text-align: center;
+            padding: 14px;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 14.5px;
+        }
+
+        .btn-outline-box:hover {
+            background: #eef4fb;
+        }
+
+        .related-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin: 20px 0 40px;
+            max-width: 780px;
+        }
+
+        @media (max-width: 700px) {
+            .related-row {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .related-row a {
+            border: 1px solid #ccc;
+            padding: 10px 14px;
+            font-size: 13.5px;
+            text-decoration: none;
+            color: #205493;
+            display: flex;
+            align-items: center;
+        }
+
+        .related-row a:hover {
+            background: #eef4fb;
+            border-color: #205493;
+        }
+
+        .sidebar-box {
+            background: #f4f6f8;
+            border: 1px solid #ddd;
+            padding: 18px;
+            margin-bottom: 20px;
+            max-width: 780px;
+        }
+
+        .sidebar-box h4 {
+            font-size: 15px;
+            color: #162e51;
+            margin-bottom: 10px;
+        }
+
+        .sidebar-box a {
+            display: block;
+            font-size: 13.5px;
+            margin-bottom: 8px;
+        }
+
+        .further-reading {
+            max-width: 780px;
+            margin-top: 30px;
+        }
+
+        .further-reading ul {
+            margin-left: 18px;
+        }
+
+        .further-reading li {
+            font-size: 13.5px;
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="gov-banner">
+        <div class="gov-banner-top">
+            <span>🇺🇸 An official website of the United States government</span>
+            <button type="button" class="gov-toggle" id="govToggle" aria-expanded="false" aria-controls="govPanel">
+                Here's how you know <span class="gov-arrow">▾</span>
+            </button>
+        </div>
+        <div class="gov-panel" id="govPanel" hidden>
+            <div class="gov-dept-line"><a href="javascript:void(0)">U.S. Department of the Treasury</a></div>
+            <div class="gov-panel-grid">
+                <div class="gov-item">
+                    <div class="gov-icon gov-icon-blue">🏛️</div>
+                    <div>
+                        <h4>Official websites use -us.org</h4>
+                        <p>A <strong>.gov</strong> website belongs to an official government organization in the United
+                            States.</p>
+                    </div>
+                </div>
+                <div class="gov-item">
+                    <div class="gov-icon gov-icon-green">🔒</div>
+                    <div>
+                        <h4>Secure .gov websites use HTTPS</h4>
+                        <p>A <strong>lock</strong> (🔒) or <strong>https://</strong> means you've safely connected to
+                            the .gov website. Share sensitive information only on official, secure websites.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <header class="site-header">
+        <div class="logo"><span class="treasury">Treasury</span><span class="direct">Direct</span><span
+                class="dot">.</span></div>
+        <div class="header-links">
+            <a href="/mailing-lists/">Mailing Lists</a>
+            <a href="/news/">News</a>
+            <a href="/about-treasurydirect/">About</a>
+            <a href="/forms-hub/">Forms</a>
+            <a href="/help-center/">Help Center</a>
+            <a href="/contact-us/">Contact Us</a>
+        </div>
+        <div class="header-actions">
+            <a href="/login/" class="login-btn">Log In</a>
+            <div class="search-box">
+                <input type="text" placeholder="Search..." />
+                <button>🔍</button>
+            </div>
+        </div>
+    </header>
+
+    <nav class="nav-secondary" id="mainNav">
+        <a href="index.html" class="plain">🏠</a>
+
+        <div class="nav-dropdown">
+            <button class="dd-trigger" type="button">Savings Bonds <span class="dd-arrow">▾</span></button>
+            <div class="dropdown-menu">
+                <a href="/about-savings-bonds/">About U.S. Savings Bonds</a>
+                <a href="/buy-a-bond/">Buy a Bond</a>
+                <a href="/gift-a-bond/">Gift a Savings Bond</a>
+                <a href="/treasury-bonds-combined/">Cash In a Bond</a>
+                <a href="/calculator/">Savings Bond Value Calculator</a>
+                <a href="/manage-savings-bonds/">Manage Bonds</a>
+                <a href="/forms-for-savings-bonds/">Forms for Savings Bonds</a>
+                <a href="/treasury-hunt/">Treasury Hunt</a>
+            </div>
+        </div>
+
+        <div class="nav-dropdown">
+            <button class="dd-trigger" type="button">Treasury Marketable Securities <span
+                    class="dd-arrow">▾</span></button>
+            <div class="dropdown-menu">
+                <a href="/about-marketable-securities/">About Treasury Marketable Securities</a>
+                <a href="/bills/">Treasury Bills</a>
+                <a href="/notes/">Treasury Notes</a>
+                <a href="/bonds/">Treasury Bonds</a>
+                <a href="/tips/">TIPS</a>
+                <a href="/frns/">Floating Rate Notes (FRNs)</a>
+                <a href="/strips/">STRIPS</a>
+                <div class="dd-divider"></div>
+                <a href="/forms/">Forms for Treasury Marketable Securities</a>
+                <a href="/treasury-hunt/">Treasury Hunt</a>
+            </div>
+        </div>
+
+        <div class="nav-dropdown">
+            <button class="dd-trigger" type="button">Auctions <span class="dd-arrow">▾</span></button>
+            <div class="dropdown-menu">
+                <a href="/about-auctions/">About Auctions</a>
+                <a href="/how-auctions-work/">How Auctions Work (Participating)</a>
+                <a href="/when-auctions-happen/">When Auctions Happen (Schedules)</a>
+                <a href="/reopenings/">Reopenings</a>
+                <a href="/announcements-data-results/">Announcements, Data &amp; Results</a>
+                <a href="/buyback-announcements/">Buyback Announcements and Results</a>
+                <a href="/upcoming-auctions/">Upcoming Auctions</a>
+                <a href="/recent-auction-results/">Recent Auction Results</a>
+                <a href="/auction-search/">Auction Search (Query)</a>
+                <a href="/auction-press-releases/">Auction Press Releases</a>
+                <a href="/auction-regulations/">Auction Regulations (UOC)</a>
+            </div>
+        </div>
+
+        <div class="nav-dropdown">
+            <button class="dd-trigger" type="button">Laws and Regulations <span class="dd-arrow">▾</span></button>
+            <div class="dropdown-menu">
+                <a href="/laws-regulations/">About Laws and Regulations</a>
+                <a href="/auction-regulations/">Auction Regulations (UOC)</a>
+                <a href="/collateral-programs/">Collateral Programs</a>
+                <a href="/commercial-book-entry-regulations/">Commercial Book-Entry Regulations (TRADES)</a>
+                <a href="/frauds-phonies-scams/">Frauds, Phonies, &amp; Scams</a>
+                <a href="/government-securities-act/">Government Securities Act (GSA) Regulations</a>
+                <a href="/large-position-reporting/">Large Position Reporting (LPR)</a>
+                <a href="/redemption-buyback-regulations/">Redemption (Buyback) Operations Regulations</a>
+                <a href="/treasury-marketable-securities-regulations/">Treasury Marketable Securities Regulations</a>
+                <a href="/savings-bond-regulations/">Savings Bond Regulations</a>
+                <a href="/treasurydirect-regulations/">TreasuryDirect Regulations</a>
+                <div class="dd-divider"></div>
+                <a href="/links-to-other-sites/">Links to Other Sites</a>
+            </div>
+        </div>
+
+        <a href="/research-center/" class="plain">Research Center</a>
+
+        <div class="nav-dropdown">
+            <button class="dd-trigger" type="button">Government Users <span class="dd-arrow">▾</span></button>
+            <div class="dropdown-menu">
+                <a href="/government-users/">For Government Users</a>
+                <a href="/federal-investments-program/">Federal Investments Program</a>
+                <a href="/slgs/">SLGS &amp; SLGSafe</a>
+                <a href="/security-liquidation/">Security Liquidation &amp; Proceeds</a>
+                <a href="/federal-borrowings-program/">Federal Borrowings Program</a>
+                <a href="/treasury-managed-accounts/">Treasury Managed Accounts</a>
+                <a href="/funds-management-program/">Funds Management Program Reports</a>
+                <a href="/history-of-debt/">History of the Debt</a>
+                <a href="/public-debt-reports/">Public Debt Reports</a>
+                <a href="/interest-rates-prices/">Interest Rates and Prices</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <div class="breadcrumb"><a href="index.html">Home</a> / <a href="/laws-regulations/">Laws &amp;
+                Regulations</a></div>
+        <h1 class="page-title">Redemption (Buyback) Operations Regulations</h1>
+
+        <div class="page-intro">
+            <p>Treasury's securities redemption (buyback) operations regulations (31 CFR Part 375) set out the terms and
+                conditions by which Treasury may redeem outstanding, unmatured marketable Treasury securities.</p>
+        </div>
+
+        <h2 class="subhead">Amendments to Treasury's Buyback Regulations</h2>
+        <div class="page-intro">
+            <p>A March 30, 2026 amendment expanded direct offer submission eligibility, updated certification statements
+                for buyback participation, enhanced clarity, and made conforming changes to reflect Treasury's current
+                practices.</p>
+        </div>
+
+        <h2 class="subhead">Historical Information</h2>
+        <div class="page-intro">
+            <p>On January 19, 2000, Treasury issued final rules setting out the terms and conditions for redeeming
+                outstanding, unmatured Treasury securities. An August 1999 proposed version and related comment letters
+                are also available.</p>
+        </div>
+
+        <div class="related-row">
+            <a href="/buyback-announcements/">Buyback Announcements ›</a>
+            <a href="/treasury-marketable-securities-regulations/">Marketable Securities Regs ›</a>
+            <a href="/laws-regulations/">Laws &amp; Regulations ›</a>
+        </div>
+
+
+        <div class="further-reading">
+            <h2 class="subhead">Further Reading</h2>
+            <ul>
+                <li><a href="/laws-regulations/">Laws &amp; Regulations</a></li>
+                <li><a href="/auction-regulations/">Auction Regulations (UOC)</a></li>
+                <li><a href="/collateral-programs/">Collateral Programs</a></li>
+                <li><a href="/commercial-book-entry-regulations/">Commercial Book-Entry Regulations (TRADES)</a></li>
+                <li><a href="/frauds-phonies-scams/">Frauds, Phonies, &amp; Scams</a></li>
+                <li><a href="/government-securities-act/">Government Securities Act (GSA) Regulations</a></li>
+                <li><a href="/large-position-reporting/">Large Position Reporting (LPR)</a></li>
+                <li><a href="/redemption-buyback-regulations/">Redemption (Buyback) Operations Regulations</a></li>
+                <li><a href="/treasury-marketable-securities-regulations/">Treasury Marketable Securities
+                        Regulations</a></li>
+                <li><a href="/savings-bond-regulations/">Savings Bond Regulations</a></li>
+                <li><a href="/treasurydirect-regulations/">TreasuryDirect Regulations</a></li>
+                <li><a href="/links-to-other-sites/">Links to Other Sites</a></li>
+            </ul>
+        </div>
+
+    </main>
+
+    <hr class="red-rule" />
+
+    <footer>
+        <div class="footer-logo"><span class="treasury">Treasury</span><span class="direct">Direct</span><span
+                class="dot">.</span></div>
+        <div class="footer-search">
+            <input type="text" placeholder="Search..." />
+            <button>🔍</button>
+        </div>
+        <div class="footer-columns">
+            <div>
+                <h4>Connect With Us</h4>
+                <a href="javascript:void(0)">𝕏 X (formerly Twitter)</a>
+                <a href="javascript:void(0)">📘 Facebook</a>
+                <a href="javascript:void(0)">▶️ YouTube</a>
+                <a href="javascript:void(0)">📡 RSS Feeds</a>
+            </div>
+            <div>
+                <h4>Legal Information</h4>
+                <a href="javascript:void(0)">Freedom of Information Act</a>
+                <a href="javascript:void(0)">Privacy</a>
+                <a href="javascript:void(0)">Terms &amp; Conditions</a>
+                <a href="javascript:void(0)">Data Quality</a>
+                <a href="javascript:void(0)">For Web Developers</a>
+                <a href="javascript:void(0)">Accessibility</a>
+            </div>
+            <div>
+                <h4>Related Sites</h4>
+                <a href="javascript:void(0)">treasury.gov ↗</a>
+                <a href="javascript:void(0)">fiscaldata.treasury.gov ↗</a>
+                <a href="javascript:void(0)">USAspending.gov ↗</a>
+                <a href="javascript:void(0)">Bureau of the Fiscal Service ↗</a>
+                <a href="javascript:void(0)">USA.gov ↗</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // "Here's how you know" banner: tapping the button reveals/hides the panel.
+        const govToggle = document.getElementById("govToggle");
+        const govPanel = document.getElementById("govPanel");
+        govToggle.addEventListener("click", () => {
+            const isOpen = govToggle.getAttribute("aria-expanded") === "true";
+            govToggle.setAttribute("aria-expanded", String(!isOpen));
+            govPanel.hidden = isOpen;
+        });
+
+        // Real working dropdowns: hover opens them on desktop (handled by CSS),
+        // but tapping/clicking also works — needed for touch devices and keyboard users.
+        const dropdowns = document.querySelectorAll(".nav-dropdown");
+
+        dropdowns.forEach((dd) => {
+            const trigger = dd.querySelector(".dd-trigger");
+            trigger.addEventListener("click", (e) => {
+                e.stopPropagation();
+                const isOpen = dd.classList.contains("open");
+                dropdowns.forEach((d) => d.classList.remove("open"));
+                if (!isOpen) dd.classList.add("open");
+            });
+        });
+
+        // Close any open dropdown when clicking anywhere else on the page
+        document.addEventListener("click", () => {
+            dropdowns.forEach((d) => d.classList.remove("open"));
+        });
+
+        // Prevent a click inside the open menu from closing it prematurely
+        document.querySelectorAll(".dropdown-menu").forEach((menu) => {
+            menu.addEventListener("click", (e) => e.stopPropagation());
+        });
+    </script>
+
+</body>
+
+</html>

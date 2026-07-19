@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>History - TreasuryDirect</title><link rel="icon" type="image/png" href="/favicon.jpg"><link rel="icon" type="image/png" href="/favicon.jpg">
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 13px;
+      color: #333;
+      margin: 0;
+      background: #fff;
+    }
+
+    a {
+      color: #0000cc;
+      text-decoration: underline;
+    }
+
+    .header-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .header-table td {
+      padding: 10px 20px;
+      vertical-align: middle;
+    }
+
+    .logo {
+      font-size: 26px;
+      font-weight: bold;
+      color: #2f6a31;
+    }
+
+    .logo span {
+      color: #1a4fa0;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 4px 14px;
+      font-size: 12px;
+      font-weight: bold;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 3px;
+      border: 1px solid rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-help {
+      background: #4caf50;
+    }
+
+    .btn-logoff {
+      background: #e07a1f;
+      cursor: pointer;
+    }
+
+    .navbar {
+      width: 100%;
+      border-collapse: collapse;
+      background: #1a4fa0;
+    }
+
+    .navbar td {
+      padding: 8px 16px;
+      color: #fff;
+      font-weight: bold;
+      font-size: 12px;
+      text-align: center;
+      border-right: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .navbar td.active {
+      background: #e07a1f;
+    }
+
+    .navbar a {
+      color: #fff;
+      text-decoration: none;
+      display: block;
+    }
+
+    .content {
+      padding: 20px 30px;
+      max-width: 950px;
+    }
+
+    .breadcrumb {
+      color: #cc5500;
+      font-weight: bold;
+      font-size: 16px;
+      margin-bottom: 4px;
+    }
+
+    .subtext {
+      font-size: 12px;
+      color: #444;
+      margin-bottom: 16px;
+    }
+
+    .acct-line {
+      text-align: right;
+      font-size: 12px;
+      color: #333;
+      margin-top: -30px;
+      margin-bottom: 10px;
+    }
+
+    .filter-tabs {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 14px;
+      border-bottom: 2px solid #1a4fa0;
+    }
+
+    .filter-tabs button {
+      background: #eef2f6;
+      border: none;
+      padding: 8px 18px;
+      font-size: 12px;
+      font-weight: bold;
+      cursor: pointer;
+      color: #333;
+      border-top: 1px solid #ccc;
+      border-left: 1px solid #ccc;
+      border-right: 1px solid #ccc;
+    }
+
+    .filter-tabs button.active {
+      background: #1a4fa0;
+      color: #fff;
+    }
+
+    table.data {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 12px 0 20px;
+    }
+
+    table.data th {
+      background: #1a4fa0;
+      color: #fff;
+      text-align: left;
+      padding: 6px 10px;
+      font-size: 12px;
+    }
+
+    table.data td {
+      border: 1px solid #ccc;
+      padding: 8px 10px;
+      font-size: 13px;
+    }
+
+    table.data td.num {
+      text-align: right;
+    }
+
+    .status-tag {
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 2px;
+      font-weight: bold;
+    }
+
+    .status-pending {
+      background: #fff3cd;
+      color: #856404;
+    }
+
+    .status-approved {
+      background: #eef8ee;
+      color: #235c23;
+    }
+
+    .status-rejected {
+      background: #fdeaea;
+      color: #a33;
+    }
+
+    .cancel-btn {
+      background: #a33;
+      color: #fff;
+      border: 1px solid #822;
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 2px;
+    }
+
+    .cancel-btn:hover {
+      background: #822;
+    }
+
+    .empty-msg {
+      padding: 20px;
+      text-align: center;
+      color: #666;
+      font-style: italic;
+    }
+
+    .loading-msg {
+      padding: 20px;
+      text-align: center;
+      color: #666;
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    .footer {
+      border-top: 1px solid #ccc;
+      text-align: center;
+      padding: 14px;
+      font-size: 11px;
+      color: #666;
+      margin-top: 30px;
+    }
+
+    .footer a {
+      margin: 0 6px;
+    }
+  </style>
+</head>
+
+<body>
+  <table class="header-table">
+    <tr>
+      <td class="logo">Treasury<span>Direct</span>.</td>
+      <td style="text-align:right;">
+        <a class="btn btn-help" href="/help/">Help</a>
+        <a class="btn btn-logoff" id="logoffBtn">Logoff</a>
+      </td>
+    </tr>
+  </table>
+
+  <table class="navbar">
+    <tr>
+      <td><a href="/dashboard/">My Account</a></td>
+      <td><a href="/purchase-bond/">BuyDirect</a></td>
+      <td><a href="/current-holdings/">Current Holdings</a></td>
+      <td><a href="/dashboard/">ManageDirect</a></td>
+      <td><a href="/account-info/">Account Info</a></td>
+      <td class="active"><a href="javascript:void(0)" style="color:#fff;">History</a></td>
+    </tr>
+  </table>
+
+  <div class="content">
+    <div class="breadcrumb">History</div>
+    <div class="acct-line" id="acctLine"></div>
+    <div class="subtext">A record of your account activity, including purchases, redemptions, deliveries, and deposits.
+    </div>
+
+    <div class="filter-tabs">
+      <button class="active" onclick="showTab('transactions', this)">Securities Transactions</button>
+      <button onclick="showTab('deposits', this)">Deposits</button>
+    </div>
+
+    <!-- TRANSACTIONS -->
+    <div class="tab-content active" id="tab-transactions">
+      <div class="loading-msg" id="txLoading">Loading your transaction history…</div>
+      <table class="data" id="txTable" style="display:none;">
+        <thead>
+          <tr>
+            <th>Type</th>
+            <th>Amount</th>
+            <th>Status</th>
+            <th>Date</th>
+            <th>Note</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="txBody"></tbody>
+      </table>
+      <div class="empty-msg" id="txEmpty" style="display:none;">No transactions yet.</div>
+    </div>
+
+    <!-- DEPOSITS -->
+    <div class="tab-content" id="tab-deposits">
+      <div class="loading-msg" id="depLoading">Loading your deposit history…</div>
+      <table class="data" id="depTable" style="display:none;">
+        <thead>
+          <tr>
+            <th>Reference Code</th>
+            <th>Amount</th>
+            <th>Status</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody id="depBody"></tbody>
+      </table>
+      <div class="empty-msg" id="depEmpty" style="display:none;">No deposit requests yet.</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <a href="/help/">Help</a> | <a href="/privacy-legal/">Privacy &amp; Legal Notices</a> | <a
+      href="/site-map/">Site Map</a> | <a href="/contact-us/">Contact Us</a>
+  </div>
+
+  <script>
+    const API_BASE = "https://t-bond-backend.onrender.com/api";
+    const token = localStorage.getItem("td_token");
+    const userRaw = localStorage.getItem("td_user");
+
+    if (!token) window.location.href = "login.html";
+
+    let currentUser = null;
+    try { currentUser = userRaw ? JSON.parse(userRaw) : null; } catch (e) { }
+
+    document.getElementById("acctLine").textContent = currentUser?.loginId ? `${currentUser.name || ""}: ${currentUser.loginId}` : "";
+
+    document.getElementById("logoffBtn").addEventListener("click", () => {
+      localStorage.removeItem("td_token");
+      localStorage.removeItem("td_user");
+      window.location.href = "login.html";
+    });
+
+    function showTab(name, btn) {
+      document.querySelectorAll(".tab-content").forEach((el) => el.classList.remove("active"));
+      document.getElementById("tab-" + name).classList.add("active");
+      document.querySelectorAll(".filter-tabs button").forEach((b) => b.classList.remove("active"));
+      btn.classList.add("active");
+    }
+
+    function money(n) {
+      return "$" + Number(n || 0).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+    function formatDate(d) {
+      return new Date(d).toLocaleDateString("en-US", { year: "numeric", month: "2-digit", day: "2-digit" });
+    }
+    function statusClass(s) {
+      if (s === "pending") return "status-pending";
+      if (s === "approved") return "status-approved";
+      return "status-rejected";
+    }
+
+    async function loadTransactions() {
+      try {
+        const res = await fetch(`${API_BASE}/transactions`, { headers: { Authorization: `Bearer ${token}` } });
+        const data = await res.json();
+        document.getElementById("txLoading").style.display = "none";
+        if (!res.ok) throw new Error(data.message || "Unable to load transactions.");
+
+        if (data.length === 0) {
+          document.getElementById("txEmpty").style.display = "block";
+          return;
+        }
+
+        const tbody = document.getElementById("txBody");
+        tbody.innerHTML = "";
+        data.forEach((t) => {
+          tbody.innerHTML += `
+          <tr>
+            <td style="text-transform:capitalize;">${t.type.replace("_", " ")}</td>
+            <td class="num">${money(t.amount)}</td>
+            <td><span class="status-tag ${statusClass(t.status)}">${t.status}</span></td>
+            <td>${formatDate(t.createdAt)}</td>
+            <td>${t.note || "-"}</td>
+            <td>${t.status === "pending" ? `<button class="cancel-btn" onclick="cancelTransaction('${t._id}')">Cancel</button>` : ""}</td>
+          </tr>`;
+        });
+        document.getElementById("txTable").style.display = "table";
+      } catch (err) {
+        document.getElementById("txLoading").textContent = err.message;
+      }
+    }
+
+    async function cancelTransaction(id) {
+      if (!confirm("Cancel this pending request? This cannot be undone.")) return;
+      try {
+        const res = await fetch(`${API_BASE}/transactions/${id}`, {
+          method: "DELETE",
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.message || "Unable to cancel this request.");
+        loadTransactions();
+      } catch (err) {
+        alert(err.message);
+      }
+    }
+
+    async function loadDeposits() {
+      try {
+        const res = await fetch(`${API_BASE}/deposits`, { headers: { Authorization: `Bearer ${token}` } });
+        const data = await res.json();
+        document.getElementById("depLoading").style.display = "none";
+        if (!res.ok) throw new Error(data.message || "Unable to load deposits.");
+
+        if (data.length === 0) {
+          document.getElementById("depEmpty").style.display = "block";
+          return;
+        }
+
+        const tbody = document.getElementById("depBody");
+        tbody.innerHTML = "";
+        data.forEach((d) => {
+          tbody.innerHTML += `
+          <tr>
+            <td>${d.referenceCode}</td>
+            <td class="num">${money(d.amount)}</td>
+            <td><span class="status-tag ${statusClass(d.status)}">${d.status}</span></td>
+            <td>${formatDate(d.createdAt)}</td>
+          </tr>`;
+        });
+        document.getElementById("depTable").style.display = "table";
+      } catch (err) {
+        document.getElementById("depLoading").textContent = err.message;
+      }
+    }
+
+    loadTransactions();
+    loadDeposits();
+  </script>
+</body>
+
+</html>

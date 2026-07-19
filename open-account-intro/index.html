@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Open an Account — TreasuryDirect</title><link rel="icon" type="image/png" href="/favicon.jpg"><link rel="icon" type="image/png" href="/favicon.jpg">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 13.5px;
+            color: #1b1b1b;
+            background: #fff;
+        }
+
+        a {
+            color: #205493;
+        }
+
+        /* Top header: logo + Help button */
+        .simple-header {
+            padding: 14px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .logo .treasury {
+            color: #4a7729;
+        }
+
+        .logo .direct {
+            color: #205493;
+        }
+
+        .logo .dot {
+            color: #e57200;
+        }
+
+        .help-btn {
+            background: #4a7729;
+            color: #fff;
+            padding: 6px 18px;
+            font-weight: bold;
+            font-size: 13px;
+            text-decoration: none;
+            border-radius: 3px;
+        }
+
+        .help-btn:hover {
+            background: #375a1f;
+        }
+
+        /* Secondary link row */
+        .link-row {
+            padding: 0 30px 12px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 16px;
+            flex-wrap: wrap;
+            font-size: 13px;
+        }
+
+        .link-row a {
+            text-decoration: underline;
+        }
+
+        hr.blue-rule {
+            border: none;
+            border-top: 4px solid #205493;
+            margin: 0;
+        }
+
+        .content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 24px 30px 50px;
+        }
+
+        .breadcrumb {
+            font-size: 20px;
+            margin-bottom: 18px;
+        }
+
+        .breadcrumb .dim {
+            color: #666;
+            font-weight: normal;
+        }
+
+        .breadcrumb .current {
+            color: #cc5500;
+            font-weight: bold;
+        }
+
+        .alert-box {
+            border: 1px solid #b31942;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 14px 20px;
+            margin-bottom: 26px;
+        }
+
+        .alert-icon {
+            flex-shrink: 0;
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            background: #b31942;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            font-weight: bold;
+        }
+
+        .alert-box .alert-label {
+            font-weight: bold;
+            color: #1b1b1b;
+            white-space: nowrap;
+        }
+
+        .alert-box p {
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .alert-box .alert-title {
+            font-weight: bold;
+            color: #b31942;
+        }
+
+        h2.section-heading {
+            color: #cc5500;
+            font-size: 19px;
+            margin-bottom: 12px;
+        }
+
+        .content p {
+            margin-bottom: 14px;
+            line-height: 1.6;
+        }
+
+        hr.thin-rule {
+            border: none;
+            border-top: 1px solid #ddd;
+            margin: 20px 0;
+        }
+
+        .steps-lead {
+            font-weight: bold;
+            margin-bottom: 16px;
+        }
+
+        .steps-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 700px) {
+            .steps-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .step-box {
+            background: #f4f4f4;
+            padding: 18px;
+        }
+
+        .step-box h4 {
+            color: #cc5500;
+            font-size: 17px;
+            margin-bottom: 10px;
+        }
+
+        .step-box p {
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+
+        .step-box ul {
+            margin-left: 18px;
+            font-size: 13px;
+        }
+
+        .step-box li {
+            margin-bottom: 4px;
+        }
+
+        .related-box {
+            border: 1px solid #ccc;
+            margin-bottom: 30px;
+        }
+
+        .related-header {
+            background: #6d7b8d;
+            color: #fff;
+            font-weight: bold;
+            font-size: 15px;
+            padding: 10px 18px;
+        }
+
+        .related-body {
+            padding: 18px 20px;
+        }
+
+        .related-body h4 {
+            font-size: 13.5px;
+            margin-bottom: 6px;
+        }
+
+        .related-body .no-flag {
+            color: #b31942;
+            font-weight: bold;
+            margin-right: 4px;
+        }
+
+        .related-body p {
+            font-size: 13px;
+            margin-bottom: 14px;
+            line-height: 1.5;
+        }
+
+        .related-body hr {
+            border: none;
+            border-top: 1px solid #ddd;
+            margin: 10px 0 14px;
+        }
+
+        .help-link-line {
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .apply-now {
+            display: inline-block;
+            background: #205493;
+            color: #fff;
+            font-weight: bold;
+            font-size: 15px;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 3px;
+            margin-bottom: 10px;
+        }
+
+        .apply-now:hover {
+            background: #163e6f;
+        }
+
+        footer {
+            border-top: 1px solid #eee;
+            text-align: center;
+            padding: 20px;
+            font-size: 12px;
+            color: #444;
+        }
+
+        footer a {
+            margin: 0 8px;
+            text-decoration: underline;
+        }
+
+        footer .dept-line {
+            margin-top: 10px;
+            color: #666;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="simple-header">
+        <div class="logo"><span class="treasury">Treasury</span><span class="direct">Direct</span><span
+                class="dot">.</span></div>
+        <a href="javascript:void(0)" class="help-btn">Help</a>
+    </div>
+
+    <div class="link-row">
+        <a href="index.html">TreasuryDirect Home</a>
+        <a href="javascript:void(0)">Fiscal Service Home</a>
+        <a href="/site-map/">Site Map</a>
+        <a href="/open-account-contact/">Contact Us</a>
+    </div>
+
+    <hr class="blue-rule" />
+
+    <div class="content">
+        <div class="breadcrumb"><span class="dim">Open An Account »</span> <span class="current">Intro</span></div>
+
+        <div class="alert-box">
+            <div class="alert-icon">!</div>
+            <div>
+                <p><span class="alert-title">For Account Security:</span> Please use the buttons and links we've
+                    provided
+                    on each page. Using your browser to navigate (including the back, forward, and refresh buttons) will
+                    end
+                    your session.</p>
+            </div>
+        </div>
+
+        <h2 class="section-heading">Thank you for choosing TreasuryDirect!</h2>
+        <p>You may open an account right now by following the <strong>3 easy steps</strong> described below, or you may
+            learn more about opening an account by viewing our <a href="javascript:void(0)">Guided Tour Individual Account</a> or <a
+                href="javascript:void(0)">Guided Tour Entity Account</a>.</p>
+        <p>Our secure application process should only take about 10 minutes. Keep in mind that, when establishing a
+            TreasuryDirect account, you will be bound by our <a href="javascript:void(0)">terms and conditions</a>.</p>
+
+        <hr class="thin-rule" />
+
+        <p class="steps-lead">It takes just 3 steps to open a TreasuryDirect Account.</p>
+
+        <div class="steps-row">
+            <div class="step-box">
+                <h4>Step 1 »</h4>
+                <p>Choose the type of account you are opening.</p>
+            </div>
+            <div class="step-box">
+                <h4>Step 2 »</h4>
+                <p>Provide personal information, including:</p>
+                <ul>
+                    <li>Tax ID Number (SSN or EIN)</li>
+                    <li>E-mail Address</li>
+                    <li>Bank Account and Routing Number</li>
+                </ul>
+            </div>
+            <div class="step-box">
+                <h4>Step 3 »</h4>
+                <p>Choose the following:</p>
+                <ul>
+                    <li>Password</li>
+                    <li>Password Reminder</li>
+                    <li>Personalized Image</li>
+                    <li>Caption</li>
+                    <li>Security Questions</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="related-box">
+            <div class="related-header">Related Info/Links</div>
+            <div class="related-body">
+                <h4><span class="no-flag">NO</span> Paper Savings Bonds</h4>
+                <p>TreasuryDirect <strong>does not</strong> provide paper savings bonds, however, we've added <a
+                        href="javascript:void(0)">detailed instructions</a> on how to buy electronic gift savings bonds in
+                    TreasuryDirect.</p>
+                <h4>Account Statements</h4>
+                <p>If you want a paper copy of your account information, you should use the browser's toolbar to print
+                    the
+                    relevant pages in your account that show your holdings.</p>
+                <hr />
+                <div class="help-link-line">❓ <a href="javascript:void(0)">Learn more about Security Features and Protecting Your
+                        Account.</a></div>
+            </div>
+        </div>
+
+        <a href="/register/" class="apply-now">Apply Now</a>
+    </div>
+
+    <footer>
+        <div>
+            <a href="javascript:void(0)">Freedom of Information Act</a> |
+            <a href="javascript:void(0)">Law &amp; Guidance</a> |
+            <a href="javascript:void(0)">Privacy &amp; Legal Notices</a> |
+            <a href="javascript:void(0)">Website Terms &amp; Conditions</a> |
+            <a href="javascript:void(0)">Accessibility</a> |
+            <a href="javascript:void(0)">Data Quality</a>
+        </div>
+        <div class="dept-line">U.S. Department of the Treasury, Bureau of the Fiscal Service</div>
+    </footer>
+
+</body>
+
+</html>

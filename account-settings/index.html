@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Account Settings - TreasuryDirect</title><link rel="icon" type="image/png" href="/favicon.jpg"><link rel="icon" type="image/png" href="/favicon.jpg">
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 13px;
+      color: #333;
+      margin: 0;
+      background: #fff;
+    }
+
+    a {
+      color: #0000cc;
+      text-decoration: underline;
+    }
+
+    a:hover {
+      color: #cc3300;
+    }
+
+    .header-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .header-table td {
+      padding: 10px 20px;
+      vertical-align: middle;
+    }
+
+    .logo {
+      font-size: 26px;
+      font-weight: bold;
+      color: #2f6a31;
+    }
+
+    .logo span {
+      color: #1a4fa0;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 4px 14px;
+      font-size: 12px;
+      font-weight: bold;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 3px;
+      border: 1px solid rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-help {
+      background: #4caf50;
+    }
+
+    .btn-logoff {
+      background: #e07a1f;
+      cursor: pointer;
+    }
+
+    .navbar {
+      width: 100%;
+      border-collapse: collapse;
+      background: #1a4fa0;
+    }
+
+    .navbar td {
+      padding: 8px 16px;
+      color: #fff;
+      font-weight: bold;
+      font-size: 12px;
+      text-align: center;
+      border-right: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .navbar td.active {
+      background: #e07a1f;
+    }
+
+    .navbar a {
+      color: #fff;
+      text-decoration: none;
+      display: block;
+    }
+
+    .content {
+      padding: 20px 30px;
+      max-width: 800px;
+    }
+
+    .breadcrumb {
+      color: #cc5500;
+      font-weight: bold;
+      font-size: 16px;
+      margin-bottom: 4px;
+    }
+
+    .subtext {
+      font-size: 12px;
+      color: #444;
+      margin-bottom: 16px;
+    }
+
+    .acct-line {
+      text-align: right;
+      font-size: 12px;
+      color: #333;
+      margin-top: -30px;
+      margin-bottom: 10px;
+    }
+
+    fieldset {
+      border: 1px solid #999;
+      padding: 16px;
+      margin-bottom: 20px;
+    }
+
+    legend {
+      font-weight: bold;
+      color: #1a4fa0;
+      padding: 0 6px;
+      font-size: 14px;
+    }
+
+    .current-box {
+      background: #eef4fb;
+      border: 1px solid #b7cbe6;
+      padding: 12px 16px;
+      margin-bottom: 16px;
+      font-size: 12px;
+    }
+
+    .current-box .swatch-inline {
+      display: inline-block;
+      width: 60px;
+      height: 60px;
+      border-radius: 4px;
+      background: #fff;
+      border: 1px solid #cdd8e3;
+      text-align: center;
+      line-height: 60px;
+      font-size: 10px;
+      font-weight: bold;
+      color: #1a4fa0;
+      vertical-align: middle;
+      margin-right: 10px;
+    }
+
+    .image-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin: 10px 0 16px;
+    }
+
+    .image-tile {
+      width: 96px;
+      text-align: center;
+      border: 2px solid transparent;
+      border-radius: 3px;
+      padding: 8px 4px;
+      cursor: pointer;
+    }
+
+    .image-tile:hover {
+      background: #f0f4f8;
+    }
+
+    .image-tile.selected {
+      border-color: #1a4fa0;
+      background: #dcebf7;
+    }
+
+    .image-tile .swatch {
+      width: 70px;
+      height: 70px;
+      margin: 0 auto 6px;
+      border-radius: 4px;
+      background: #eef4fb;
+      border: 1px solid #cdd8e3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: bold;
+      color: #1a4fa0;
+      text-align: center;
+      padding: 4px;
+    }
+
+    .image-tile .tile-label {
+      font-size: 11px;
+      color: #333;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 4px;
+      font-size: 12px;
+    }
+
+    input[type="text"],
+    select {
+      border: 1px solid #666;
+      padding: 5px 7px;
+      font-size: 13px;
+      width: 100%;
+      max-width: 320px;
+    }
+
+    .field-row {
+      margin-bottom: 14px;
+    }
+
+    .action-btn {
+      background: #1a4fa0;
+      color: #fff;
+      border: 1px solid #12407e;
+      padding: 6px 18px;
+      font-weight: bold;
+      font-size: 12px;
+      cursor: pointer;
+      border-radius: 2px;
+    }
+
+    .action-btn:disabled {
+      background: #9aa8bb;
+      border-color: #8593a6;
+      cursor: not-allowed;
+    }
+
+    .error-banner {
+      background: #fdeaea;
+      border: 1px solid #d99;
+      color: #a33;
+      padding: 10px 14px;
+      margin-bottom: 16px;
+      font-size: 12px;
+      display: none;
+    }
+
+    .error-banner.show {
+      display: block;
+    }
+
+    .success-box {
+      background: #eef8ee;
+      border: 1px solid #a9d4a9;
+      color: #235c23;
+      padding: 10px 14px;
+      margin-bottom: 16px;
+      font-size: 12px;
+      display: none;
+    }
+
+    .success-box.show {
+      display: block;
+    }
+
+    .field-error {
+      font-size: 11px;
+      color: #a33;
+      margin-top: 6px;
+      display: none;
+    }
+
+    .footer {
+      border-top: 1px solid #ccc;
+      text-align: center;
+      padding: 14px;
+      font-size: 11px;
+      color: #666;
+      margin-top: 30px;
+    }
+
+    .footer a {
+      margin: 0 6px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <table class="header-table">
+    <tr>
+      <td class="logo">Treasury<span>Direct</span>.</td>
+      <td style="text-align:right;">
+        <a class="btn btn-help" href="/help/">Help</a>
+        <a class="btn btn-logoff" id="logoffBtn">Logoff</a>
+      </td>
+    </tr>
+  </table>
+
+  <table class="navbar">
+    <tr>
+      <td><a href="/dashboard/">My Account</a></td>
+      <td><a href="/purchase-bond/">BuyDirect</a></td>
+      <td><a href="/current-holdings/">Current Holdings</a></td>
+      <td class="active"><a href="javascript:void(0)" style="color:#fff;">ManageDirect</a></td>
+      <td><a href="/account-info/">Account Info</a></td>
+      <td><a href="/history/">History</a></td>
+    </tr>
+  </table>
+
+  <div class="content">
+    <div class="breadcrumb">ManageDirect &raquo; Account Settings</div>
+    <div class="acct-line" id="acctLine"></div>
+    <div class="subtext">Update your personalized image/caption and security questions here.</div>
+
+    <div class="error-banner" id="errorBanner"></div>
+    <div class="success-box" id="successBox"></div>
+
+    <!-- PERSONALIZED IMAGE -->
+    <fieldset>
+      <legend>Change My Personalized Image/Caption</legend>
+
+      <div class="current-box" id="currentImageBox">Loading your current selection…</div>
+
+      <div class="image-grid" id="imageGrid">
+        <div style="font-size:12px; color:#666;">Loading images…</div>
+      </div>
+      <div class="field-row">
+        <label for="captionInput">Caption:</label>
+        <input type="text" id="captionInput" maxlength="40" placeholder="e.g. My Lucky Turtle">
+      </div>
+      <div class="field-error" id="imageError"></div>
+      <button class="action-btn" id="saveImageBtn">Save Image &amp; Caption</button>
+    </fieldset>
+
+    <!-- SECURITY QUESTIONS -->
+    <fieldset>
+      <legend>Change My Security Questions</legend>
+      <p class="subtext">
+        Choose three different questions and provide an answer for each. This will replace any
+        security questions you previously set. Leave this section blank to leave your existing
+        questions unchanged.
+      </p>
+
+      <div class="field-row">
+        <label>Question 1:</label>
+        <select id="secQ1"></select>
+        <input type="text" id="secA1" placeholder="Your answer" style="margin-top:6px;">
+      </div>
+      <div class="field-row">
+        <label>Question 2:</label>
+        <select id="secQ2"></select>
+        <input type="text" id="secA2" placeholder="Your answer" style="margin-top:6px;">
+      </div>
+      <div class="field-row">
+        <label>Question 3:</label>
+        <select id="secQ3"></select>
+        <input type="text" id="secA3" placeholder="Your answer" style="margin-top:6px;">
+      </div>
+      <div class="field-error" id="questionsError"></div>
+      <button class="action-btn" id="saveQuestionsBtn">Save Security Questions</button>
+    </fieldset>
+  </div>
+
+  <div class="footer">
+    <a href="/help/">Help</a> |
+    <a href="/privacy-legal/">Privacy &amp; Legal Notices</a> |
+    <a href="/site-map/">Site Map</a> |
+    <a href="/contact-us/">Contact Us</a>
+  </div>
+
+  <script>
+    const API_BASE = "https://t-bond-backend.onrender.com/api";
+    const token = localStorage.getItem("td_token");
+    const userRaw = localStorage.getItem("td_user");
+
+    if (!token) {
+      window.location.href = "login.html";
+    }
+
+    let currentUser = null;
+    try { currentUser = userRaw ? JSON.parse(userRaw) : null; } catch (e) { currentUser = null; }
+
+    document.getElementById("acctLine").textContent = currentUser?.loginId
+      ? `${currentUser.name || ""}: ${currentUser.loginId}`
+      : "";
+
+    document.getElementById("logoffBtn").addEventListener("click", () => {
+      localStorage.removeItem("td_token");
+      localStorage.removeItem("td_user");
+      window.location.href = "login.html";
+    });
+
+    function showError(msg) {
+      const banner = document.getElementById("errorBanner");
+      banner.textContent = msg;
+      banner.classList.add("show");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+    function clearError() {
+      document.getElementById("errorBanner").classList.remove("show");
+    }
+    function showSuccess(msg) {
+      const box = document.getElementById("successBox");
+      box.textContent = msg;
+      box.classList.add("show");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      setTimeout(() => box.classList.remove("show"), 4000);
+    }
+
+    let selectedImage = null;
+    let imageOptions = [];
+
+    async function loadCurrentUser() {
+      try {
+        const res = await fetch(`${API_BASE}/auth/me`, { headers: { Authorization: `Bearer ${token}` } });
+        const user = await res.json();
+        if (!res.ok) return;
+
+        const box = document.getElementById("currentImageBox");
+        if (user.personalizedImage) {
+          box.innerHTML = `<span class="swatch-inline">${user.personalizedImage}</span> Currently: <strong>${user.personalizedImage}</strong> — "${user.personalizedCaption || ""}"`;
+          selectedImage = user.personalizedImage;
+          document.getElementById("captionInput").value = user.personalizedCaption || "";
+        } else {
+          box.innerHTML = "You haven't set a personalized image yet. Choose one below.";
+        }
+
+        renderImageGrid();
+      } catch (err) {
+        document.getElementById("currentImageBox").textContent = "Unable to load your current selection.";
+      }
+    }
+
+    async function loadImageOptions() {
+      try {
+        const res = await fetch(`${API_BASE}/auth/image-options`);
+        imageOptions = await res.json();
+        renderImageGrid();
+      } catch (err) {
+        document.getElementById("imageGrid").innerHTML = `<div style="font-size:12px; color:#a33;">Unable to load images.</div>`;
+      }
+    }
+
+    function renderImageGrid() {
+      if (imageOptions.length === 0) return;
+      const grid = document.getElementById("imageGrid");
+      grid.innerHTML = "";
+      imageOptions.forEach((img) => {
+        const tile = document.createElement("div");
+        tile.className = "image-tile" + (img.key === selectedImage ? " selected" : "");
+        tile.innerHTML = `<div class="swatch">${img.label}</div><div class="tile-label">${img.label}</div>`;
+        tile.addEventListener("click", () => {
+          document.querySelectorAll(".image-tile").forEach((t) => t.classList.remove("selected"));
+          tile.classList.add("selected");
+          selectedImage = img.key;
+        });
+        grid.appendChild(tile);
+      });
+    }
+
+    document.getElementById("saveImageBtn").addEventListener("click", async () => {
+      clearError();
+      const errBox = document.getElementById("imageError");
+      const caption = document.getElementById("captionInput").value.trim();
+
+      if (!selectedImage) {
+        errBox.textContent = "Please select an image.";
+        errBox.style.display = "block";
+        return;
+      }
+      if (!caption) {
+        errBox.textContent = "Please enter a caption.";
+        errBox.style.display = "block";
+        return;
+      }
+      errBox.style.display = "none";
+
+      const btn = document.getElementById("saveImageBtn");
+      btn.disabled = true;
+      btn.textContent = "Saving…";
+
+      try {
+        const res = await fetch(`${API_BASE}/auth/personalize`, {
+          method: "PUT",
+          headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
+          body: JSON.stringify({ personalizedImage: selectedImage, personalizedCaption: caption }),
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.message || "Unable to update your image and caption.");
+
+        showSuccess("Personalized image and caption updated.");
+      } catch (err) {
+        errBox.textContent = err.message;
+        errBox.style.display = "block";
+      } finally {
+        btn.disabled = false;
+        btn.textContent = "Save Image & Caption";
+      }
+    });
+
+    let questionBank = [];
+
+    async function loadQuestionBank() {
+      try {
+        const res = await fetch(`${API_BASE}/auth/security-question-bank`);
+        questionBank = await res.json();
+        ["secQ1", "secQ2", "secQ3"].forEach((id) => {
+          const select = document.getElementById(id);
+          select.innerHTML = `<option value="">— Select a question —</option>` +
+            questionBank.map((q) => `<option value="${q}">${q}</option>`).join("");
+        });
+      } catch (err) {
+        // non-critical
+      }
+    }
+
+    document.getElementById("saveQuestionsBtn").addEventListener("click", async () => {
+      clearError();
+      const errBox = document.getElementById("questionsError");
+      const q1 = document.getElementById("secQ1").value;
+      const q2 = document.getElementById("secQ2").value;
+      const q3 = document.getElementById("secQ3").value;
+
+      if (!q1 && !q2 && !q3) {
+        errBox.textContent = "Please select and answer all three questions to update them.";
+        errBox.style.display = "block";
+        return;
+      }
+      if (!q1 || !q2 || !q3) {
+        errBox.textContent = "Please select all three questions.";
+        errBox.style.display = "block";
+        return;
+      }
+      if (new Set([q1, q2, q3]).size !== 3) {
+        errBox.textContent = "Please choose three different questions.";
+        errBox.style.display = "block";
+        return;
+      }
+      const a1 = document.getElementById("secA1").value.trim();
+      const a2 = document.getElementById("secA2").value.trim();
+      const a3 = document.getElementById("secA3").value.trim();
+      if (!a1 || !a2 || !a3) {
+        errBox.textContent = "Please provide an answer for each question.";
+        errBox.style.display = "block";
+        return;
+      }
+      errBox.style.display = "none";
+
+      const btn = document.getElementById("saveQuestionsBtn");
+      btn.disabled = true;
+      btn.textContent = "Saving…";
+
+      try {
+        const res = await fetch(`${API_BASE}/auth/security-questions`, {
+          method: "PUT",
+          headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
+          body: JSON.stringify({
+            securityQuestions: [
+              { question: q1, answer: a1 },
+              { question: q2, answer: a2 },
+              { question: q3, answer: a3 },
+            ],
+          }),
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.message || "Unable to update your security questions.");
+
+        showSuccess("Security questions updated successfully.");
+        ["secA1", "secA2", "secA3"].forEach((id) => (document.getElementById(id).value = ""));
+      } catch (err) {
+        errBox.textContent = err.message;
+        errBox.style.display = "block";
+      } finally {
+        btn.disabled = false;
+        btn.textContent = "Save Security Questions";
+      }
+    });
+
+    loadImageOptions().then(loadCurrentUser);
+    loadQuestionBank();
+  </script>
+
+</body>
+
+</html>

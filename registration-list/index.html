@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Registration List - TreasuryDirect</title><link rel="icon" type="image/png" href="/favicon.jpg"><link rel="icon" type="image/png" href="/favicon.jpg">
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 13px;
+      color: #333;
+      margin: 0;
+      background: #fff;
+    }
+
+    a {
+      color: #0000cc;
+      text-decoration: underline;
+    }
+
+    a:hover {
+      color: #cc3300;
+    }
+
+    .header-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .header-table td {
+      padding: 10px 20px;
+      vertical-align: middle;
+    }
+
+    .logo {
+      font-size: 26px;
+      font-weight: bold;
+      color: #2f6a31;
+    }
+
+    .logo span {
+      color: #1a4fa0;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 4px 14px;
+      font-size: 12px;
+      font-weight: bold;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 3px;
+      border: 1px solid rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-help {
+      background: #4caf50;
+    }
+
+    .btn-logoff {
+      background: #e07a1f;
+      cursor: pointer;
+    }
+
+    .navbar {
+      width: 100%;
+      border-collapse: collapse;
+      background: #1a4fa0;
+    }
+
+    .navbar td {
+      padding: 8px 16px;
+      color: #fff;
+      font-weight: bold;
+      font-size: 12px;
+      text-align: center;
+      border-right: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .navbar td.active {
+      background: #e07a1f;
+    }
+
+    .navbar a {
+      color: #fff;
+      text-decoration: none;
+      display: block;
+    }
+
+    .content {
+      padding: 20px 30px;
+      max-width: 900px;
+    }
+
+    .breadcrumb {
+      color: #cc5500;
+      font-weight: bold;
+      font-size: 16px;
+      margin-bottom: 4px;
+    }
+
+    .subtext {
+      font-size: 12px;
+      color: #444;
+      margin-bottom: 16px;
+    }
+
+    .acct-line {
+      text-align: right;
+      font-size: 12px;
+      color: #333;
+      margin-top: -30px;
+      margin-bottom: 10px;
+    }
+
+    table.data {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 12px 0 20px;
+    }
+
+    table.data th {
+      background: #1a4fa0;
+      color: #fff;
+      text-align: left;
+      padding: 6px 10px;
+      font-size: 12px;
+    }
+
+    table.data td {
+      border: 1px solid #ccc;
+      padding: 8px 10px;
+      font-size: 13px;
+    }
+
+    table.data tr.row-option {
+      cursor: pointer;
+    }
+
+    table.data tr.row-option:hover td {
+      background: #eef4fb;
+    }
+
+    table.data tr.row-option.selected td {
+      background: #dceafd;
+    }
+
+    .preferred-tag {
+      background: #eef8ee;
+      color: #235c23;
+      font-size: 10px;
+      font-weight: bold;
+      padding: 2px 6px;
+      border-radius: 2px;
+      margin-left: 6px;
+    }
+
+    .gift-tag {
+      background: #fdf3e3;
+      color: #8a5a00;
+      font-size: 10px;
+      font-weight: bold;
+      padding: 2px 6px;
+      border-radius: 2px;
+      margin-left: 6px;
+    }
+
+    fieldset {
+      border: 1px solid #999;
+      padding: 14px;
+      margin-bottom: 16px;
+    }
+
+    legend {
+      font-weight: bold;
+      color: #1a4fa0;
+      padding: 0 6px;
+    }
+
+    label {
+      display: inline-block;
+      width: 200px;
+      font-size: 13px;
+    }
+
+    input[type="text"] {
+      border: 1px solid #666;
+      padding: 4px 6px;
+      font-size: 13px;
+      width: 200px;
+    }
+
+    .radio-inline label {
+      width: auto;
+      margin-right: 20px;
+    }
+
+    .field-row {
+      margin-bottom: 12px;
+    }
+
+    .ssn-parts input {
+      width: 44px;
+      text-align: center;
+      margin-right: 2px;
+    }
+
+    .section-label {
+      font-size: 12px;
+      color: #666;
+      margin: 16px 0 8px;
+      font-weight: bold;
+    }
+
+    .checkbox-row label {
+      width: auto;
+      margin-left: 6px;
+    }
+
+    #secondRegistrantBlock {
+      display: none;
+    }
+
+    #secondRegistrantBlock.show {
+      display: block;
+    }
+
+    .action-btn {
+      background: #1a4fa0;
+      color: #fff;
+      border: 1px solid #12407e;
+      padding: 6px 18px;
+      font-weight: bold;
+      font-size: 12px;
+      cursor: pointer;
+      border-radius: 2px;
+    }
+
+    .action-btn:disabled {
+      background: #9aa8bb;
+      border-color: #8593a6;
+      cursor: not-allowed;
+    }
+
+    .action-btn.cancel {
+      background: #e07a1f;
+      border-color: #b3610f;
+    }
+
+    .action-btn.danger {
+      background: #a33;
+      border-color: #822;
+    }
+
+    .action-btn.secondary {
+      background: #4caf50;
+      border-color: #3d8b40;
+    }
+
+    .error-banner {
+      background: #fdeaea;
+      border: 1px solid #d99;
+      color: #a33;
+      padding: 10px 14px;
+      margin-bottom: 16px;
+      font-size: 12px;
+      display: none;
+    }
+
+    .error-banner.show {
+      display: block;
+    }
+
+    .error-title {
+      font-weight: bold;
+      margin-bottom: 4px;
+    }
+
+    .success-box {
+      background: #eef8ee;
+      border: 1px solid #a9d4a9;
+      color: #235c23;
+      padding: 10px 14px;
+      margin-bottom: 16px;
+      font-size: 12px;
+      display: none;
+    }
+
+    .success-box.show {
+      display: block;
+    }
+
+    .field-error {
+      font-size: 11px;
+      color: #a33;
+      margin-top: 4px;
+      display: none;
+    }
+
+    .empty-msg {
+      padding: 20px;
+      text-align: center;
+      color: #666;
+      font-style: italic;
+    }
+
+    .loading-msg {
+      padding: 20px;
+      text-align: center;
+      color: #666;
+    }
+
+    .footer {
+      border-top: 1px solid #ccc;
+      text-align: center;
+      padding: 14px;
+      font-size: 11px;
+      color: #666;
+      margin-top: 30px;
+    }
+
+    .footer a {
+      margin: 0 6px;
+    }
+
+    #listView,
+    #addFormView {
+      display: none;
+    }
+
+    #listView.active,
+    #addFormView.active {
+      display: block;
+    }
+  </style>
+</head>
+
+<body>
+
+  <table class="header-table">
+    <tr>
+      <td class="logo">Treasury<span>Direct</span>.</td>
+      <td style="text-align:right;">
+        <a class="btn btn-help" href="/help/">Help</a>
+        <a class="btn btn-logoff" id="logoffBtn">Logoff</a>
+      </td>
+    </tr>
+  </table>
+
+  <table class="navbar">
+    <tr>
+      <td><a href="/dashboard/">My Account</a></td>
+      <td><a href="/purchase-bond/">BuyDirect</a></td>
+      <td><a href="/current-holdings/">Current Holdings</a></td>
+      <td class="active"><a href="javascript:void(0)" style="color:#fff;">ManageDirect</a></td>
+      <td><a href="/account-info/">Account Info</a></td>
+      <td><a href="/history/">History</a></td>
+    </tr>
+  </table>
+
+  <div class="content">
+    <div class="breadcrumb">ManageDirect &raquo; Registration List</div>
+    <div class="acct-line" id="acctLine"></div>
+    <div class="subtext">To add a registration, click Add. To set a preferred registration or delete one, select it
+      below first.</div>
+
+    <div class="error-banner" id="errorBanner">
+      <div class="error-title">The following error occurred:</div>
+      <div id="errorText"></div>
+    </div>
+
+    <div class="success-box" id="successBox"></div>
+
+    <!-- LIST VIEW -->
+    <div id="listView" class="active">
+      <div class="loading-msg" id="loadingMsg">Loading your registrations…</div>
+      <table class="data" id="regsTable" style="display:none;">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Registrant's Name(s)</th>
+            <th>Taxpayer ID No.</th>
+          </tr>
+        </thead>
+        <tbody id="regsBody"></tbody>
+      </table>
+      <div class="empty-msg" id="emptyMsg" style="display:none;">You have not added any registrations yet.</div>
+
+      <p>
+        <button class="action-btn secondary" id="addBtn">Add Registration</button>
+        <button class="action-btn" id="preferredBtn" disabled>Set as Preferred</button>
+        <button class="action-btn danger" id="deleteBtn" disabled>Delete</button>
+      </p>
+    </div>
+
+    <!-- ADD FORM -->
+    <div id="addFormView">
+      <fieldset>
+        <legend>Add Registration</legend>
+
+        <div class="field-row radio-inline">
+          <label style="width:auto;">Ownership Type:</label><br><br>
+          <label><input type="radio" name="ownerType" value="sole" checked> Sole Owner</label>
+          <label><input type="radio" name="ownerType" value="primary"> Primary Owner</label>
+          <label><input type="radio" name="ownerType" value="beneficiary"> Beneficiary</label>
+        </div>
+
+        <div class="section-label">First-Named Registrant</div>
+        <div class="field-row"><label>First Name:</label> <input type="text" id="firstName"></div>
+        <div class="field-row"><label>Last Name:</label> <input type="text" id="lastName"></div>
+        <div class="field-row">
+          <label>Taxpayer ID Number:</label>
+          <span class="ssn-parts">
+            <input type="text" id="ssn1" maxlength="3">-<input type="text" id="ssn2" maxlength="2">-<input type="text"
+              id="ssn3" maxlength="4">
+          </span>
+        </div>
+
+        <div id="secondRegistrantBlock">
+          <div class="section-label">Second-Named Registrant (required for Primary Owner / Beneficiary)</div>
+          <div class="field-row"><label>First Name:</label> <input type="text" id="secondFirstName"></div>
+          <div class="field-row"><label>Last Name:</label> <input type="text" id="secondLastName"></div>
+          <div class="field-row">
+            <label>Taxpayer ID Number:</label>
+            <span class="ssn-parts">
+              <input type="text" id="secondSsn1" maxlength="3">-<input type="text" id="secondSsn2" maxlength="2">-<input
+                type="text" id="secondSsn3" maxlength="4">
+            </span>
+          </div>
+        </div>
+
+        <div class="field-row checkbox-row" style="margin-top:16px;">
+          <input type="checkbox" id="isPreferred"><label for="isPreferred">Make this my preferred registration.</label>
+        </div>
+        <div class="field-row checkbox-row">
+          <input type="checkbox" id="isGift"><label for="isGift">This is a gift.</label>
+        </div>
+
+        <div class="field-error" id="addFormError"></div>
+      </fieldset>
+
+      <p>
+        <button class="action-btn" id="addSubmitBtn">Submit</button>
+        <button class="action-btn cancel" id="addCancelBtn">Cancel</button>
+      </p>
+    </div>
+  </div>
+
+  <div class="footer">
+    <a href="/privacy-legal/">Privacy &amp; Legal Notices</a> | <a href="/site-map/">Site Map</a> | <a
+      href="/contact-us/">Contact Us</a>
+  </div>
+
+  <script>
+    const API_BASE = "https://t-bond-backend.onrender.com/api";
+    const token = localStorage.getItem("td_token");
+    const userRaw = localStorage.getItem("td_user");
+
+    if (!token) {
+      window.location.href = "login.html";
+    }
+
+    let currentUser = null;
+    try { currentUser = userRaw ? JSON.parse(userRaw) : null; } catch (e) { currentUser = null; }
+
+    document.getElementById("acctLine").textContent = currentUser?.loginId
+      ? `${currentUser.name || ""}: ${currentUser.loginId}`
+      : "";
+
+    document.getElementById("logoffBtn").addEventListener("click", () => {
+      localStorage.removeItem("td_token");
+      localStorage.removeItem("td_user");
+      window.location.href = "login.html";
+    });
+
+    function showView(view) {
+      ["listView", "addFormView"].forEach((id) => {
+        document.getElementById(id).classList.toggle("active", id === view);
+      });
+    }
+
+    function showError(msg) {
+      const banner = document.getElementById("errorBanner");
+      document.getElementById("errorText").textContent = msg;
+      banner.classList.add("show");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function clearError() {
+      document.getElementById("errorBanner").classList.remove("show");
+    }
+
+    function showSuccess(msg) {
+      const box = document.getElementById("successBox");
+      box.textContent = msg;
+      box.classList.add("show");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      setTimeout(() => box.classList.remove("show"), 4000);
+    }
+
+    function maskSsn(ssn) {
+      if (!ssn) return "-";
+      const digits = String(ssn).replace(/\D/g, "");
+      if (digits.length < 4) return "***-**-" + digits;
+      return "***-**-" + digits.slice(-4);
+    }
+
+    let registrations = [];
+    let selectedReg = null;
+
+    async function loadRegistrations() {
+      try {
+        const res = await fetch(`${API_BASE}/registrations`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        const data = await res.json();
+
+        if (!res.ok) {
+          throw new Error(data.message || "Unable to load your registrations.");
+        }
+
+        registrations = data;
+        selectedReg = null;
+        updateActionButtons();
+
+        document.getElementById("loadingMsg").style.display = "none";
+
+        if (registrations.length === 0) {
+          document.getElementById("regsTable").style.display = "none";
+          document.getElementById("emptyMsg").style.display = "block";
+          return;
+        }
+
+        document.getElementById("emptyMsg").style.display = "none";
+        const tbody = document.getElementById("regsBody");
+        tbody.innerHTML = "";
+
+        registrations.forEach((r) => {
+          const tr = document.createElement("tr");
+          tr.className = "row-option";
+          tr.dataset.id = r._id;
+          tr.innerHTML = `
+          <td><input type="radio" name="reg" value="${r._id}"></td>
+          <td>${r.displayLabel}${r.isPreferred ? '<span class="preferred-tag">PREFERRED</span>' : ""}${r.isGift ? '<span class="gift-tag">GIFT</span>' : ""}</td>
+          <td>${maskSsn(r.ssn)}</td>
+        `;
+          tr.addEventListener("click", () => selectRow(tr, r));
+          tbody.appendChild(tr);
+        });
+
+        document.getElementById("regsTable").style.display = "table";
+      } catch (err) {
+        document.getElementById("loadingMsg").style.display = "none";
+        showError(err.message || "Something went wrong loading your registrations.");
+      }
+    }
+
+    function selectRow(tr, reg) {
+      document.querySelectorAll("#regsBody tr").forEach((r) => r.classList.remove("selected"));
+      tr.classList.add("selected");
+      tr.querySelector("input[type=radio]").checked = true;
+      selectedReg = reg;
+      updateActionButtons();
+    }
+
+    function updateActionButtons() {
+      document.getElementById("preferredBtn").disabled = !selectedReg || selectedReg.isPreferred;
+      document.getElementById("deleteBtn").disabled = !selectedReg;
+    }
+
+    document.querySelectorAll('input[name="ownerType"]').forEach((radio) => {
+      radio.addEventListener("change", () => {
+        const isSole = document.querySelector('input[name="ownerType"]:checked').value === "sole";
+        document.getElementById("secondRegistrantBlock").classList.toggle("show", !isSole);
+      });
+    });
+
+    document.getElementById("addBtn").addEventListener("click", () => {
+      clearError();
+      document.querySelector('input[name="ownerType"][value="sole"]').checked = true;
+      document.getElementById("secondRegistrantBlock").classList.remove("show");
+      ["firstName", "lastName", "ssn1", "ssn2", "ssn3", "secondFirstName", "secondLastName", "secondSsn1", "secondSsn2", "secondSsn3"]
+        .forEach((id) => (document.getElementById(id).value = ""));
+      document.getElementById("isPreferred").checked = false;
+      document.getElementById("isGift").checked = false;
+      document.getElementById("addFormError").style.display = "none";
+      showView("addFormView");
+    });
+
+    document.getElementById("addCancelBtn").addEventListener("click", () => {
+      clearError();
+      showView("listView");
+    });
+
+    document.getElementById("addSubmitBtn").addEventListener("click", async () => {
+      clearError();
+      const errBox = document.getElementById("addFormError");
+      const ownerType = document.querySelector('input[name="ownerType"]:checked').value;
+
+      const firstName = document.getElementById("firstName").value.trim();
+      const lastName = document.getElementById("lastName").value.trim();
+      const ssn = [
+        document.getElementById("ssn1").value.trim(),
+        document.getElementById("ssn2").value.trim(),
+        document.getElementById("ssn3").value.trim(),
+      ].join("-");
+
+      if (!firstName || !lastName || ssn === "--") {
+        errBox.textContent = "Please complete the first-named registrant's name and taxpayer ID.";
+        errBox.style.display = "block";
+        return;
+      }
+
+      const payload = {
+        ownerType, firstName, lastName, ssn,
+        isPreferred: document.getElementById("isPreferred").checked,
+        isGift: document.getElementById("isGift").checked,
+      };
+
+      if (ownerType !== "sole") {
+        const secondFirstName = document.getElementById("secondFirstName").value.trim();
+        const secondLastName = document.getElementById("secondLastName").value.trim();
+        const secondSsn = [
+          document.getElementById("secondSsn1").value.trim(),
+          document.getElementById("secondSsn2").value.trim(),
+          document.getElementById("secondSsn3").value.trim(),
+        ].join("-");
+
+        if (!secondFirstName || !secondLastName || secondSsn === "--") {
+          errBox.textContent = "Please complete the second-named registrant's name and taxpayer ID.";
+          errBox.style.display = "block";
+          return;
+        }
+
+        payload.secondFirstName = secondFirstName;
+        payload.secondLastName = secondLastName;
+        payload.secondSsn = secondSsn;
+      }
+
+      errBox.style.display = "none";
+      const btn = document.getElementById("addSubmitBtn");
+      btn.disabled = true;
+      btn.textContent = "Submitting…";
+
+      try {
+        const res = await fetch(`${API_BASE}/registrations`, {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(payload),
+        });
+        const data = await res.json();
+
+        if (!res.ok) {
+          throw new Error(data.message || "Unable to add registration.");
+        }
+
+        showView("listView");
+        showSuccess("Registration added successfully.");
+        loadRegistrations();
+      } catch (err) {
+        errBox.textContent = err.message || "Something went wrong.";
+        errBox.style.display = "block";
+      } finally {
+        btn.disabled = false;
+        btn.textContent = "Submit";
+      }
+    });
+
+    document.getElementById("preferredBtn").addEventListener("click", async () => {
+      if (!selectedReg) return;
+      clearError();
+
+      try {
+        const res = await fetch(`${API_BASE}/registrations/${selectedReg._id}/preferred`, {
+          method: "PUT",
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        const data = await res.json();
+
+        if (!res.ok) {
+          throw new Error(data.message || "Unable to update preferred registration.");
+        }
+
+        showSuccess("Preferred registration updated.");
+        loadRegistrations();
+      } catch (err) {
+        showError(err.message || "Something went wrong.");
+      }
+    });
+
+    document.getElementById("deleteBtn").addEventListener("click", async () => {
+      if (!selectedReg) return;
+      clearError();
+
+      if (!confirm(`Delete this registration (${selectedReg.displayLabel})? This cannot be undone.`)) {
+        return;
+      }
+
+      try {
+        const res = await fetch(`${API_BASE}/registrations/${selectedReg._id}`, {
+          method: "DELETE",
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        const data = await res.json();
+
+        if (!res.ok) {
+          throw new Error(data.message || "Unable to delete registration.");
+        }
+
+        showSuccess("Registration deleted.");
+        loadRegistrations();
+      } catch (err) {
+        showError(err.message || "Something went wrong deleting this registration.");
+      }
+    });
+
+    loadRegistrations();
+  </script>
+
+</body>
+
+</html>

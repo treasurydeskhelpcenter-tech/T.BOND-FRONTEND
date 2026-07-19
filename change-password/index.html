@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Change Password - TreasuryDirect</title><link rel="icon" type="image/png" href="/favicon.jpg"><link rel="icon" type="image/png" href="/favicon.jpg">
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 13px;
+      color: #333;
+      margin: 0;
+      background: #fff;
+    }
+
+    a {
+      color: #0000cc;
+      text-decoration: underline;
+    }
+
+    a:hover {
+      color: #cc3300;
+    }
+
+    .header-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .header-table td {
+      padding: 10px 20px;
+      vertical-align: middle;
+    }
+
+    .logo {
+      font-size: 26px;
+      font-weight: bold;
+      color: #2f6a31;
+    }
+
+    .logo span {
+      color: #1a4fa0;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 4px 14px;
+      font-size: 12px;
+      font-weight: bold;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 3px;
+      border: 1px solid rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-help {
+      background: #4caf50;
+    }
+
+    .btn-logoff {
+      background: #e07a1f;
+      cursor: pointer;
+    }
+
+    .navbar {
+      width: 100%;
+      border-collapse: collapse;
+      background: #1a4fa0;
+    }
+
+    .navbar td {
+      padding: 8px 16px;
+      color: #fff;
+      font-weight: bold;
+      font-size: 12px;
+      text-align: center;
+      border-right: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .navbar td.active {
+      background: #e07a1f;
+    }
+
+    .navbar a {
+      color: #fff;
+      text-decoration: none;
+      display: block;
+    }
+
+    .content {
+      padding: 20px 30px;
+      max-width: 650px;
+    }
+
+    .breadcrumb {
+      color: #cc5500;
+      font-weight: bold;
+      font-size: 16px;
+      margin-bottom: 4px;
+    }
+
+    .subtext {
+      font-size: 12px;
+      color: #444;
+      margin-bottom: 16px;
+    }
+
+    .acct-line {
+      text-align: right;
+      font-size: 12px;
+      color: #333;
+      margin-top: -30px;
+      margin-bottom: 10px;
+    }
+
+    fieldset {
+      border: 1px solid #999;
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+
+    legend {
+      font-weight: bold;
+      color: #1a4fa0;
+      padding: 0 6px;
+    }
+
+    .field-row {
+      margin-bottom: 14px;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      margin-bottom: 4px;
+      font-weight: bold;
+    }
+
+    input[type="password"] {
+      border: 1px solid #666;
+      padding: 5px 8px;
+      font-size: 13px;
+      width: 260px;
+    }
+
+    .hint-box {
+      background: #eef4fb;
+      border: 1px solid #b7cbe6;
+      padding: 10px 14px;
+      font-size: 12px;
+      margin-bottom: 16px;
+    }
+
+    .hint-box ul {
+      margin: 6px 0 0 18px;
+      padding: 0;
+    }
+
+    .action-btn {
+      background: #1a4fa0;
+      color: #fff;
+      border: 1px solid #12407e;
+      padding: 6px 18px;
+      font-weight: bold;
+      font-size: 12px;
+      cursor: pointer;
+      border-radius: 2px;
+    }
+
+    .action-btn:disabled {
+      background: #9aa8bb;
+      border-color: #8593a6;
+      cursor: not-allowed;
+    }
+
+    .action-btn.cancel {
+      background: #e07a1f;
+      border-color: #b3610f;
+    }
+
+    .error-banner {
+      background: #fdeaea;
+      border: 1px solid #d99;
+      color: #a33;
+      padding: 10px 14px;
+      margin-bottom: 16px;
+      font-size: 12px;
+      display: none;
+    }
+
+    .error-banner.show {
+      display: block;
+    }
+
+    .error-title {
+      font-weight: bold;
+      margin-bottom: 4px;
+    }
+
+    .success-box {
+      background: #eef8ee;
+      border: 1px solid #a9d4a9;
+      color: #235c23;
+      padding: 16px 18px;
+      margin-bottom: 16px;
+      font-size: 13px;
+      display: none;
+    }
+
+    .success-box.show {
+      display: block;
+    }
+
+    .field-error {
+      font-size: 11px;
+      color: #a33;
+      margin-top: 4px;
+    }
+
+    .footer {
+      border-top: 1px solid #ccc;
+      text-align: center;
+      padding: 14px;
+      font-size: 11px;
+      color: #666;
+      margin-top: 30px;
+    }
+
+    .footer a {
+      margin: 0 6px;
+    }
+
+    #formView.hidden,
+    #doneView.hidden {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+
+  <table class="header-table">
+    <tr>
+      <td class="logo">Treasury<span>Direct</span>.</td>
+      <td style="text-align:right;">
+        <a class="btn btn-help" href="/help/">Help</a>
+        <a class="btn btn-logoff" id="logoffBtn">Logoff</a>
+      </td>
+    </tr>
+  </table>
+
+  <table class="navbar">
+    <tr>
+      <td><a href="/dashboard/">My Account</a></td>
+      <td><a href="/purchase-bond/">BuyDirect</a></td>
+      <td><a href="/current-holdings/">Current Holdings</a></td>
+      <td class="active"><a href="javascript:void(0)" style="color:#fff;">ManageDirect</a></td>
+      <td><a href="/account-info/">Account Info</a></td>
+      <td><a href="/history/">History</a></td>
+    </tr>
+  </table>
+
+  <div class="content">
+    <div class="breadcrumb">ManageDirect &raquo; Change Password</div>
+    <div class="acct-line" id="acctLine"></div>
+    <div class="subtext">To protect the security of your account, please change your password frequently.</div>
+
+    <div class="error-banner" id="errorBanner">
+      <div class="error-title">The following error occurred:</div>
+      <div id="errorText"></div>
+    </div>
+
+    <div id="doneView" class="success-box">
+      <strong>Password changed successfully.</strong>
+      <p style="margin-top:6px;">You will need to use your new password the next time you sign in. A confirmation email
+        has been sent to your registered address.</p>
+      <p><a href="/dashboard/">Return to My Account</a></p>
+    </div>
+
+    <div id="formView">
+      <div class="hint-box">
+        <strong>Choosing a Password</strong>
+        <ul>
+          <li><strong>Length.</strong> Use a minimum of six (6) characters.</li>
+          <li><strong>Content.</strong> Avoid numbers, names, or dates that are significant to you.</li>
+          <li>Password is case-sensitive.</li>
+        </ul>
+      </div>
+
+      <fieldset>
+        <legend>Change Password</legend>
+        <div class="field-row">
+          <label for="currentPassword">Enter your current password:</label>
+          <input type="password" id="currentPassword">
+        </div>
+        <div class="field-row">
+          <label for="newPassword">Enter your new password:</label>
+          <input type="password" id="newPassword">
+        </div>
+        <div class="field-row">
+          <label for="confirmPassword">Retype your new password:</label>
+          <input type="password" id="confirmPassword">
+        </div>
+        <div class="field-error" id="formError" style="display:none;"></div>
+      </fieldset>
+
+      <p>
+        <button class="action-btn" id="submitBtn">Submit</button>
+        <button class="action-btn cancel" onclick="window.location.href='/dashboard/'">Cancel</button>
+      </p>
+    </div>
+  </div>
+
+  <div class="footer">
+    <a href="/privacy-legal/">Privacy &amp; Legal Notices</a> | <a href="/site-map/">Site Map</a> | <a
+      href="/contact-us/">Contact Us</a>
+  </div>
+
+  <script>
+    const API_BASE = "https://t-bond-backend.onrender.com/api";
+    const token = localStorage.getItem("td_token");
+    const userRaw = localStorage.getItem("td_user");
+
+    if (!token) {
+      window.location.href = "login.html";
+    }
+
+    let currentUser = null;
+    try { currentUser = userRaw ? JSON.parse(userRaw) : null; } catch (e) { currentUser = null; }
+
+    document.getElementById("acctLine").textContent = currentUser?.loginId
+      ? `${currentUser.name || ""}: ${currentUser.loginId}`
+      : "";
+
+    document.getElementById("logoffBtn").addEventListener("click", () => {
+      localStorage.removeItem("td_token");
+      localStorage.removeItem("td_user");
+      window.location.href = "login.html";
+    });
+
+    function showError(msg) {
+      const banner = document.getElementById("errorBanner");
+      document.getElementById("errorText").textContent = msg;
+      banner.classList.add("show");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function clearError() {
+      document.getElementById("errorBanner").classList.remove("show");
+    }
+
+    document.getElementById("submitBtn").addEventListener("click", async () => {
+      clearError();
+      const currentPassword = document.getElementById("currentPassword").value;
+      const newPassword = document.getElementById("newPassword").value;
+      const confirmPassword = document.getElementById("confirmPassword").value;
+      const fieldErr = document.getElementById("formError");
+
+      if (!currentPassword || !newPassword || !confirmPassword) {
+        fieldErr.textContent = "Please fill in all fields.";
+        fieldErr.style.display = "block";
+        return;
+      }
+      if (newPassword.length < 6) {
+        fieldErr.textContent = "New password must be at least 6 characters.";
+        fieldErr.style.display = "block";
+        return;
+      }
+      if (newPassword !== confirmPassword) {
+        fieldErr.textContent = "New password and confirmation do not match.";
+        fieldErr.style.display = "block";
+        return;
+      }
+
+      fieldErr.style.display = "none";
+      const btn = document.getElementById("submitBtn");
+      btn.disabled = true;
+      btn.textContent = "Submitting…";
+
+      try {
+        const res = await fetch(`${API_BASE}/auth/change-password`, {
+          method: "PUT",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ currentPassword, newPassword }),
+        });
+        const data = await res.json();
+
+        if (!res.ok) {
+          throw new Error(data.message || "Unable to change your password.");
+        }
+
+        document.getElementById("formView").classList.add("hidden");
+        document.getElementById("doneView").classList.add("show");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } catch (err) {
+        showError(err.message || "Something went wrong changing your password.");
+      } finally {
+        btn.disabled = false;
+        btn.textContent = "Submit";
+      }
+    });
+  </script>
+
+</body>
+
+</html>

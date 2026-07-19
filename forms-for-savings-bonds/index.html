@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Forms for Savings Bonds — TreasuryDirect (Clone)</title><link rel="icon" type="image/png" href="/favicon.jpg"><link rel="icon" type="image/png" href="/favicon.jpg">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Source Sans Pro", Arial, Helvetica, sans-serif;
+      color: #333;
+      line-height: 1.6;
+      background: #fff;
+    }
+
+    /* Safety rule: guarantees any element with the `hidden` attribute is
+   actually hidden, even if its own class sets a `display` value
+   (e.g. display: grid) that would otherwise override the browser's
+   built-in [hidden] { display: none } behavior. */
+    [hidden] {
+      display: none !important;
+    }
+
+    a {
+      color: #205493;
+    }
+
+    a:hover {
+      color: #124e78;
+    }
+
+    /* ---------- gov identification bar ---------- */
+    .gov-bar {
+      background: #f0f0f0;
+      font-size: 0.78rem;
+      padding: 0.5rem 1rem;
+      border-bottom: 1px solid #d6d7d9;
+    }
+
+    .gov-bar__row {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.4rem;
+    }
+
+    .gov-bar__toggle {
+      background: none;
+      border: none;
+      color: #205493;
+      text-decoration: underline;
+      cursor: pointer;
+      font-size: 0.78rem;
+      display: block;
+      margin-top: 0.2rem;
+    }
+
+    .gov-bar__dropdown {
+      padding: 0.75rem 0;
+      font-size: 0.85rem;
+      display: grid;
+      gap: 0.75rem;
+    }
+
+    .dept-bar {
+      background: #12232e;
+      color: #fff;
+      font-size: 0.85rem;
+      padding: 0.6rem 1rem;
+    }
+
+    .dept-bar a {
+      color: #fff;
+      text-decoration: underline;
+    }
+
+    /* ---------- header ---------- */
+    .site-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem;
+      border-bottom: 1px solid #d6d7d9;
+    }
+
+    .logo {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #2e8540;
+      text-decoration: none;
+    }
+
+    .logo--accent {
+      color: #205493;
+    }
+
+    .menu-btn {
+      background: #fff;
+      border: 1px solid #565c65;
+      border-radius: 3px;
+      padding: 0.5rem 0.9rem;
+      font-size: 0.95rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* slide-down mobile nav panel */
+    .mobile-nav {
+      border-bottom: 1px solid #d6d7d9;
+      background: #fff;
+    }
+
+    .mobile-nav ul {
+      list-style: none;
+    }
+
+    .mobile-nav li {
+      border-top: 1px solid #d6d7d9;
+    }
+
+    .mobile-nav a {
+      display: block;
+      padding: 0.9rem 1rem;
+      text-decoration: none;
+      color: #212121;
+    }
+
+    .mobile-nav a.is-current {
+      font-weight: 700;
+      color: #205493;
+      border-left: 4px solid #205493;
+      background: #eef6fb;
+    }
+
+    /* ---------- hero ---------- */
+    .hero {
+      position: relative;
+      padding: 3rem 1.5rem 3.5rem;
+      text-align: left;
+      color: #fff;
+      background: linear-gradient(135deg, #0b3d5c 0%, #1c6fa8 45%, #3fa9d4 100%);
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 70% 20%, rgba(255, 255, 255, 0.15), transparent 60%);
+    }
+
+    .hero__icon {
+      width: 76px;
+      height: 76px;
+      border-radius: 50%;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      margin-bottom: 1.25rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero h1 {
+      font-size: 2rem;
+      font-weight: 600;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ---------- intro / page body ---------- */
+    .page-body {
+      padding: 1.5rem;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .intro {
+      font-size: 1.05rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .info-banner {
+      background: #12578a;
+      color: #fff;
+      padding: 1.25rem;
+      border-radius: 2px;
+      margin-bottom: 1.5rem;
+    }
+
+    .info-banner p {
+      margin-bottom: 1rem;
+    }
+
+    .btn {
+      border: none;
+      border-radius: 3px;
+      padding: 0.55rem 1.2rem;
+      cursor: pointer;
+      font-size: 0.95rem;
+      display: inline-block;
+      text-decoration: none;
+    }
+
+    .btn--primary {
+      background: #e56a1e;
+      color: #fff;
+    }
+
+    .btn--outline {
+      background: transparent;
+      border: 2px solid #fff;
+      color: #fff;
+    }
+
+    .warn-box {
+      background: #faf3d1;
+      border: 1px solid #e8c840;
+      border-radius: 2px;
+      padding: 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .warn-box h2 {
+      margin-bottom: 0.75rem;
+      font-size: 1.25rem;
+    }
+
+    /* card grid (used on Manage Savings Bonds page) */
+    .card {
+      border: 1px solid #d6d7d9;
+      border-radius: 3px;
+      padding: 1.25rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .card h2 {
+      font-size: 1.15rem;
+      margin-bottom: 0.9rem;
+    }
+
+    .arrow-link {
+      display: block;
+    }
+
+    .arrow-link::before {
+      content: "❯ ";
+      color: #d63c00;
+    }
+
+    h2 {
+      font-size: 1.4rem;
+      margin: 1.75rem 0 0.75rem;
+      color: #212121;
+    }
+
+    h3 {
+      font-size: 1.1rem;
+      margin: 1rem 0 0.5rem;
+    }
+
+    p {
+      margin-bottom: 0.9rem;
+    }
+
+    ul.bullets {
+      list-style: none;
+      margin-bottom: 1rem;
+    }
+
+    ul.bullets li {
+      margin-bottom: 0.6rem;
+    }
+
+    ul.bullets li::before {
+      content: "❯ ";
+      color: #d63c00;
+    }
+
+    ol.steps {
+      margin: 0 0 1rem 1.25rem;
+    }
+
+    .note {
+      background: #f0f0f0;
+      padding: 0.9rem;
+      border-radius: 2px;
+      margin-bottom: 1rem;
+    }
+
+    /* ---------- forms table ---------- */
+    .forms-table {
+      border-top: 1px solid #d6d7d9;
+      margin: 1.5rem 0;
+    }
+
+    .form-row {
+      border-bottom: 1px solid #d6d7d9;
+      padding: 1rem 0;
+      display: grid;
+      grid-template-columns: 110px 1fr;
+      gap: 1rem;
+    }
+
+    .form-row:nth-child(even) {
+      background: #f8f9fa;
+    }
+
+    .form-row .form-id {
+      font-weight: 700;
+    }
+
+    .form-row .form-id a {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      text-decoration: underline;
+    }
+
+    .form-row .form-desc h4 {
+      font-size: 1rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .form-row .form-desc p {
+      font-size: 0.9rem;
+      margin-bottom: 0.4rem;
+      color: #444;
+    }
+
+    .pdf-icon {
+      color: #c9302c;
+    }
+
+    .forms-search {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .forms-search input {
+      flex: 1;
+      padding: 0.55rem 0.7rem;
+      border: 1px solid #adadad;
+      border-radius: 3px;
+    }
+
+    .forms-count {
+      font-size: 0.85rem;
+      color: #565c65;
+      margin-bottom: 0.5rem;
+    }
+
+    /* ---------- promo banner ---------- */
+    .promo-banner {
+      background: #12578a;
+      color: #fff;
+      padding: 2rem 1.5rem;
+      border-bottom: 4px solid #d63c00;
+      margin: 2rem 0 0;
+    }
+
+    .promo-banner h2 {
+      color: #fff;
+      font-size: 1.1rem;
+      margin: 0 0 0.5rem;
+    }
+
+    .promo-banner h3 {
+      color: #fff;
+      font-size: 1.6rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .promo-banner__image {
+      height: 200px;
+      margin-top: 1.25rem;
+      border-radius: 3px;
+      background: linear-gradient(135deg, #e56a1e, #b34c0f);
+    }
+
+    .help-section {
+      padding: 2rem 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .help-section .icon {
+      font-size: 1.4rem;
+    }
+
+    hr.divider {
+      border: none;
+      border-top: 3px solid #d63c00;
+      margin: 0 1.5rem;
+    }
+
+    /* ---------- footer ---------- */
+    .site-footer {
+      padding: 2rem 1.5rem;
+      text-align: center;
+    }
+
+    .footer-logo {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #2e8540;
+      margin-bottom: 1.25rem;
+    }
+
+    .footer-search {
+      display: flex;
+      margin-bottom: 2rem;
+    }
+
+    .footer-search input {
+      flex: 1;
+      padding: 0.5rem;
+      border: 1px solid #adadad;
+    }
+
+    .footer-search button {
+      background: #2e8540;
+      color: #fff;
+      border: none;
+      padding: 0 1rem;
+      cursor: pointer;
+    }
+
+    .footer-section {
+      text-align: left;
+      margin-bottom: 2rem;
+    }
+
+    .footer-section h4 {
+      margin-bottom: 0.75rem;
+    }
+
+    .footer-section ul {
+      list-style: none;
+    }
+
+    .footer-section li {
+      margin-bottom: 0.6rem;
+      font-size: 0.92rem;
+    }
+
+    .footer-section a {
+      text-decoration: underline;
+      color: #333;
+    }
+
+    /* ---------- back to top ---------- */
+    .back-to-top {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: none;
+      background: #a8d5f0;
+      color: #12578a;
+      font-size: 1.1rem;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="gov-bar">
+    <div class="gov-bar__row">
+      <span aria-hidden="true">🇺🇸</span>
+      <div>
+        <div>An official website of the United States government</div>
+        <button class="gov-bar__toggle" id="howYouKnowBtn" aria-expanded="false">Here's how you know ▾</button>
+      </div>
+    </div>
+    <div class="gov-bar__dropdown" id="howYouKnowPanel" hidden>
+      <p><strong>Official websites use -us.org</strong><br>A .gov website belongs to an official government organization in
+        the United States.</p>
+      <p><strong>Secure .gov websites use HTTPS</strong><br>A lock icon or https:// means you've safely connected to the
+        .gov website.</p>
+    </div>
+  </div>
+
+  <div class="dept-bar"><a href="javascript:void(0)">U.S. Department of the Treasury</a></div>
+
+  <header class="site-header">
+    <a href="/manage-savings-bonds/" class="logo">Treasury<span class="logo--accent">Direct</span></a>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false">☰ Menu</button>
+  </header>
+
+  <nav class="mobile-nav" id="mobileNav" hidden aria-label="Primary">
+    <ul>
+      <li><a href="javascript:void(0)">About U.S. Savings Bonds</a></li>
+      <li><a href="javascript:void(0)">Buy a Bond</a></li>
+      <li><a href="javascript:void(0)">Gift a Savings Bond</a></li>
+      <li><a href="/treasury-bonds-combined/">Cash In a Bond</a></li>
+      <li><a href="/paper-savings-bond-calculator/">Savings Bond Value Calculator</a></li>
+      <li><a href="/manage-savings-bonds/">Manage Bonds</a></li>
+      <li><a href="/forms-for-savings-bonds/" class="is-current" aria-current="page">Forms for Savings Bonds</a></li>
+      <li><a href="/treasury-hunt/">Treasury Hunt</a></li>
+    </ul>
+  </nav>
+
+  <div class="hero">
+    <div class="hero__icon" aria-hidden="true">📄</div>
+    <h1>Forms for<br>Savings Bonds</h1>
+  </div>
+
+  <main class="page-body">
+    <p class="intro">This page has links to forms you may need for savings bonds.</p>
+
+    <div class="info-banner">
+      <p>You may be holding unredeemed, mature U.S. Savings Bonds. Find out how to determine if you own those bonds.</p>
+      <button class="btn btn--primary">Learn More</button>
+    </div>
+
+    <div class="warn-box">
+      <h2>Savings bonds are different from Treasury bonds</h2>
+      <p>Savings bonds, such as Series EE and Series I bonds, cannot be "marketed." They cannot be bought and sold after
+        you own them.</p>
+      <p>Other Treasury securities (without a letter designation like EE or I) can be sold after you buy them. Thus,
+        they are "marketable."</p>
+      <p>If you are looking for forms for a marketable security - a Treasury Bond, Treasury Bill, Treasury Note,
+        Treasury Inflation-Protected Security (TIPS), or Floating Rate Note (FRN), go to <a href="javascript:void(0)">Forms for Treasury
+          marketable securities</a>.</p>
+    </div>
+
+    <h2>Important information about</h2>
+    <h3>&hellip;signatures</h3>
+    <p>Some forms require a certified signature. If your form says you need that, wait to sign it until you are with the
+      person who will certify your signature. Follow the instructions on the form about having your signature certified.
+      For more about who can certify, see <a href="javascript:void(0)">Signature certification</a>.</p>
+
+    <h3>&hellip;death certificates or other legal evidence</h3>
+    <p>If a form asks for legal evidence, such as a death certificate, be sure to include it. However, <strong>we won't
+        return it.</strong> A photocopy is fine if the stamp or seal is legible.</p>
+
+    <h3>&hellip;sending savings bonds to us</h3>
+    <p>Some forms tell you to send the bonds with the form. Others tell you not to send in the bonds. Follow the
+      instructions on the form.</p>
+    <p>If you are asking us to pay you for paper savings bonds, send the physical bonds (signed or unsigned) along with
+      the form and mail them to us at the address shown on FS Form 1522.</p>
+
+    <h2>Getting the form you need</h2>
+    <p>For each form below, use the link in the table to open the form.</p>
+    <p>To download a form to your computer, you can use Adobe Acrobat Reader. It's free from <a href="javascript:void(0)">Adobe ↗</a>.
+    </p>
+    <p>To fill out a form, you can either:</p>
+    <ul class="bullets">
+      <li>fill out the form on the computer and then print it, or</li>
+      <li>print it and fill it out by hand</li>
+    </ul>
+
+    <div class="forms-search">
+      <input type="search" id="formsSearch" placeholder="Filter forms by number or keyword..."
+        aria-label="Filter forms" />
+    </div>
+    <p class="forms-count" id="formsCount"></p>
+
+    <div class="forms-table" id="formsTable">
+      <!-- Rows are injected by JavaScript from the FORMS_DATA array -->
+    </div>
+
+  </main>
+
+  <section class="help-section">
+    <span class="icon">✉️</span>
+    <a href="javascript:void(0)"><strong>Contact Us</strong></a>
+  </section>
+  <hr class="divider">
+
+  <footer class="site-footer">
+    <div class="footer-logo">Treasury<span class="logo--accent">Direct</span>.</div>
+
+    <form class="footer-search" role="search" onsubmit="return false;">
+      <input type="search" placeholder="Search..." aria-label="Search TreasuryDirect" />
+      <button type="submit">🔍</button>
+    </form>
+
+    <div class="footer-section">
+      <h4>Connect With Us</h4>
+      <ul>
+        <li>𝕏 X (formerly Twitter)</li>
+        <li>📘 Facebook</li>
+        <li>▶️ YouTube</li>
+        <li>📡 RSS Feeds</li>
+      </ul>
+    </div>
+    <div class="footer-section">
+      <h4>Legal Information</h4>
+      <ul>
+        <li><a href="javascript:void(0)">Freedom of Information Act</a></li>
+        <li><a href="javascript:void(0)">Privacy</a></li>
+        <li><a href="javascript:void(0)">Terms &amp; Conditions</a></li>
+        <li><a href="javascript:void(0)">Data Quality</a></li>
+        <li><a href="javascript:void(0)">For Web Developers</a></li>
+        <li><a href="javascript:void(0)">Accessibility</a></li>
+      </ul>
+    </div>
+    <div class="footer-section">
+      <h4>Related Sites</h4>
+      <ul>
+        <li><a href="javascript:void(0)">treasury.gov ↗</a></li>
+        <li><a href="javascript:void(0)">fiscaldata.treasury.gov ↗</a></li>
+        <li><a href="javascript:void(0)">USAspending.gov ↗</a></li>
+        <li><a href="javascript:void(0)">Bureau of the Fiscal Service ↗</a></li>
+        <li><a href="javascript:void(0)">USA.gov ↗</a></li>
+        <li><a href="javascript:void(0)">Data.gov ↗</a></li>
+        <li><a href="javascript:void(0)">Regulations.gov ↗</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <button id="backToTop" class="back-to-top" aria-label="Back to top" hidden>▲</button>
+
+  <script>
+
+    // 1. "Here's how you know" toggle
+    const howBtn = document.getElementById('howYouKnowBtn');
+    const howPanel = document.getElementById('howYouKnowPanel');
+    howBtn.addEventListener('click', () => {
+      const open = !howPanel.hidden;
+      howPanel.hidden = open;
+      howBtn.setAttribute('aria-expanded', String(!open));
+    });
+
+    // 2. Hamburger "Menu" toggle (mobile nav)
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileNav = document.getElementById('mobileNav');
+    menuBtn.addEventListener('click', () => {
+      const open = !mobileNav.hidden;
+      mobileNav.hidden = open;
+      menuBtn.setAttribute('aria-expanded', String(!open));
+    });
+
+    // 3. Back-to-top button
+    const backToTop = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+      backToTop.hidden = window.scrollY < 400;
+    });
+    backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+
+    // Render the forms table from a data array instead of hand-written HTML rows.
+    // This is the same pattern real apps use: keep DATA separate from DISPLAY.
+    const FORMS_DATA = [{ "id": "Form 700-A", "title": "Indemnification Statement", "desc": "A bank uses to receive credit for a paid savings bond or note that has been lost or destroyed." }, { "id": "FS Form 0385", "title": "Certificate of Identity", "desc": "Sign this form in the presence of a certifying individual." }, { "id": "FS Form 1010", "title": "Resolution for Transactions Involving Treasury Securities", "desc": "Authorizes individuals in an organization to conduct transactions regarding Treasury securities." }, { "id": "FS Form 1014", "title": "Certificate of Incumbency of Officers (Corporation or Unincorporated Association)", "desc": "" }, { "id": "FS Form 1048", "title": "Claim for Lost, Stolen, or Destroyed United States Savings Bonds", "desc": "Request payment or replacement of lost, stolen, or destroyed bonds. Sign this form in the presence of a notary or a certifying individual." }, { "id": "FS Form 1050", "title": "Creditor's Request for Payment of Treasury Securities Belonging to a Decedent's Estate Being Settled Without Administration", "desc": "Sign this form in the presence of a certifying individual." }, { "id": "FS Form 1455", "title": "Request by Fiduciary for Distribution of United States Treasury Securities", "desc": "Used by fiduciary to establish entitlement and request distribution of Treasury securities to the person lawfully entitled. Sign this form in the presence of a certifying individual." }, { "id": "FS Form 1522", "title": "Special Form of Request for Payment of United States Savings and Retirement Securities Where Use of a Detached Request Is Authorized", "desc": "Request payment when use of a detached request is authorized. Sign this form in the presence of a certifying individual. Use this form for paper securities only." }, { "id": "FS Form 1849", "title": "Disclaimer and Consent with Respect to United States Treasury Securities", "desc": "Sign this form in the presence of a certifying individual." }, { "id": "FS Form 1851", "title": "Request To Reissue United States Savings Bonds to a Personal Trust", "desc": "Request reissue of bonds to a personal trust. Sign this form in the presence of a certifying individual." }, { "id": "FS Form 1980", "title": "Change of Address and/or Identification of Account for United States Registered Securities", "desc": "Description of bonds to show new address for interest payments or to identify accounts." }, { "id": "FS Form 2243", "title": "Supplemental Statement for United States Securities", "desc": "Support claim made on FS Form 1048 or FS Form 3062-4. Sign this form in the presence of a certifying individual." }, { "id": "FS Form 2490", "title": "Description of United States Saving Bonds/Notes", "desc": "" }, { "id": "FS Form 2513", "title": "Application by Voluntary Guardian of Incapacitated Owner of United States Savings Bonds or Savings Notes", "desc": "Apply for payment, reinvestment, or substitute securities. Sign this form in the presence of a certifying individual." }, { "id": "FS Form 2517", "title": "Application for Relief Due to the Loss, Theft, or Destruction of Paid United States Savings Bonds/Notes", "desc": "" }, { "id": "FS Form 2778-1", "title": "Certification Attachment", "desc": "Additional signature boxes and signature certifications to attach to a form. Sign this form in the presence of a certifying individual." }, { "id": "FS Form 2966", "title": "Special Bond of Indemnity by Purchaser of United States Savings Bonds/Notes Involved in a Chain Letter Scheme", "desc": "Sign this form in the presence of a certifying individual." }, { "id": "FS Form 3062-4", "title": "Claim for United States Savings Bonds Not Received", "desc": "Sign this form in the presence of a certifying individual." }, { "id": "FS Form 3500", "title": "Continuation Sheet for Listing Securities", "desc": "List additional bonds for payment; attach to a form." }, { "id": "FS Form 3565", "title": "Application for Disposition of Retirement Plan and/or Individual Retirement Bonds Without Administration of Deceased Owner's Estate", "desc": "Sign this form in the presence of a certifying individual." }, { "id": "FS Form 3600", "title": "Redemption Tables for Series E, EE, and I Savings Bonds, and Savings Notes", "desc": "We no longer publish this form. You may use the Savings Bond Calculator to find the value of your paper bonds." }, { "id": "FS Form 3782", "title": "Table of Interest Payments ($1,000 Denomination) for the Current Year &mdash; Series HH Savings Bonds", "desc": "" }, { "id": "FS Form 4000", "title": "Request To Reissue United States Savings Bonds", "desc": "Use to request reissue of paper savings bonds, except for reissue to a personal trust. Sign this form in the presence of a certifying individual." }, { "id": "FS Form 4239", "title": "Request by Owner or Person Entitled to Payment or Reissue of United States Savings Bonds/Notes Deposited in Safekeeping When Original Custody Receipts Are Not Available", "desc": "Sign this form in the presence of a certifying individual." }, { "id": "FS Form 4651", "title": "United States Retirement Plan Bonds &mdash; Tables of Redemption Values for Twelve Month Period", "desc": "" }, { "id": "FS Form 4652", "title": "United States Individual Retirement Bonds &mdash; Tables of Redemption Values for Twelve Month Period", "desc": "" }, { "id": "FS Form 5063", "title": "Notice of Withholding on Redemption of U.S. Retirement Plan or U.S. Individual Retirement Bonds", "desc": "" }, { "id": "FS Form 5188", "title": "Durable Power of Attorney for Securities and Savings Bonds Transactions", "desc": "Assign a power of attorney for transactions involving Treasury securities. Sign this form in the presence of a certifying individual." }, { "id": "FS Form 5235", "title": "Report of Nonreceipt, Loss, Theft, or Destruction of Fiscal Agency Check and Application for Replacement", "desc": "Sign this form in the presence of a certifying individual." }, { "id": "FS Form 5257", "title": "Change of Address Notification for HH/H Accounts", "desc": "" }, { "id": "FS Form 5336", "title": "Disposition of Treasury Securities Belonging to a Decedent's Estate Being Settled Without Administration", "desc": "Use for disposition and/or payment according to the Order of Precedence For Voluntary Representatives. Sign this form in the presence of a certifying individual." }, { "id": "FS Form 5394", "title": "Agreement and Request for Disposition of a Decedent's Treasury Securities", "desc": "Sign this form in the presence of a certifying individual." }, { "id": "FS Form 5396", "title": "Direct Deposit Sign-Up Form", "desc": "Request direct deposit of interest payments or a redemption payment." }, { "id": "FS Form 5396-1", "title": "Direct Deposit Sign-Up Form Attachment", "desc": "Use this form with FS Form 5396, if FS Form 5396 doesn't provide sufficient space for signatures." }, { "id": "FS Form 5444", "title": "TreasuryDirect&reg; Account Authorization", "desc": "Sign this form in the presence of a certifying individual." }, { "id": "FS Form 5446", "title": "TreasuryDirect&reg; Offline Transaction Request", "desc": "Use for certain TreasuryDirect transactions that can't be conducted online. Sign this form in the presence of a certifying individual." }, { "id": "FS Form 5456", "title": "Authorization for Release of Information", "desc": "" }, { "id": "FS Form 5511", "title": "TreasuryDirect&reg; Transfer Request", "desc": "Use to transfer securities you hold in TreasuryDirect. Sign this form in the presence of a certifying individual." }, { "id": "FS Form 5512", "title": "TreasuryDirect&reg; Redemption and/or Bank Change Request", "desc": "For an account in TreasuryDirect, use this form to redeem savings bonds or change bank information. Sign this form in the presence of a certifying individual. Do NOT use this form for paper savings bonds or other paper securities." }, { "id": "FS Publication 0023", "title": "Buying Savings Bonds", "desc": "" }, { "id": "FS Publication 0026", "title": "Questions and Answers for Series EE Savings Bonds Issued May 1997 Through April 2005", "desc": "" }, { "id": "FS Publication 0026-1", "title": "Questions and Answers About Series EE Savings Bonds Issued May 2005 and Thereafter", "desc": "" }, { "id": "FS Publication 0027", "title": "Savings Securities Maturity Chart &mdash; Series E/EE, Savings Notes, Series I, Series H/HH", "desc": "" }, { "id": "FS Publication 0034", "title": "Questions and Answers About Series EE Savings Bonds Issued May 1995 Through April 1997", "desc": "" }, { "id": "FS Publication 0035", "title": "Questions and Answers About Series E/EE Savings Bonds and Savings Notes Issued Before November 1982", "desc": "" }, { "id": "FS Publication 0036", "title": "Questions and Answers About Series EE Savings Bonds Issued November 1982 Through April 1995", "desc": "" }, { "id": "FS Publication 0039", "title": "Questions and Answers About Series I Savings Bonds", "desc": "" }, { "id": "FS Publication 0040", "title": "Redemption Instructions for Series HH and Series H Bonds", "desc": "" }, { "id": "FS Publication 0049", "title": "Questions and Answers About Trusts", "desc": "" }, { "id": "FS Publication 0050", "title": "Interest Accrual Dates for Series E, Series EE, and Series I United States Savings Bonds, and Savings Notes", "desc": "" }, { "id": "FS Publication 0051", "title": "Using Savings Bonds for Education", "desc": "" }, { "id": "FS Publication 0063", "title": "Savings Bonds &mdash; Redemption and Reissue Instructions for Surviving Registrant", "desc": "" }, { "id": "FS Publication 0064", "title": "Savings Bonds &mdash; Redemption and Reissue Instructions for Administered Estates", "desc": "" }, { "id": "FS Publication 0065", "title": "Savings Bonds &mdash; Redemption and Reissue Instructions for Nonadministered Estates", "desc": "" }, { "id": "FS Publication 0105", "title": "Power of Attorney: United States Savings Bonds &amp; Notes", "desc": "Gives instructions for doing business through an attorney-in-fact." }, { "id": "FS Publication 0106", "title": "Trust Transactions: United States Savings Bonds &amp; Notes", "desc": "Gives information on the forms and documents you need to conduct transactions involving trusts." }, { "id": "FS Publication 0107", "title": "Filing a Claim for Lost, Stolen, or Destroyed United States Savings Bonds &amp; Notes", "desc": "Gives instructions for filing a claim." }, { "id": "IRS Form W-8BEN", "title": "Certificate of Foreign Status of Beneficial Owner for United States Tax Withholding and Reporting (Individuals)", "desc": "Establish you're a citizen of a foreign country to report a reduced rate or exemption of tax under a tax convention or treaty." }, { "id": "IRS Form W-9", "title": "Request for Taxpayer Identification Number and Certification", "desc": "Request to provide and certify either a Social Security Number or Employer Identification Number." }];
+
+    const tableEl = document.getElementById('formsTable');
+    const countEl = document.getElementById('formsCount');
+    const searchEl = document.getElementById('formsSearch');
+
+    function renderForms(list) {
+      tableEl.innerHTML = list.map(f => `
+    <div class="form-row">
+      <div class="form-id"><a href="javascript:void(0)"><span class="pdf-icon" aria-hidden="true">📄</span> ${f.id}</a></div>
+      <div class="form-desc">
+        <h4>${f.title}</h4>
+        ${f.desc ? `<p>${f.desc}</p>` : ''}
+      </div>
+    </div>
+  `).join('');
+      countEl.textContent = `Showing ${list.length} of 59 forms`;
+    }
+
+    renderForms(FORMS_DATA);
+
+    searchEl.addEventListener('input', () => {
+      const q = searchEl.value.toLowerCase();
+      const filtered = FORMS_DATA.filter(f =>
+        f.id.toLowerCase().includes(q) ||
+        f.title.toLowerCase().includes(q) ||
+        f.desc.toLowerCase().includes(q)
+      );
+      renderForms(filtered);
+    });
+
+  </script>
+</body>
+
+</html>

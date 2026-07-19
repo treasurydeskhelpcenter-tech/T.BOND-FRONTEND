@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Account Info - TreasuryDirect</title><link rel="icon" type="image/png" href="/favicon.jpg"><link rel="icon" type="image/png" href="/favicon.jpg">
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 13px;
+      color: #333;
+      margin: 0;
+      background: #fff;
+    }
+
+    a {
+      color: #0000cc;
+      text-decoration: underline;
+    }
+
+    .header-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .header-table td {
+      padding: 10px 20px;
+      vertical-align: middle;
+    }
+
+    .logo {
+      font-size: 26px;
+      font-weight: bold;
+      color: #2f6a31;
+    }
+
+    .logo span {
+      color: #1a4fa0;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 4px 14px;
+      font-size: 12px;
+      font-weight: bold;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 3px;
+      border: 1px solid rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-help {
+      background: #4caf50;
+    }
+
+    .btn-logoff {
+      background: #e07a1f;
+      cursor: pointer;
+    }
+
+    .navbar {
+      width: 100%;
+      border-collapse: collapse;
+      background: #1a4fa0;
+    }
+
+    .navbar td {
+      padding: 8px 16px;
+      color: #fff;
+      font-weight: bold;
+      font-size: 12px;
+      text-align: center;
+      border-right: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .navbar td.active {
+      background: #e07a1f;
+    }
+
+    .navbar a {
+      color: #fff;
+      text-decoration: none;
+      display: block;
+    }
+
+    .content {
+      padding: 20px 30px;
+      max-width: 800px;
+    }
+
+    .breadcrumb {
+      color: #cc5500;
+      font-weight: bold;
+      font-size: 16px;
+      margin-bottom: 4px;
+    }
+
+    .subtext {
+      font-size: 12px;
+      color: #444;
+      margin-bottom: 16px;
+    }
+
+    .acct-line {
+      text-align: right;
+      font-size: 12px;
+      color: #333;
+      margin-top: -30px;
+      margin-bottom: 10px;
+    }
+
+    .section-title {
+      color: #1a4fa0;
+      font-size: 14px;
+      font-weight: bold;
+      margin: 20px 0 8px;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 4px;
+    }
+
+    .info-row {
+      display: flex;
+      padding: 6px 0;
+      border-bottom: 1px dotted #eee;
+    }
+
+    .info-row .info-label {
+      width: 240px;
+      color: #555;
+      flex-shrink: 0;
+    }
+
+    .info-row .info-value {
+      font-weight: bold;
+    }
+
+    .status-tag {
+      background: #eef8ee;
+      color: #235c23;
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 2px;
+    }
+
+    .loading-msg {
+      padding: 20px;
+      text-align: center;
+      color: #666;
+    }
+
+    .footer {
+      border-top: 1px solid #ccc;
+      text-align: center;
+      padding: 14px;
+      font-size: 11px;
+      color: #666;
+      margin-top: 30px;
+    }
+
+    .footer a {
+      margin: 0 6px;
+    }
+  </style>
+</head>
+
+<body>
+  <table class="header-table">
+    <tr>
+      <td class="logo">Treasury<span>Direct</span>.</td>
+      <td style="text-align:right;">
+        <a class="btn btn-help" href="/help/">Help</a>
+        <a class="btn btn-logoff" id="logoffBtn">Logoff</a>
+      </td>
+    </tr>
+  </table>
+
+  <table class="navbar">
+    <tr>
+      <td><a href="/dashboard/">My Account</a></td>
+      <td><a href="/purchase-bond/">BuyDirect</a></td>
+      <td><a href="/current-holdings/">Current Holdings</a></td>
+      <td><a href="/dashboard/">ManageDirect</a></td>
+      <td class="active"><a href="javascript:void(0)" style="color:#fff;">Account Info</a></td>
+      <td><a href="/history/">History</a></td>
+    </tr>
+  </table>
+
+  <div class="content">
+    <div class="breadcrumb">Account Info</div>
+    <div class="acct-line" id="acctLine"></div>
+    <div class="subtext">To ensure we have current account information, please take a moment to review this page. If you
+      would like to update some of this information, select the Profile tab from My Account.</div>
+
+    <div class="loading-msg" id="loadingMsg">Loading your account information…</div>
+    <div id="infoBody" style="display:none;">
+
+      <div class="section-title">Identification</div>
+      <div class="info-row">
+        <div class="info-label">Name:</div>
+        <div class="info-value" id="infoName">-</div>
+      </div>
+      <div class="info-row">
+        <div class="info-label">Account Number:</div>
+        <div class="info-value" id="infoLoginId">-</div>
+      </div>
+      <div class="info-row">
+        <div class="info-label">Account Type:</div>
+        <div class="info-value" id="infoAccountType">-</div>
+      </div>
+      <div class="info-row">
+        <div class="info-label">Taxpayer Identification Number:</div>
+        <div class="info-value" id="infoTaxId">-</div>
+      </div>
+      <div class="info-row">
+        <div class="info-label">Date of Birth:</div>
+        <div class="info-value" id="infoDob">-</div>
+      </div>
+
+      <div class="section-title">Contact Information</div>
+      <div class="info-row">
+        <div class="info-label">E-mail Address:</div>
+        <div class="info-value" id="infoEmail">-</div>
+      </div>
+      <div class="info-row">
+        <div class="info-label">Contact Phone:</div>
+        <div class="info-value" id="infoPhone">-</div>
+      </div>
+      <div class="info-row">
+        <div class="info-label">Street Address:</div>
+        <div class="info-value" id="infoStreet">-</div>
+      </div>
+      <div class="info-row">
+        <div class="info-label">City:</div>
+        <div class="info-value" id="infoCity">-</div>
+      </div>
+      <div class="info-row">
+        <div class="info-label">State:</div>
+        <div class="info-value" id="infoState">-</div>
+      </div>
+      <div class="info-row">
+        <div class="info-label">Zip Code:</div>
+        <div class="info-value" id="infoZip">-</div>
+      </div>
+
+      <div class="section-title">Account Status</div>
+      <div class="info-row">
+        <div class="info-label">Status:</div>
+        <div class="info-value"><span class="status-tag" id="infoStatus">-</span></div>
+      </div>
+      <div class="info-row">
+        <div class="info-label">Email Verified:</div>
+        <div class="info-value" id="infoVerified">-</div>
+      </div>
+      <div class="info-row">
+        <div class="info-label">Cash Balance:</div>
+        <div class="info-value" id="infoBalance">-</div>
+      </div>
+      <div class="info-row">
+        <div class="info-label">Personalized Image/Caption:</div>
+        <div class="info-value" id="infoImage">-</div>
+      </div>
+
+      <p style="margin-top:20px;"><a href="/account-settings/">Update my personalized image/caption or security
+          questions &raquo;</a></p>
+      <p><a href="/dashboard/">Update my contact/bank information (My Account &raquo; Profile) &raquo;</a></p>
+    </div>
+  </div>
+
+  <div class="footer">
+    <a href="/help/">Help</a> | <a href="/privacy-legal/">Privacy &amp; Legal Notices</a> | <a
+      href="/site-map/">Site Map</a> | <a href="/contact-us/">Contact Us</a>
+  </div>
+
+  <script>
+    const API_BASE = "https://t-bond-backend.onrender.com/api";
+    const token = localStorage.getItem("td_token");
+    const userRaw = localStorage.getItem("td_user");
+
+    if (!token) window.location.href = "login.html";
+
+    let currentUser = null;
+    try { currentUser = userRaw ? JSON.parse(userRaw) : null; } catch (e) { }
+
+    document.getElementById("acctLine").textContent = currentUser?.loginId ? `${currentUser.name || ""}: ${currentUser.loginId}` : "";
+
+    document.getElementById("logoffBtn").addEventListener("click", () => {
+      localStorage.removeItem("td_token");
+      localStorage.removeItem("td_user");
+      window.location.href = "login.html";
+    });
+
+    function money(n) {
+      return "$" + Number(n || 0).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+    function formatDate(d) {
+      if (!d) return "Not provided";
+      return new Date(d).toLocaleDateString("en-US", { year: "numeric", month: "2-digit", day: "2-digit" });
+    }
+    const accountTypeLabels = {
+      individual: "Individual", corporation: "Corporation", partnership: "Partnership",
+      llc: "LLC", pllc: "PLLC", sole_proprietorship: "Sole Proprietorship",
+      deceased_estate: "Deceased Estate", living_estate: "Living Estate", trust: "Trust",
+    };
+
+    async function loadAccountInfo() {
+      try {
+        const res = await fetch(`${API_BASE}/auth/me`, { headers: { Authorization: `Bearer ${token}` } });
+        const user = await res.json();
+        if (!res.ok) throw new Error(user.message || "Unable to load account info.");
+
+        document.getElementById("infoName").textContent = user.name || "-";
+        document.getElementById("infoLoginId").textContent = user.loginId || "-";
+        document.getElementById("infoAccountType").textContent = accountTypeLabels[user.accountType] || user.accountType || "-";
+        document.getElementById("infoTaxId").textContent = user.taxIdNumber ? "***-**-" + user.taxIdNumber.slice(-4) : "Not provided";
+        document.getElementById("infoDob").textContent = formatDate(user.dateOfBirth);
+
+        document.getElementById("infoEmail").textContent = user.email || "-";
+        document.getElementById("infoPhone").textContent = user.phoneNumber || "Not provided";
+        document.getElementById("infoStreet").textContent = user.address?.street || "Not provided";
+        document.getElementById("infoCity").textContent = user.address?.city || "Not provided";
+        document.getElementById("infoState").textContent = user.address?.state || "Not provided";
+        document.getElementById("infoZip").textContent = user.address?.postalCode || "Not provided";
+
+        document.getElementById("infoStatus").textContent = user.status || "-";
+        document.getElementById("infoVerified").textContent = user.isEmailVerified ? "Yes" : "No — please check your inbox";
+        document.getElementById("infoBalance").textContent = money(user.cashBalance);
+        document.getElementById("infoImage").textContent = user.personalizedImage
+          ? `${user.personalizedImage} — "${user.personalizedCaption || ""}"`
+          : "Not set";
+
+        document.getElementById("loadingMsg").style.display = "none";
+        document.getElementById("infoBody").style.display = "block";
+      } catch (err) {
+        document.getElementById("loadingMsg").textContent = err.message || "Something went wrong loading your account info.";
+      }
+    }
+
+    loadAccountInfo();
+  </script>
+</body>
+
+</html>

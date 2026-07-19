@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Savings Bond Calculator — TreasuryDirect</title><link rel="icon" type="image/png" href="/favicon.jpg"><link rel="icon" type="image/png" href="/favicon.jpg">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #fff;
+      color: #1b1b1b;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    /* Safety rule: any element with the `hidden` attribute stays hidden,
+     even if its own class sets a display value that would otherwise
+     override the browser's built-in [hidden] behavior. */
+    [hidden] {
+      display: none !important;
+    }
+
+    a {
+      color: #205493;
+    }
+
+    header.site-header {
+      padding: 14px 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .logo {
+      font-size: 26px;
+      font-weight: bold;
+    }
+
+    .logo .treasury {
+      color: #4a7729;
+    }
+
+    .logo .direct {
+      color: #205493;
+    }
+
+    .logo .dot {
+      color: #e57200;
+    }
+
+    .header-links {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .header-links a {
+      color: #333;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .header-links a:hover {
+      text-decoration: underline;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .login-btn {
+      background: #e57200;
+      color: #fff;
+      padding: 9px 22px;
+      border-radius: 3px;
+      font-weight: bold;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .nav-secondary {
+      background: #f4f6f8;
+      border-bottom: 1px solid #ddd;
+      padding: 0 30px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      flex-wrap: wrap;
+      position: relative;
+    }
+
+    .nav-secondary a {
+      color: #1b1b1b;
+      text-decoration: none;
+      font-size: 14px;
+      padding: 12px 14px;
+      display: inline-block;
+      font-weight: 600;
+    }
+
+    .nav-secondary a:hover {
+      color: #205493;
+    }
+
+    .nav-secondary .home-link {
+      padding: 12px 14px;
+    }
+
+    /* "Savings Bonds" dropdown -- matches the real TreasuryDirect nav */
+    .nav-dropdown {
+      position: relative;
+    }
+
+    .nav-dropdown__trigger {
+      background: none;
+      border: none;
+      font: inherit;
+      cursor: pointer;
+      color: #1b1b1b;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 12px 14px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .nav-dropdown__trigger:hover {
+      color: #205493;
+    }
+
+    .nav-dropdown__trigger.is-open {
+      color: #205493;
+      background: #eaf1fa;
+      border-bottom: 3px solid #205493;
+    }
+
+    .nav-dropdown__menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      z-index: 30;
+      background: #fff;
+      border: 1px solid #e2e2e2;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+      min-width: 260px;
+      padding: 6px 0;
+    }
+
+    .nav-dropdown__menu a {
+      display: block;
+      padding: 10px 20px;
+      font-weight: normal;
+      font-size: 14.5px;
+      color: #1b1b1b;
+    }
+
+    .nav-dropdown__menu a:hover {
+      background: #f4f6f8;
+      color: #205493;
+    }
+
+    .nav-dropdown__menu a.is-current {
+      font-weight: bold;
+      color: #205493;
+    }
+
+    main {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 30px 24px 60px;
+    }
+
+    .breadcrumb {
+      font-size: 13px;
+      color: #555;
+      margin-bottom: 8px;
+    }
+
+    .breadcrumb a {
+      text-decoration: none;
+    }
+
+    .page-title {
+      font-size: 32px;
+      color: #205493;
+      font-weight: normal;
+      margin-bottom: 20px;
+    }
+
+    main p {
+      margin-bottom: 16px;
+    }
+
+    .btn-solid-blue {
+      display: block;
+      text-align: center;
+      background: #205493;
+      color: #fff;
+      padding: 16px;
+      font-weight: bold;
+      text-decoration: none;
+      border-radius: 4px;
+      margin-bottom: 14px;
+      font-size: 16px;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+    }
+
+    .btn-solid-blue:hover {
+      background: #163e6f;
+    }
+
+    .btn-outline-blue {
+      display: block;
+      text-align: center;
+      background: #fff;
+      color: #205493;
+      padding: 16px;
+      font-weight: bold;
+      text-decoration: none;
+      border-radius: 4px;
+      margin-bottom: 24px;
+      font-size: 16px;
+      border: 2px solid #205493;
+    }
+
+    .btn-outline-blue:hover {
+      background: #eef4fb;
+    }
+
+    .btn-row {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+
+    .btn-row .btn-solid-blue,
+    .btn-row .btn-outline-blue {
+      flex: 1;
+      min-width: 160px;
+      margin-bottom: 0;
+    }
+
+    .onpage-box {
+      margin: 26px 0 34px;
+    }
+
+    .onpage-box h2 {
+      font-size: 20px;
+      margin-bottom: 14px;
+    }
+
+    .onpage-box ul {
+      list-style: none;
+    }
+
+    .onpage-box li {
+      margin-bottom: 12px;
+      padding-left: 16px;
+      position: relative;
+    }
+
+    .onpage-box li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: #205493;
+    }
+
+    .onpage-box a {
+      text-decoration: underline;
+      font-size: 16px;
+    }
+
+    .rates-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+
+    @media (max-width: 650px) {
+      .rates-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .rate-box {
+      border: 1px solid #205493;
+      padding: 24px;
+    }
+
+    .rate-box a.rate-title {
+      font-size: 19px;
+      font-weight: bold;
+      text-decoration: underline;
+    }
+
+    .rate-box .rate-value {
+      font-size: 34px;
+      color: #1b1b1b;
+      margin: 10px 0;
+    }
+
+    .rate-box .rate-note {
+      font-size: 13px;
+      color: #555;
+    }
+
+    h2.section-heading {
+      font-size: 26px;
+      color: #1b1b1b;
+      margin: 40px 0 16px;
+    }
+
+    h3.sub-heading {
+      font-size: 20px;
+      color: #1b1b1b;
+      margin: 30px 0 12px;
+    }
+
+    ol,
+    ul.plain-list {
+      margin: 0 0 16px 24px;
+    }
+
+    ol li,
+    ul.plain-list li {
+      margin-bottom: 10px;
+    }
+
+    ul.nested {
+      margin: 10px 0 10px 24px;
+      list-style: circle;
+    }
+
+    ul.nested li {
+      margin-bottom: 10px;
+    }
+
+    .note-box {
+      background: #fff3cd;
+      border-left: 4px solid #e5a300;
+      padding: 16px 18px;
+      margin: 20px 0;
+      font-size: 14.5px;
+    }
+
+    hr.rule {
+      border: none;
+      border-top: 1px solid #ddd;
+      margin: 40px 0;
+    }
+
+    footer {
+      background: #f4f6f8;
+      padding: 40px 30px;
+      margin-top: 20px;
+    }
+
+    .footer-logo {
+      text-align: center;
+      font-size: 26px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .footer-logo .treasury {
+      color: #4a7729;
+    }
+
+    .footer-logo .direct {
+      color: #205493;
+    }
+
+    .footer-search {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 40px;
+    }
+
+    .footer-search input {
+      padding: 10px 14px;
+      border: 1px solid #ccc;
+      width: 320px;
+      font-size: 13px;
+    }
+
+    .footer-search button {
+      background: #4a7729;
+      border: none;
+      color: #fff;
+      padding: 0 18px;
+      cursor: pointer;
+    }
+
+    .footer-columns {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 700px) {
+      .footer-columns {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .footer-columns h4 {
+      font-size: 20px;
+      font-weight: normal;
+      color: #444;
+      margin-bottom: 16px;
+    }
+
+    .footer-columns a {
+      display: block;
+      font-size: 13.5px;
+      margin-bottom: 12px;
+      text-decoration: underline;
+      color: #1b1b1b;
+    }
+
+
+    .calc-form {
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 24px;
+      margin: 24px 0;
+      background: #f9fbfd;
+    }
+
+    .calc-form label {
+      display: block;
+      font-size: 13px;
+      font-weight: bold;
+      margin-bottom: 6px;
+      margin-top: 14px;
+    }
+
+    .calc-form label:first-child {
+      margin-top: 0;
+    }
+
+    .calc-form select,
+    .calc-form input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #bbb;
+      border-radius: 3px;
+      font-size: 14px;
+      background: #fff;
+    }
+
+    .calc-form button {
+      background: #205493;
+      color: #fff;
+      border: none;
+      padding: 12px 26px;
+      border-radius: 4px;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 14px;
+      margin-top: 20px;
+    }
+
+    .calc-form button:hover {
+      background: #163e6f;
+    }
+
+    .calc-result {
+      border: 2px solid #205493;
+      border-radius: 4px;
+      padding: 20px;
+      margin-top: 20px;
+      background: #eef6fb;
+      display: none;
+    }
+
+    .calc-result.visible {
+      display: block;
+    }
+
+    .calc-result .result-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid #cfe0ee;
+      font-size: 14px;
+    }
+
+    .calc-result .result-row:last-child {
+      border-bottom: none;
+    }
+
+    .calc-result .result-label {
+      color: #444;
+    }
+
+    .calc-result .result-value {
+      font-weight: bold;
+      color: #205493;
+    }
+
+    .calc-error {
+      color: #b31942;
+      font-size: 13.5px;
+      margin-top: 10px;
+      display: none;
+    }
+
+    .calc-error.visible {
+      display: block;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="logo"><span class="treasury">Treasury</span><span class="direct">Direct</span><span class="dot">.</span>
+    </div>
+    <div class="header-links">
+      <a href="javascript:void(0)">Mailing Lists</a>
+      <a href="javascript:void(0)">News</a>
+      <a href="javascript:void(0)">About</a>
+      <a href="javascript:void(0)">Forms</a>
+      <a href="javascript:void(0)">Help Center</a>
+      <a href="mailto:treasurydesk.helpcenter@gmail.com?subject=TreasuryDirect%20Support%20Request">Contact Us</a>
+    </div>
+    <div class="header-actions">
+      <a href="/login/" class="login-btn">Log In</a>
+    </div>
+  </header>
+
+  <nav class="nav-secondary">
+    <a href="index.html">🏠 Home</a>
+    <div class="nav-dropdown" id="bondsDropdown">
+      <button class="nav-dropdown__trigger" id="bondsDropdownBtn" aria-expanded="false" aria-haspopup="true">
+        Savings Bonds <span aria-hidden="true">▾</span>
+      </button>
+      <div class="nav-dropdown__menu" id="bondsDropdownMenu" hidden>
+        <a href="/about-savings-bonds/">About U.S. Savings Bonds</a>
+        <a href="/buy-a-bond/">Buy a Bond</a>
+        <a href="/gift-a-bond/">Gift a Savings Bond</a>
+        <a href="/treasury-bonds-combined/">Cash In a Bond</a>
+        <a href="/calculator/" class="is-current">Savings Bond Value Calculator</a>
+        <a href="/manage-savings-bonds/">Manage Bonds</a>
+        <a href="/forms-for-savings-bonds/">Forms for Savings Bonds</a>
+        <a href="javascript:void(0)">Treasury Hunt</a>
+      </div>
+    </div>
+    <a href="/calculator/">Treasury Marketable Securities</a>
+    <a href="javascript:void(0)">Auctions</a>
+    <a href="javascript:void(0)">Laws and Regulations</a>
+    <a href="javascript:void(0)">Research Center</a>
+    <a href="/admin-dashboard/">Government Users</a>
+  </nav>
+
+  <main>
+    <div class="breadcrumb"><a href="/about-savings-bonds/">Savings Bonds</a> / Savings Bond Calculator</div>
+    <div class="page-title">Savings Bond Calculator</div>
+
+    <p>Find out what your paper savings bond is worth. Enter the bond's series, denomination, and issue date, then click
+      Calculate.</p>
+
+    <div class="note-box">
+      <strong>Note:</strong> This calculator gives an approximate estimate for study purposes. For electronic bonds,
+      always check the exact value in your TreasuryDirect account.
+    </div>
+
+    <div class="calc-form">
+      <label for="series">Bond Series</label>
+      <select id="series">
+        <option value="EE">Series EE</option>
+        <option value="I">Series I</option>
+      </select>
+
+      <label for="denom">Denomination ($)</label>
+      <input type="number" id="denom" placeholder="e.g. 100" min="25" step="0.01" />
+
+      <label for="issue">Issue Date</label>
+      <input type="month" id="issue" />
+
+      <button id="calcBtn" type="button">Calculate</button>
+      <div class="calc-error" id="calcError">Please fill in a denomination and issue date first.</div>
+    </div>
+
+    <div class="calc-result" id="calcResult">
+      <div class="result-row"><span class="result-label">Series</span><span class="result-value" id="rSeries"></span>
+      </div>
+      <div class="result-row"><span class="result-label">Original amount</span><span class="result-value"
+          id="rDenom"></span></div>
+      <div class="result-row"><span class="result-label">Years held</span><span class="result-value" id="rYears"></span>
+      </div>
+      <div class="result-row"><span class="result-label">Interest rate used</span><span class="result-value"
+          id="rRate"></span></div>
+      <div class="result-row"><span class="result-label">Estimated current value</span><span class="result-value"
+          id="rValue"></span></div>
+      <div class="result-row"><span class="result-label">Estimated interest earned</span><span class="result-value"
+          id="rInterest"></span></div>
+    </div>
+
+    <h2 class="section-heading">Current Rates</h2>
+    <div class="rates-row">
+      <div class="rate-box">
+        <span class="rate-title">Series EE Savings Bonds</span>
+        <div class="rate-value">2.40%</div>
+        <div class="rate-note">For EE bonds issued May 1, 2026 to October 31, 2026.</div>
+      </div>
+      <div class="rate-box">
+        <span class="rate-title">Series I Savings Bonds</span>
+        <div class="rate-value">4.26%</div>
+        <div class="rate-note">This includes a fixed rate of 0.90%. For I bonds issued May 1, 2026 to October 31, 2026.
+        </div>
+      </div>
+    </div>
+
+    <h2 class="section-heading">How this estimate works</h2>
+    <p>This calculator uses simple compound interest as an approximation: it takes the number of full years between your
+      issue date and today, applies the current annual rate for that series, and compounds it once per year.</p>
+    <p>Real Treasury bonds compound semi-annually and I bonds have a rate that changes every 6 months, so your actual
+      bond's real value (found in the Savings Bond Calculator on TreasuryDirect.gov) may differ slightly from this
+      estimate.</p>
+
+  </main>
+
+  <hr class="rule" style="margin-top:0;" />
+  <footer>
+    <div class="footer-logo"><span class="treasury">Treasury</span><span class="direct">Direct</span><span
+        class="dot">.</span></div>
+    <div class="footer-search">
+      <input type="text" placeholder="Search..." />
+      <button>🔍</button>
+    </div>
+    <div class="footer-columns">
+      <div>
+        <h4>Connect With Us</h4>
+        <a href="javascript:void(0)">𝕏 X (formerly Twitter)</a>
+        <a href="javascript:void(0)">📘 Facebook</a>
+        <a href="javascript:void(0)">▶️ YouTube</a>
+        <a href="javascript:void(0)">📡 RSS Feeds</a>
+      </div>
+      <div>
+        <h4>Legal Information</h4>
+        <a href="javascript:void(0)">Freedom of Information Act</a>
+        <a href="javascript:void(0)">Privacy</a>
+        <a href="javascript:void(0)">Terms &amp; Conditions</a>
+        <a href="javascript:void(0)">Data Quality</a>
+        <a href="javascript:void(0)">For Web Developers</a>
+        <a href="javascript:void(0)">Accessibility</a>
+      </div>
+      <div>
+        <h4>Related Sites</h4>
+        <a href="javascript:void(0)">treasury.gov ↗</a>
+        <a href="javascript:void(0)">fiscaldata.treasury.gov ↗</a>
+        <a href="javascript:void(0)">USAspending.gov ↗</a>
+        <a href="javascript:void(0)">Bureau of the Fiscal Service ↗</a>
+        <a href="javascript:void(0)">USA.gov ↗</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+
+    // "Savings Bonds" dropdown: click to open/close, close on outside click or Escape
+    const bondsDropdown = document.getElementById('bondsDropdown');
+    const bondsBtn = document.getElementById('bondsDropdownBtn');
+    const bondsMenu = document.getElementById('bondsDropdownMenu');
+
+    bondsBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const open = !bondsMenu.hidden;
+      bondsMenu.hidden = open;
+      bondsBtn.setAttribute('aria-expanded', String(!open));
+      bondsBtn.classList.toggle('is-open', !open);
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!bondsDropdown.contains(e.target)) {
+        bondsMenu.hidden = true;
+        bondsBtn.setAttribute('aria-expanded', 'false');
+        bondsBtn.classList.remove('is-open');
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        bondsMenu.hidden = true;
+        bondsBtn.setAttribute('aria-expanded', 'false');
+        bondsBtn.classList.remove('is-open');
+      }
+    });
+
+
+    // ============================================================
+    // Real, working calculator logic (runs entirely in the browser)
+    // ============================================================
+    const CURRENT_RATES = { EE: 0.0240, I: 0.0426 };
+
+    const calcBtn = document.getElementById('calcBtn');
+    const errorEl = document.getElementById('calcError');
+    const resultEl = document.getElementById('calcResult');
+
+    calcBtn.addEventListener('click', () => {
+      const series = document.getElementById('series').value;
+      const denomInput = document.getElementById('denom').value;
+      const issueInput = document.getElementById('issue').value;
+
+      // Validate inputs before calculating
+      if (!denomInput || !issueInput) {
+        errorEl.classList.add('visible');
+        resultEl.classList.remove('visible');
+        return;
+      }
+      errorEl.classList.remove('visible');
+
+      const denom = parseFloat(denomInput);
+      const issueDate = new Date(issueInput + '-01');
+      const today = new Date();
+
+      // Calculate full years held (simple whole-year count)
+      let years = today.getFullYear() - issueDate.getFullYear();
+      const monthDiff = today.getMonth() - issueDate.getMonth();
+      if (monthDiff < 0) years -= 1;
+      years = Math.max(years, 0);
+
+      const rate = CURRENT_RATES[series];
+
+      // Simple annual compounding: value = principal * (1 + rate) ^ years
+      const currentValue = denom * Math.pow(1 + rate, years);
+      const interestEarned = currentValue - denom;
+
+      document.getElementById('rSeries').textContent = 'Series ' + series;
+      document.getElementById('rDenom').textContent = '$' + denom.toFixed(2);
+      document.getElementById('rYears').textContent = years + (years === 1 ? ' year' : ' years');
+      document.getElementById('rRate').textContent = (rate * 100).toFixed(2) + '%';
+      document.getElementById('rValue').textContent = '$' + currentValue.toFixed(2);
+      document.getElementById('rInterest').textContent = '$' + interestEarned.toFixed(2);
+
+      resultEl.classList.add('visible');
+    });
+
+  </script>
+</body>
+
+</html>
